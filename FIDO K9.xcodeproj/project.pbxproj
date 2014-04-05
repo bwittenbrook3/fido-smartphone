@@ -24,6 +24,7 @@
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
 		34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B018F069830098D7EC /* K9DogDetailViewController.m */; };
+		34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B318F071950098D7EC /* K9RecentEventsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogViewController.m; sourceTree = "<group>"; };
 		34D820AF18F069830098D7EC /* K9DogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogDetailViewController.h; sourceTree = "<group>"; };
 		34D820B018F069830098D7EC /* K9DogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogDetailViewController.m; sourceTree = "<group>"; };
+		34D820B218F071950098D7EC /* K9RecentEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9RecentEventsViewController.h; sourceTree = "<group>"; };
+		34D820B318F071950098D7EC /* K9RecentEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9RecentEventsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,15 @@
 		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				34D820B618F071AE0098D7EC /* Event List + Details */,
+				34D820B518F0719C0098D7EC /* Dog List + Details */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		34D820B518F0719C0098D7EC /* Dog List + Details */ = {
+			isa = PBXGroup;
+			children = (
 				348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */,
 				348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */,
 				348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */,
@@ -172,7 +184,16 @@
 				34D820AF18F069830098D7EC /* K9DogDetailViewController.h */,
 				34D820B018F069830098D7EC /* K9DogDetailViewController.m */,
 			);
-			name = ViewControllers;
+			name = "Dog List + Details";
+			sourceTree = "<group>";
+		};
+		34D820B618F071AE0098D7EC /* Event List + Details */ = {
+			isa = PBXGroup;
+			children = (
+				34D820B218F071950098D7EC /* K9RecentEventsViewController.h */,
+				34D820B318F071950098D7EC /* K9RecentEventsViewController.m */,
+			);
+			name = "Event List + Details";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */,
 				348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */,
 				34418A8C18EF214C00F1D2A1 /* K9AppDelegate.m in Sources */,
 				34418A8818EF214C00F1D2A1 /* main.m in Sources */,
