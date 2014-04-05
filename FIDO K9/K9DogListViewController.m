@@ -25,6 +25,9 @@
     [self setClearsSelectionOnViewWillAppear:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -44,6 +47,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 

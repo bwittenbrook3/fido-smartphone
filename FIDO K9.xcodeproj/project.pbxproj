@@ -122,8 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				34418A8A18EF214C00F1D2A1 /* K9AppDelegate.h */,
-				348D9F3818EF34A20051C9C8 /* ViewControllers */,
 				34418A8B18EF214C00F1D2A1 /* K9AppDelegate.m */,
+				348D9F3818EF34A20051C9C8 /* ViewControllers */,
 				34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */,
 				34418A8D18EF214C00F1D2A1 /* Images.xcassets */,
 				34418A8218EF214C00F1D2A1 /* Supporting Files */,
