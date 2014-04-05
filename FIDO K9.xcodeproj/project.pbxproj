@@ -25,6 +25,7 @@
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
 		34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B018F069830098D7EC /* K9DogDetailViewController.m */; };
 		34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B318F071950098D7EC /* K9RecentEventsViewController.m */; };
+		34D820B918F093540098D7EC /* K9EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B818F093540098D7EC /* K9EventViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		34D820B018F069830098D7EC /* K9DogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogDetailViewController.m; sourceTree = "<group>"; };
 		34D820B218F071950098D7EC /* K9RecentEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9RecentEventsViewController.h; sourceTree = "<group>"; };
 		34D820B318F071950098D7EC /* K9RecentEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9RecentEventsViewController.m; sourceTree = "<group>"; };
+		34D820B718F093540098D7EC /* K9EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9EventViewController.h; sourceTree = "<group>"; };
+		34D820B818F093540098D7EC /* K9EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +195,8 @@
 			children = (
 				34D820B218F071950098D7EC /* K9RecentEventsViewController.h */,
 				34D820B318F071950098D7EC /* K9RecentEventsViewController.m */,
+				34D820B718F093540098D7EC /* K9EventViewController.h */,
+				34D820B818F093540098D7EC /* K9EventViewController.m */,
 			);
 			name = "Event List + Details";
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */,
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
 				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
+				34D820B918F093540098D7EC /* K9EventViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

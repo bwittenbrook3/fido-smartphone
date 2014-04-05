@@ -195,6 +195,9 @@
                                         <constraint firstAttribute="bottom" secondItem="cee-xY-fJ0" secondAttribute="bottom" constant="5" id="nFf-YG-dbc"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="cxK-C6-StQ" kind="push" id="qrH-AQ-OhH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -385,6 +388,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syu-70-ec5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1660" y="89"/>
+        </scene>
+        <!--Event View Controller - Event-->
+        <scene sceneID="fi5-c1-oRs">
+            <objects>
+                <viewController id="cxK-C6-StQ" customClass="K9EventViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K1S-46-kLm"/>
+                        <viewControllerLayoutGuide type="bottom" id="1MI-4f-gBM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QhM-fd-PuE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Ws0-vw-NFr" userLabel="Info Bar">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ws0-vw-NFr" firstAttribute="leading" secondItem="QhM-fd-PuE" secondAttribute="leading" id="3jC-ja-aKL"/>
+                            <constraint firstAttribute="trailing" secondItem="Ws0-vw-NFr" secondAttribute="trailing" id="SCF-Hr-Jgb"/>
+                            <constraint firstItem="Ws0-vw-NFr" firstAttribute="top" secondItem="K1S-46-kLm" secondAttribute="bottom" id="fFv-Aj-Xg7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Event" id="HZh-6Q-QPP">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="jR6-2p-8FC"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qFJ-Dl-WDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="done" id="450-UN-1AH"/>
+            </objects>
+            <point key="canvasLocation" x="1172" y="775"/>
         </scene>
     </scenes>
     <resources>
