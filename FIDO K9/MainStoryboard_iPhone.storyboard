@@ -274,19 +274,30 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xm-07-7zc">
-                                    <rect key="frame" x="135" y="5" width="50" height="21"/>
+                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qa8-rr-D0y">
+                                    <rect key="frame" x="135" y="-50" width="50" height="76"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xm-07-7zc">
+                                            <rect key="frame" x="0.0" y="55" width="50" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3xm-07-7zc" firstAttribute="top" secondItem="qa8-rr-D0y" secondAttribute="top" constant="55" id="4Dm-dP-uCc"/>
+                                        <constraint firstAttribute="bottom" secondItem="3xm-07-7zc" secondAttribute="bottom" id="VLU-UP-Q4E"/>
+                                        <constraint firstAttribute="trailing" secondItem="3xm-07-7zc" secondAttribute="trailing" id="rkG-Y7-B7o"/>
+                                        <constraint firstItem="3xm-07-7zc" firstAttribute="leading" secondItem="qa8-rr-D0y" secondAttribute="leading" id="tsP-MX-hXU"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="centerX" secondItem="3xm-07-7zc" secondAttribute="centerX" id="NYP-Wy-bS5"/>
-                                <constraint firstItem="3xm-07-7zc" firstAttribute="top" secondItem="Iwz-eY-fED" secondAttribute="top" priority="100" constant="5" id="NdF-RE-83E"/>
-                                <constraint firstItem="3xm-07-7zc" firstAttribute="top" relation="lessThanOrEqual" secondItem="Iwz-eY-fED" secondAttribute="top" constant="5" id="n8P-t7-UCP"/>
+                                <constraint firstItem="qa8-rr-D0y" firstAttribute="top" secondItem="Iwz-eY-fED" secondAttribute="top" constant="-50" id="SIK-wj-WUh"/>
+                                <constraint firstAttribute="centerX" secondItem="qa8-rr-D0y" secondAttribute="centerX" id="tT8-JZ-xCl"/>
                             </constraints>
                         </view>
                         <sections>

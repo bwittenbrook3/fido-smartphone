@@ -16,6 +16,7 @@
 
 @property (strong) NSLayoutConstraint *heightConstraint;
 @property (strong) K9DogDetailViewController *detailsViewController;
+@property (strong) UIDynamicAnimator *animator;
 
 
 @property (weak) IBOutlet UINavigationBar *subheaderBar;
@@ -82,6 +83,38 @@
         [[self view] layoutIfNeeded];
     } completion:^(BOOL finished) {
     }];
+    
+    // Bounce the label towards the end of the animation, since constraints fail at doing this...
+    [self performSelector:@selector(doLabelPush) withObject:nil afterDelay:0.29];
+}
+
+- (void)doLabelPush {
+    UILabel *label = self.detailsViewController.statusLabel;
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:label.superview];
+    
+    UIPushBehavior *pushBehavior = [[UIPushBehavior alloc] initWithItems:@[label] mode:UIPushBehaviorModeInstantaneous];
+    pushBehavior.magnitude = 0.001f;
+    pushBehavior.pushDirection = CGVectorMake(0.0f, -1.0f);
+    UIDynamicItemBehavior* itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[label]];
+    itemBehaviour.elasticity = 0.4;
+    itemBehaviour.resistance = 2;
+    itemBehaviour.density = 5;
+    itemBehaviour.allowsRotation = NO;
+    UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[label]];
+    gravity.magnitude = 1.4f;
+    UICollisionBehavior *bounds = [[UICollisionBehavior alloc] initWithItems:@[label]];
+    bounds.translatesReferenceBoundsIntoBoundary = YES;
+    [self.animator addBehavior:itemBehaviour];
+    [self.animator addBehavior:gravity];
+    [self.animator addBehavior:bounds];
+    [self.animator addBehavior:pushBehavior];
+    
+    [self performSelector:@selector(removeLabelPush) withObject:nil afterDelay:0.5];
+}
+
+- (void)removeLabelPush {
+    [self.animator removeAllBehaviors];
+    self.animator = nil;
 }
 
 - (void)hideTabBar:(UITabBarController *) tabbarcontroller{
