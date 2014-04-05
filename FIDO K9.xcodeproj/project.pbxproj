@@ -19,6 +19,11 @@
 		34418A9718EF214C00F1D2A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7F18EF214C00F1D2A1 /* UIKit.framework */; };
 		34418A9F18EF214C00F1D2A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34418A9D18EF214C00F1D2A1 /* InfoPlist.strings */; };
 		34418AA118EF214C00F1D2A1 /* FIDO_K9Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34418AA018EF214C00F1D2A1 /* FIDO_K9Tests.m */; };
+		34418AAB18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */; };
+		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
+		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
+		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
+		34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B018F069830098D7EC /* K9DogDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		34418A7818EF214C00F1D2A1 /* FIDO K9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FIDO K9.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34418A7818EF214C00F1D2A1 /* FIDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34418A7B18EF214C00F1D2A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		34418A7F18EF214C00F1D2A1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -48,6 +53,15 @@
 		34418A9C18EF214C00F1D2A1 /* FIDO K9Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FIDO K9Tests-Info.plist"; sourceTree = "<group>"; };
 		34418A9E18EF214C00F1D2A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34418AA018EF214C00F1D2A1 /* FIDO_K9Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FIDO_K9Tests.m; sourceTree = "<group>"; };
+		34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
+		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
+		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
+		348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogListViewController.m; sourceTree = "<group>"; };
+		348D9F3918EF35E80051C9C8 /* K9DogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogViewController.h; sourceTree = "<group>"; };
+		348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogViewController.m; sourceTree = "<group>"; };
+		34D820AF18F069830098D7EC /* K9DogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogDetailViewController.h; sourceTree = "<group>"; };
+		34D820B018F069830098D7EC /* K9DogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +101,7 @@
 		34418A7918EF214C00F1D2A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				34418A7818EF214C00F1D2A1 /* FIDO K9.app */,
+				34418A7818EF214C00F1D2A1 /* FIDO.app */,
 				34418A9318EF214C00F1D2A1 /* FIDO K9Tests.xctest */,
 			);
 			name = Products;
@@ -108,7 +122,9 @@
 			isa = PBXGroup;
 			children = (
 				34418A8A18EF214C00F1D2A1 /* K9AppDelegate.h */,
+				348D9F3818EF34A20051C9C8 /* ViewControllers */,
 				34418A8B18EF214C00F1D2A1 /* K9AppDelegate.m */,
+				34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */,
 				34418A8D18EF214C00F1D2A1 /* Images.xcassets */,
 				34418A8218EF214C00F1D2A1 /* Supporting Files */,
 			);
@@ -144,12 +160,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */,
+				348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */,
+				348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */,
+				348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */,
+				348D9F3918EF35E80051C9C8 /* K9DogViewController.h */,
+				348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */,
+				34D820AF18F069830098D7EC /* K9DogDetailViewController.h */,
+				34D820B018F069830098D7EC /* K9DogDetailViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		34418A7718EF214C00F1D2A1 /* FIDO K9 */ = {
+		34418A7718EF214C00F1D2A1 /* FIDO */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO K9" */;
+			buildConfigurationList = 34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO" */;
 			buildPhases = (
 				34418A7418EF214C00F1D2A1 /* Sources */,
 				34418A7518EF214C00F1D2A1 /* Frameworks */,
@@ -159,9 +190,9 @@
 			);
 			dependencies = (
 			);
-			name = "FIDO K9";
+			name = FIDO;
 			productName = "FIDO K9";
-			productReference = 34418A7818EF214C00F1D2A1 /* FIDO K9.app */;
+			productReference = 34418A7818EF214C00F1D2A1 /* FIDO.app */;
 			productType = "com.apple.product-type.application";
 		};
 		34418A9218EF214C00F1D2A1 /* FIDO K9Tests */ = {
@@ -209,7 +240,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				34418A7718EF214C00F1D2A1 /* FIDO K9 */,
+				34418A7718EF214C00F1D2A1 /* FIDO */,
 				34418A9218EF214C00F1D2A1 /* FIDO K9Tests */,
 			);
 		};
@@ -220,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34418AAB18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard in Resources */,
 				34418A8618EF214C00F1D2A1 /* InfoPlist.strings in Resources */,
 				34418A8E18EF214C00F1D2A1 /* Images.xcassets in Resources */,
 			);
@@ -240,8 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */,
 				34418A8C18EF214C00F1D2A1 /* K9AppDelegate.m in Sources */,
 				34418A8818EF214C00F1D2A1 /* main.m in Sources */,
+				348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */,
+				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
+				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +294,7 @@
 /* Begin PBXTargetDependency section */
 		34418A9918EF214C00F1D2A1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 34418A7718EF214C00F1D2A1 /* FIDO K9 */;
+			target = 34418A7718EF214C00F1D2A1 /* FIDO */;
 			targetProxy = 34418A9818EF214C00F1D2A1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -433,13 +469,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO K9" */ = {
+		34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				34418AA518EF214D00F1D2A1 /* Debug */,
 				34418AA618EF214D00F1D2A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34418AA718EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO K9Tests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +485,7 @@
 				34418AA918EF214D00F1D2A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

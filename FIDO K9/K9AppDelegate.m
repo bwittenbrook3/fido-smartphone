@@ -10,12 +10,8 @@
 
 @implementation K9AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self.window setTintColor:[UIColor colorWithRed:238.0/255.0 green:230.0/255.0 blue:104.0/255.0 alpha:1.0]];
     return YES;
 }
 
