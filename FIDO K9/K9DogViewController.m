@@ -43,6 +43,7 @@
     
     // Add the detail content to our subheader bar
     self.detailsViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"k9Details"];
+    [self addChildViewController:[self detailsViewController]];
     [[self detailsViewController] setDog:[self dog]];
     UIView *detailsView = [[self detailsViewController] view];
     [[self subheaderBar] addSubview:detailsView];
