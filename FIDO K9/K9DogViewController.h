@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class K9Dog;
 @interface K9DogViewController : UIViewController
+
+@property (strong, nonatomic) K9Dog *dog;
 
 @end

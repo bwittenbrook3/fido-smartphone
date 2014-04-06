@@ -8,6 +8,7 @@
 
 #import "K9DogViewController.h"
 #import "K9DogDetailViewController.h"
+#import "K9Dog.h"
 
 @interface UIView (Secret)
 @property (readonly) NSString *recursiveDescription;
@@ -57,6 +58,11 @@
     [super didReceiveMemoryWarning];
 }
 
+
+- (void)setDog:(K9Dog *)dog {
+    _dog = dog;
+    [self.navigationItem setTitle:[dog name]];
+}
 
 - (IBAction)showInfo:(id)sender {
     [self.navigationItem setRightBarButtonItem:self.doneBarButtonItem animated:YES];

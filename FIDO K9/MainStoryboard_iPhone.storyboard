@@ -67,7 +67,7 @@
                                 <connections>
                                     <outlet property="dogNameView" destination="G06-jg-1ac" id="THv-Ee-i2n"/>
                                     <outlet property="dogProfileView" destination="F8f-Gc-Xrh" id="Arf-1g-KER"/>
-                                    <segue destination="B0L-R4-HZi" kind="push" id="5wd-Kx-C0q"/>
+                                    <segue destination="B0L-R4-HZi" kind="push" identifier="selectedDogSegue" id="5wd-Kx-C0q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -196,7 +196,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="cxK-C6-StQ" kind="push" id="qrH-AQ-OhH"/>
+                                    <segue destination="cxK-C6-StQ" kind="push" identifier="selectedEventSegue" id="qrH-AQ-OhH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CLLocation.h>
 
 typedef NS_ENUM(NSInteger, K9EventType) {
     K9EventTypeSuspiciousItem,
@@ -15,10 +16,17 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 
 @interface K9Event : NSObject
 
++ (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList;
+
 @property (nonatomic) NSInteger eventID;
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *description;
 @property (nonatomic) K9EventType eventType;
+
+@property (copy) NSDate *creationDate;
+@property (copy) NSDate *updateDate;
 @property (copy, nonatomic) NSArray *associatedDogs;
+
+@property (copy, nonatomic) CLLocation *location;
 
 @end

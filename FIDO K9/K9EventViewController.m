@@ -7,6 +7,7 @@
 //
 
 #import "K9EventViewController.h"
+#import "K9Event.h"
 
 @interface K9EventViewController ()
 
@@ -18,6 +19,10 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     }
     return self;
+}
+
+- (void)setEvent:(K9Event *)event {
+    self.navigationItem.title = [event title];
 }
 
 - (void)viewDidLoad {

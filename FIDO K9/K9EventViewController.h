@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class K9Event;
 @interface K9EventViewController : UIViewController
 
+@property (strong, nonatomic) K9Event *event;
 @end

@@ -10,9 +10,14 @@
 
 @interface K9Dog : NSObject
 
++ (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList;
+
 @property (nonatomic) NSInteger dogID;
 @property (copy, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *image;
 @property (copy, nonatomic) NSArray *events;
+
+
+@property (copy, nonatomic) NSString *officerName;
 
 @end

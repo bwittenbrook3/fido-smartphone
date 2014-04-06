@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PTPusher.h"
 
-@interface K9AppDelegate : UIResponder <UIApplicationDelegate>
+@interface K9AppDelegate : UIResponder <UIApplicationDelegate, PTPusherDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

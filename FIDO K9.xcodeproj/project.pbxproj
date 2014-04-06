@@ -55,6 +55,10 @@
 		345EE09F18F1C32400BC8581 /* PTPusherMockConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 345EE08E18F1C32400BC8581 /* PTPusherMockConnection.m */; };
 		345EE0A018F1C32400BC8581 /* PTTargetActionEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 345EE09018F1C32400BC8581 /* PTTargetActionEventListener.m */; };
 		345EE0A118F1C32400BC8581 /* PTURLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 345EE09118F1C32400BC8581 /* PTURLRequestOperation.m */; };
+		345EE0A618F1C67B00BC8581 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 345EE0A518F1C67B00BC8581 /* SRWebSocket.m */; };
+		345EE0A818F1C78E00BC8581 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345EE0A718F1C78E00BC8581 /* CFNetwork.framework */; };
+		345EE0AA18F1C79600BC8581 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 345EE0A918F1C79600BC8581 /* libicucore.dylib */; };
+		345EE0AC18F1C79D00BC8581 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345EE0AB18F1C79D00BC8581 /* Security.framework */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -171,6 +175,12 @@
 		345EE09018F1C32400BC8581 /* PTTargetActionEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTargetActionEventListener.m; sourceTree = "<group>"; };
 		345EE09118F1C32400BC8581 /* PTURLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTURLRequestOperation.m; sourceTree = "<group>"; };
 		345EE09218F1C32400BC8581 /* Pusher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pusher.h; sourceTree = "<group>"; };
+		345EE0A318F1C67B00BC8581 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		345EE0A418F1C67B00BC8581 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		345EE0A518F1C67B00BC8581 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		345EE0A718F1C78E00BC8581 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		345EE0A918F1C79600BC8581 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		345EE0AB18F1C79D00BC8581 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -190,6 +200,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				345EE0AC18F1C79D00BC8581 /* Security.framework in Frameworks */,
+				345EE0AA18F1C79600BC8581 /* libicucore.dylib in Frameworks */,
+				345EE0A818F1C78E00BC8581 /* CFNetwork.framework in Frameworks */,
 				34418A7E18EF214C00F1D2A1 /* CoreGraphics.framework in Frameworks */,
 				34418A8018EF214C00F1D2A1 /* UIKit.framework in Frameworks */,
 				34418A7C18EF214C00F1D2A1 /* Foundation.framework in Frameworks */,
@@ -218,6 +231,7 @@
 				345EE03418F1AFAC00BC8581 /* AFNetworking */,
 				345EE04818F1AFAC00BC8581 /* UIKit+AFNetworking */,
 				345EE06B18F1C32300BC8581 /* libPusher */,
+				345EE0A218F1C67B00BC8581 /* SocketRocket */,
 				34418A7918EF214C00F1D2A1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -234,6 +248,9 @@
 		34418A7A18EF214C00F1D2A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				345EE0AB18F1C79D00BC8581 /* Security.framework */,
+				345EE0A918F1C79600BC8581 /* libicucore.dylib */,
+				345EE0A718F1C78E00BC8581 /* CFNetwork.framework */,
 				34418A7B18EF214C00F1D2A1 /* Foundation.framework */,
 				34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */,
 				34418A7F18EF214C00F1D2A1 /* UIKit.framework */,
@@ -404,6 +421,17 @@
 			path = "Private Headers";
 			sourceTree = "<group>";
 		};
+		345EE0A218F1C67B00BC8581 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				345EE0A318F1C67B00BC8581 /* SocketRocket-Prefix.pch */,
+				345EE0A418F1C67B00BC8581 /* SRWebSocket.h */,
+				345EE0A518F1C67B00BC8581 /* SRWebSocket.m */,
+			);
+			name = SocketRocket;
+			path = SocketRocket/SocketRocket;
+			sourceTree = "<group>";
+		};
 		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +515,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = FIDO;
 				TargetAttributes = {
+					34418A7718EF214C00F1D2A1 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					34418A9218EF214C00F1D2A1 = {
 						TestTargetID = 34418A7718EF214C00F1D2A1;
 					};
@@ -552,6 +587,7 @@
 				345EE0A018F1C32400BC8581 /* PTTargetActionEventListener.m in Sources */,
 				345EE05C18F1AFAC00BC8581 /* AFHTTPSessionManager.m in Sources */,
 				34418A8C18EF214C00F1D2A1 /* K9AppDelegate.m in Sources */,
+				345EE0A618F1C67B00BC8581 /* SRWebSocket.m in Sources */,
 				345EE09818F1C32400BC8581 /* PTPusher.m in Sources */,
 				345EE09B18F1C32400BC8581 /* PTPusherChannelAuthorizationOperation.m in Sources */,
 				345EE05D18F1AFAC00BC8581 /* AFNetworkReachabilityManager.m in Sources */,
