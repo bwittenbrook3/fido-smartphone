@@ -15,6 +15,8 @@
 @implementation K9Dog
 
 + (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList {
+    NSLog(@"%@", propertyList);
+    
     K9Dog *dog = [K9Dog new];
 
     dog.dogID = [[propertyList objectForKey:ID_KEY] integerValue];

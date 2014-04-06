@@ -11,3 +11,11 @@
 @interface K9RecentEventsViewController : UITableViewController
 
 @end
+
+@interface K9EventTableViewCell : UITableViewCell
+
+@property (strong, nonatomic) IBOutlet UIImageView *eventImageView;
+@property (strong, nonatomic) IBOutlet UILabel *eventTitleView;
+@property (strong, nonatomic) IBOutlet UILabel *eventDescriptionView;
+
+@end

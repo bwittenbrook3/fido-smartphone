@@ -59,11 +59,11 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    K9DogViewController *destination = [segue destinationViewController];
-    [destination setDog:[self.dogs objectAtIndex:[self.tableView indexPathForSelectedRow].row]];
-    
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];    
+    if([segue.identifier isEqualToString:@"selectedDogSegue"]) {
+        K9DogViewController *destination = [segue destinationViewController];
+        [destination setDog:[self.dogs objectAtIndex:[self.tableView indexPathForSelectedRow].row]];
+    }
 }
 
 
