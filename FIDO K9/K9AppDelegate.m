@@ -7,11 +7,16 @@
 //
 
 #import "K9AppDelegate.h"
+#import "K9ObjectGraph.h"
 
 @implementation K9AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self.window setTintColor:[UIColor colorWithRed:238.0/255.0 green:230.0/255.0 blue:104.0/255.0 alpha:1.0]];
+    
+    [[K9ObjectGraph sharedObjectGraph] fetchAllDogsWithCallback:^(NSArray *dogs) {
+        
+    }];
     return YES;
 }
 
