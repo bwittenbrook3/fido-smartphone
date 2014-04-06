@@ -7,8 +7,11 @@
 //
 
 #import "K9DogDetailViewController.h"
+#import "K9Dog.h"
 
 @interface K9DogDetailViewController ()
+
+@property (weak) IBOutlet UILabel *officerNameLabel;
 
 @end
 
@@ -23,10 +26,14 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.officerNameLabel setText:[self.dog officerName]];
+}
+
+- (void)setDog:(K9Dog *)dog {
+    _dog = dog;
+    [self.officerNameLabel setText:[dog officerName]];
 }
 
 - (void)didReceiveMemoryWarning

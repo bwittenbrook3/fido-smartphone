@@ -18,6 +18,7 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
 @interface K9ObjectGraph()
 @property (strong) AFHTTPSessionManager *sessionManager;
 @property (strong) NSMutableDictionary *eventDictionary;
+@property (strong) NSMutableDictionary *dogDictionary;
 @end
 
 // TODO: Use CoreData instead?
@@ -41,41 +42,51 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     return sharedObjectGraph;
 }
 
-- (BOOL)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler {
+- (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler {
     [self.sessionManager GET:@"vests.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *dogs = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
         for(NSDictionary *dogDictionary in responseObject) {
-            [dogs addObject:[K9Dog dogWithPropertyList:dogDictionary]];
+            K9Dog *dog = [K9Dog dogWithPropertyList:dogDictionary];
+            if(dog) {
+                [dogs addObject:dog];
+                if(![[self dogDictionary] objectForKey:@([dog dogID])]) {
+                    [[self dogDictionary] setObject:dog forKey:@([dog dogID])];
+                }
+            }
         }
+        // TODO: Remove cached dogs that aren't reported?
         completionHandler(dogs);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
         completionHandler(nil);
     }];
     
-    return !!self.sessionManager;
+    return [self allDogs];
 }
 
-- (BOOL)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
+- (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
     [self.sessionManager GET:@"events.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *events = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
         for(NSDictionary *eventDictionary in responseObject) {
             K9Event *event = [K9Event eventWithPropertyList:eventDictionary];
             if(event) {
                 [events addObject:event];
-                [[self eventDictionary] setObject:event forKey:@([event eventID])];
+                if(![[self eventDictionary] objectForKey:@([event eventID])]) {
+                    [[self eventDictionary] setObject:event forKey:@([event eventID])];
+                }
             }
         }
+        // TODO: Remove cached events that aren't reported?
         completionHandler(events);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
         completionHandler(nil);
     }];
     
-    return !!self.sessionManager;
+    return [self allEvents];
 }
 
-- (BOOL)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler {
+- (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler {
     NSString *getURLPath = [NSString stringWithFormat:@"events/%ld.json", eventID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if([responseObject isKindOfClass:[NSArray class]]) {
@@ -91,11 +102,23 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         completionHandler(nil);
     }];
     
-    return !!self.sessionManager;
+    return [self eventWithID:eventID];
 }
 
 - (K9Event *)eventWithID:(NSInteger)eventID {
     return [[self eventDictionary] objectForKey:@(eventID)];
+}
+
+- (K9Dog *)dogWithID:(NSInteger)dogID {
+    return [[self dogDictionary] objectForKey:@(dogID)];
+}
+
+- (NSArray *)allDogs {
+    return [[self dogDictionary] allValues];
+}
+
+- (NSArray *)allEvents {
+    return [[self eventDictionary] allValues];
 }
 
 @end

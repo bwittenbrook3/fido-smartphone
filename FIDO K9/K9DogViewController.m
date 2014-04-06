@@ -39,18 +39,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     // Add the detail content to our subheader bar
     self.detailsViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"k9Details"];
-    UIView *details = [[self detailsViewController] view];
-    [[self subheaderBar] addSubview:details];
-    [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[details]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(details)]];
-    [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[details]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(details)]];
+    [[self detailsViewController] setDog:[self dog]];
+    UIView *detailsView = [[self detailsViewController] view];
+    [[self subheaderBar] addSubview:detailsView];
+    [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[detailsView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
+    [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[detailsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
     
     // Add the initial height constraint for our subheader bar
-    self.heightConstraint = [NSLayoutConstraint constraintWithItem:[self subheaderBar] attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:30];
+    UIView *statusLabel = [[self detailsViewController] statusLabel];
+    CGRect labelRect = [statusLabel convertRect:[statusLabel bounds] toView:detailsView];
+    CGFloat initialHeight = labelRect.origin.y*2 + labelRect.size.height;
+    self.heightConstraint = [NSLayoutConstraint constraintWithItem:[self subheaderBar] attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:0 multiplier:0 constant:initialHeight];
     [[self subheaderBar] addConstraint:[self heightConstraint]];
     
-    [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     [[self subheaderBar] setClipsToBounds:YES];
 }
 
@@ -58,9 +63,21 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    UIView *detailsView = [[self detailsViewController] view];
+    UIView *statusLabel = [[self detailsViewController] statusLabel];
+    CGRect labelRect = [statusLabel convertRect:[statusLabel bounds] toView:detailsView];
+    CGFloat initialHeight = labelRect.origin.y*2 + labelRect.size.height;
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.heightConstraint.constant = initialHeight;
+        [[self view] layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
+}
 
 - (void)setDog:(K9Dog *)dog {
     _dog = dog;
+    [[self detailsViewController] setDog:dog];
     [self.navigationItem setTitle:[dog name]];
 }
 
@@ -83,8 +100,13 @@
     [self.navigationItem setRightBarButtonItem:self.infoBarButtonItem animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
     
+    UIView *detailsView = [[self detailsViewController] view];
+    UIView *statusLabel = [[self detailsViewController] statusLabel];
+    CGRect labelRect = [statusLabel convertRect:[statusLabel bounds] toView:detailsView];
+    CGFloat finalHeight = labelRect.origin.y*2 + labelRect.size.height;
+
     [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:0 animations:^{
-        [[self heightConstraint] setConstant:30];
+        [[self heightConstraint] setConstant:finalHeight];
         [self showTabBar:self.tabBarController];
         [[self view] layoutIfNeeded];
     } completion:^(BOOL finished) {

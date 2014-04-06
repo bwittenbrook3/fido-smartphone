@@ -14,15 +14,16 @@
 + (K9ObjectGraph *)sharedObjectGraph;
 
 
-- (BOOL)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler;
-- (BOOL)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler;
+- (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler;
+- (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler;
 
-- (BOOL)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
+- (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
 
 
-@property (copy, nonatomic) NSArray *allEvents;
-@property (copy, nonatomic) NSArray *allDogs;
+@property (readonly, nonatomic) NSArray *allEvents;
+@property (readonly, nonatomic) NSArray *allDogs;
 
 - (K9Event *)eventWithID:(NSInteger)eventID;
+- (K9Event *)dogWithID:(NSInteger)eventID;
 
 @end

@@ -17,6 +17,12 @@
 @property (copy) NSArray *dogs;
 @end
 
+static inline NSArray *sortDogs(NSArray *dogs) {
+    return [dogs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj1 name] compare:[obj2 name]];
+    }];
+}
+
 @implementation K9DogListViewController
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -29,12 +35,11 @@
     [super viewDidLoad];
     [self setClearsSelectionOnViewWillAppear:YES];
     
-    self.dogs = [[K9ObjectGraph sharedObjectGraph] allDogs];
     
-    [[K9ObjectGraph sharedObjectGraph] fetchAllDogsWithCompletionHandler:^(NSArray *dogs) {
-        self.dogs = dogs;
+    self.dogs = sortDogs([[K9ObjectGraph sharedObjectGraph] fetchAllDogsWithCompletionHandler:^(NSArray *dogs) {
+        self.dogs = sortDogs(dogs);
         [[self tableView] reloadData];
-    }];
+    }]);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
