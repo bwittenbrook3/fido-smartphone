@@ -64,11 +64,11 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];    
     if([segue.identifier isEqualToString:@"selectedDogSegue"]) {
         K9DogViewController *destination = [segue destinationViewController];
         [destination setDog:[self.dogs objectAtIndex:[self.tableView indexPathForSelectedRow].row]];
     }
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 

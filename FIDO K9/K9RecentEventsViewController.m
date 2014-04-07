@@ -107,8 +107,6 @@ static inline NSArray *sortEvents(NSArray *events) {
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-
     if([segue.identifier isEqualToString:@"selectedEventSegue"]) {
         K9Event *event = nil;
         if([sender isKindOfClass:[NSNumber class]]) {
@@ -120,8 +118,7 @@ static inline NSArray *sortEvents(NSArray *events) {
         K9EventViewController *destination = segue.destinationViewController;
         [destination setEvent:event];
     }
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 @end
