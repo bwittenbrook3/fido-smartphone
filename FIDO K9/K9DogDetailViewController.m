@@ -8,10 +8,15 @@
 
 #import "K9DogDetailViewController.h"
 #import "K9Dog.h"
+#import "K9RecentEventsViewController.h"
 
 @interface K9DogDetailViewController ()
 
 @property (weak) IBOutlet UILabel *officerNameLabel;
+
+@property (weak) IBOutlet UILabel *recentEventCountLabel;
+@property (weak) IBOutlet UITableViewCell *recentEventTableViewCell;
+@property (weak) IBOutlet NSLayoutConstraint *recentEventsTableViewCellTrailingConstraint;
 
 @end
 
@@ -28,29 +33,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.officerNameLabel setText:[self.dog officerName]];
+    if (self.dog) {
+        [self loadDogViews];
+    }
 }
 
 - (void)setDog:(K9Dog *)dog {
     _dog = dog;
-    [self.officerNameLabel setText:[dog officerName]];
+    if(self.isViewLoaded) {
+        [self loadDogViews];
+    }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loadDogViews {
+    [self.officerNameLabel setText:[self.dog officerName]];
+    [self.recentEventCountLabel setText:[NSString stringWithFormat:@"%ld", [[self.dog events] count]]];
+    if([[self.dog events] count]) {
+        [self.recentEventTableViewCell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [self.recentEventTableViewCell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+        [self.recentEventsTableViewCellTrailingConstraint setConstant:0];
+    } else {
+        [self.recentEventTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+        [self.recentEventTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [self.recentEventsTableViewCellTrailingConstraint setConstant:10];
+    }
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([[segue identifier] isEqualToString:@"recentEventsSegue"]) {
+        K9RecentEventsViewController *destination = [segue destinationViewController];
+        [destination setEvents:[self.dog events]];
+        [[destination navigationItem] setTitle:[NSString stringWithFormat:@"%@'s Events", [self.dog name]]];
+    }
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
-*/
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if([identifier isEqualToString:@"recentEventsSegue"]) {
+        return [self.recentEventTableViewCell selectionStyle] != UITableViewCellSelectionStyleNone;
+    } else {
+        return YES;
+    }
+}
 
 @end

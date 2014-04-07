@@ -7,6 +7,8 @@
 //
 
 #import "K9Dog.h"
+#import "K9Event.h"
+#import "K9ObjectGraph.h"
 
 #define NAME_KEY @"K9"
 #define ID_KEY @"id"
@@ -23,7 +25,14 @@
     dog.name = [propertyList objectForKey:NAME_KEY];
     dog.officerName = [propertyList objectForKey:OFFICER_NAME_KEY];
     
+    // TODO: Do this at some later point?
+    [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
+    
     return dog;
+}
+
+- (NSArray *)events {
+    return [[K9ObjectGraph sharedObjectGraph] eventsForDogWithID:self.dogID];
 }
 
 @end

@@ -13,7 +13,6 @@
 
 @interface K9RecentEventsViewController ()
 @property (strong, nonatomic) IBOutlet UITableViewCell *prototypeCell;
-@property (copy) NSArray *events;
 @end
 
 static inline NSArray *sortEvents(NSArray *events) {
@@ -32,11 +31,13 @@ static inline NSArray *sortEvents(NSArray *events) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    self.events = sortEvents([[K9ObjectGraph sharedObjectGraph] fetchAllEventsWithCompletionHandler:^(NSArray *events) {
-        self.events = sortEvents(events);
-        [[self tableView] reloadData];
-    }]);
+    
+    if(!self.events) {
+        self.events = sortEvents([[K9ObjectGraph sharedObjectGraph] fetchAllEventsWithCompletionHandler:^(NSArray *events) {
+            self.events = sortEvents(events);
+            [[self tableView] reloadData];
+        }]);
+    }
 }
 
 

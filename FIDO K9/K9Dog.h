@@ -15,8 +15,7 @@
 @property (nonatomic) NSInteger dogID;
 @property (copy, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *image;
-@property (copy, nonatomic) NSArray *events;
-
+@property (readonly, nonatomic) NSArray *events;
 
 @property (copy, nonatomic) NSString *officerName;
 

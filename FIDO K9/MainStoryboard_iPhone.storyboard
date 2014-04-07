@@ -167,7 +167,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventTableCell" id="yPu-aZ-tie" customClass="K9EventTableViewCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yPu-aZ-tie" id="Bsx-I3-aKD">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -469,6 +469,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <connections>
+                                            <segue destination="I4Y-qb-ht6" kind="push" identifier="recentEventsSegue" id="Y7U-HP-cob"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="bJc-4B-OYx">
                                         <rect key="frame" x="0.0" y="270" width="320" height="44"/>
@@ -514,6 +517,9 @@
                     </tableView>
                     <connections>
                         <outlet property="officerNameLabel" destination="cQJ-Kz-2Qh" id="njy-nM-mYA"/>
+                        <outlet property="recentEventCountLabel" destination="7Pe-az-fTc" id="zWv-2f-293"/>
+                        <outlet property="recentEventTableViewCell" destination="dWY-i7-f4h" id="LrT-da-cPJ"/>
+                        <outlet property="recentEventsTableViewCellTrailingConstraint" destination="jh1-zr-7SR" id="qxn-Wk-v3o"/>
                         <outlet property="statusLabel" destination="3xm-07-7zc" id="1xO-7d-d3p"/>
                     </connections>
                 </tableViewController>
@@ -564,4 +570,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Y7U-HP-cob"/>
+    </inferredMetricsTieBreakers>
 </document>

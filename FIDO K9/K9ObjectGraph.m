@@ -141,4 +141,23 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     return [[self eventDictionary] allValues];
 }
 
+- (NSArray *)eventsForDogWithID:(NSInteger)dogID {
+    NSMutableArray *events = [NSMutableArray array];
+    for(K9Event *event in [self allEvents]) {
+        if([[[event associatedDogs] valueForKey:@"dogID"] containsObject:@(dogID)]) {
+            [events addObject:event];
+        }
+    }
+    return events;
+}
+
+- (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *))completionHandler {
+    [self fetchAllEventsWithCompletionHandler:^(NSArray *events) {
+        if(completionHandler) {
+            completionHandler([self eventsForDogWithID:dogID]);            
+        }
+    }];
+    return [self eventsForDogWithID:dogID];
+}
+
 @end

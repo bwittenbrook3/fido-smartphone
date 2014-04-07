@@ -28,7 +28,9 @@
 
 @end
 
-@implementation K9DogViewController
+@implementation K9DogViewController {
+    BOOL _showingDetails;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -65,15 +67,17 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    UIView *detailsView = [[self detailsViewController] view];
-    UIView *statusLabel = [[self detailsViewController] statusLabel];
-    CGRect labelRect = [statusLabel convertRect:[statusLabel bounds] toView:detailsView];
-    CGFloat initialHeight = labelRect.origin.y*2 + labelRect.size.height;
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.heightConstraint.constant = initialHeight;
-        [[self view] layoutIfNeeded];
-    } completion:^(BOOL finished) {
-    }];
+    if(!_showingDetails) {
+        UIView *detailsView = [[self detailsViewController] view];
+        UIView *statusLabel = [[self detailsViewController] statusLabel];
+        CGRect labelRect = [statusLabel convertRect:[statusLabel bounds] toView:detailsView];
+        CGFloat initialHeight = labelRect.origin.y*2 + labelRect.size.height;
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.heightConstraint.constant = initialHeight;
+            [[self view] layoutIfNeeded];
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 - (void)setDog:(K9Dog *)dog {
@@ -83,6 +87,7 @@
 }
 
 - (IBAction)showInfo:(id)sender {
+    _showingDetails = YES;
     [self.navigationItem setRightBarButtonItem:self.doneBarButtonItem animated:YES];
     [self.navigationItem setHidesBackButton:YES animated:YES];
 
@@ -98,6 +103,7 @@
 }
 
 - (IBAction)closeInfo:(id)sender {
+    _showingDetails = NO;
     [self.navigationItem setRightBarButtonItem:self.infoBarButtonItem animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
     

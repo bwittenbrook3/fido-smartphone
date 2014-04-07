@@ -22,7 +22,6 @@
 #define LATITUDE_KEY @"latitude"
 #define LONGITUDE_KEY @"longitude"
 
-
 @implementation K9Event
 
 + (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {    

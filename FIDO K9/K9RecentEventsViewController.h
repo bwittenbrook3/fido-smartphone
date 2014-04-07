@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface K9RecentEventsViewController : UITableViewController
-
+@property (copy) NSArray *events;
 @end
 
 @interface K9EventTableViewCell : UITableViewCell

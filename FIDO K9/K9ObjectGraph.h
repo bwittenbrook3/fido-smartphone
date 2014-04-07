@@ -20,11 +20,13 @@
 - (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
 - (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler;
 
-
 @property (readonly, nonatomic) NSArray *allEvents;
 @property (readonly, nonatomic) NSArray *allDogs;
 
 - (K9Event *)eventWithID:(NSInteger)eventID;
 - (K9Dog *)dogWithID:(NSInteger)eventID;
+
+- (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
+- (NSArray *)eventsForDogWithID:(NSInteger)dogID;
 
 @end
