@@ -54,15 +54,15 @@
     [self setLocation:self.event.location.coordinate inBottomCenterOfMapView:self.mapView];
     MKPointAnnotation *pa = [[MKPointAnnotation alloc] init];
     pa.coordinate = self.event.location.coordinate;
-    pa.title = @"Map Center";
-    pa.subtitle = [NSString stringWithFormat:@"%f, %f", pa.coordinate.latitude, pa.coordinate.longitude];
+    pa.title = self.event.title;
+    pa.subtitle = self.event.description;
     [self.mapView addAnnotation:pa];
     self.navigationItem.title = [self.event title];
 }
 
 -(void)setLocation:(CLLocationCoordinate2D)location inBottomCenterOfMapView:(MKMapView*)mapView {
     //Get the region (with the location centered) and the center point of that region
-    MKCoordinateRegion oldRegion = [mapView regionThatFits:MKCoordinateRegionMakeWithDistance(location, 800, 800)];
+    MKCoordinateRegion oldRegion = [mapView regionThatFits:MKCoordinateRegionMakeWithDistance(location, 200, 200)];
     CLLocationCoordinate2D centerPointOfOldRegion = oldRegion.center;
     
     //Create a new center point (I added a quarter of oldRegion's latitudinal span)

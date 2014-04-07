@@ -45,6 +45,9 @@
     event.eventID = [[propertyList valueForKeyPath:ID_KEY] integerValue];
     event.title = [propertyList objectForKey:TITLE_KEY];
     event.description = [propertyList objectForKey:DETAIL_KEY];
+    if((id)event.description == [NSNull null]) {
+        event.description = nil;
+    }
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
