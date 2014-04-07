@@ -30,6 +30,7 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
         [_sessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
         [_sessionManager.requestSerializer setAuthorizationHeaderFieldWithUsername:fidoUsername password:fidoPassword];
         _eventDictionary = [NSMutableDictionary dictionary];
+        _dogDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -103,6 +104,25 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     }];
     
     return [self eventWithID:eventID];
+}
+
+- (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler {
+    NSString *getURLPath = [NSString stringWithFormat:@"vests/%ld.json", dogID];
+    [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if([responseObject isKindOfClass:[NSArray class]]) {
+            responseObject = [responseObject objectAtIndex:0];
+        }
+        K9Dog *dog = [K9Dog dogWithPropertyList:responseObject];
+        if(dog) {
+            [[self dogDictionary] setObject:dog forKey:@([dog dogID])];
+        }
+        completionHandler(dog);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        completionHandler(nil);
+    }];
+    
+    return [self dogWithID:dogID];
 }
 
 - (K9Event *)eventWithID:(NSInteger)eventID {

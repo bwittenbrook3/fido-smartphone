@@ -7,6 +7,8 @@
 //
 
 #import "K9Event.h"
+#import "K9ObjectGraph.h"
+#import "K9Dog.h"
 
 #define ID_KEY @"id"
 #define DOG_KEY @"vest_id"
@@ -31,6 +33,16 @@
     NSInteger dogID = [[propertyList objectForKey:DOG_KEY] integerValue];
     NSInteger attachmentID = [[propertyList objectForKey:ATTACHMENT_ID] integerValue];
     
+    K9Dog *dog = [[K9ObjectGraph sharedObjectGraph] dogWithID:dogID];
+    if(!dog) {
+        // TODO: Delay loading of dog objects until requested?
+        [[K9ObjectGraph sharedObjectGraph] fetchDogWithID:dogID completionHandler:^(K9Dog *dog) {
+            event.associatedDogs = @[dog];
+        }];
+    } else {
+        event.associatedDogs = @[dog];
+    }
+
     event.eventID = [[propertyList valueForKeyPath:ID_KEY] integerValue];
     event.title = [propertyList objectForKey:TITLE_KEY];
     event.description = [propertyList objectForKey:DETAIL_KEY];
