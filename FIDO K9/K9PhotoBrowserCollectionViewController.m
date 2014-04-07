@@ -45,7 +45,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    
+    cell.clipsToBounds = YES;
+    cell.layer.borderWidth = 0.5;
+    cell.layer.borderColor = [UIColor darkGrayColor].CGColor;
     return cell;
 }
 

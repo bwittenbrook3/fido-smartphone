@@ -67,6 +67,7 @@
 		34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B018F069830098D7EC /* K9DogDetailViewController.m */; };
 		34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B318F071950098D7EC /* K9RecentEventsViewController.m */; };
 		34D820B918F093540098D7EC /* K9EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B818F093540098D7EC /* K9EventViewController.m */; };
+		34DE105F18F3340700FB21D8 /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE105E18F3340700FB21D8 /* ImageScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +199,8 @@
 		34D820B318F071950098D7EC /* K9RecentEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9RecentEventsViewController.m; sourceTree = "<group>"; };
 		34D820B718F093540098D7EC /* K9EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9EventViewController.h; sourceTree = "<group>"; };
 		34D820B818F093540098D7EC /* K9EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventViewController.m; sourceTree = "<group>"; };
+		34DE105D18F3340700FB21D8 /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
+		34DE105E18F3340700FB21D8 /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +475,8 @@
 				34D820B818F093540098D7EC /* K9EventViewController.m */,
 				3441347618F24B5F0050B30F /* K9PhotoBrowserCollectionViewController.h */,
 				3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */,
+				34DE105D18F3340700FB21D8 /* ImageScrollView.h */,
+				34DE105E18F3340700FB21D8 /* ImageScrollView.m */,
 			);
 			name = "Event List + Details";
 			sourceTree = "<group>";
@@ -590,6 +595,7 @@
 				345EE02D18F1AB5F00BC8581 /* K9Dog.m in Sources */,
 				34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */,
 				348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */,
+				34DE105F18F3340700FB21D8 /* ImageScrollView.m in Sources */,
 				345EE03318F1AC7F00BC8581 /* K9ObjectGraph.m in Sources */,
 				345EE06318F1AFAC00BC8581 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				345EE09D18F1C32400BC8581 /* PTPusherEvent.m in Sources */,

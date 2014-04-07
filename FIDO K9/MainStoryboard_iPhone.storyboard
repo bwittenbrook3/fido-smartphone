@@ -83,7 +83,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jQs-Bs-57l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="718" y="89"/>
+            <point key="canvasLocation" x="712" y="27"/>
         </scene>
         <!--Dog View Controller - Dog Name-->
         <scene sceneID="k9y-QF-Ewr">
@@ -147,7 +147,7 @@
                     </connections>
                 </containerView>
             </objects>
-            <point key="canvasLocation" x="1172" y="89"/>
+            <point key="canvasLocation" x="1164" y="45"/>
         </scene>
         <!--Dog Navigation View Controller - K9s-->
         <scene sceneID="9x1-vh-GH5">
@@ -175,7 +175,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventTableCell" id="yPu-aZ-tie" customClass="K9EventTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yPu-aZ-tie" id="Bsx-I3-aKD">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -258,7 +258,7 @@
                     </connections>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="712" y="769"/>
+            <point key="canvasLocation" x="712" y="834"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QGe-JE-rbf">
@@ -274,7 +274,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iW3-9J-QmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="184" y="769"/>
+            <point key="canvasLocation" x="192" y="834"/>
         </scene>
         <!--Dog Detail View Controller-->
         <scene sceneID="Zpj-Kc-61Y">
@@ -533,7 +533,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syu-70-ec5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1660" y="89"/>
+            <point key="canvasLocation" x="1710" y="45"/>
         </scene>
         <!--Event View Controller - Event-->
         <scene sceneID="fi5-c1-oRs">
@@ -585,7 +585,7 @@
                 </containerView>
                 <barButtonItem systemItem="done" id="450-UN-1AH"/>
             </objects>
-            <point key="canvasLocation" x="1172" y="775"/>
+            <point key="canvasLocation" x="1172" y="834"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="AHf-p7-4TG">
@@ -596,11 +596,11 @@
                         <viewControllerLayoutGuide type="bottom" id="NOA-mn-p2E"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oNn-eL-MpI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJr-ph-gK5">
-                                <rect key="frame" x="0.0" y="115" width="320" height="85"/>
+                                <rect key="frame" x="0.0" y="90" width="320" height="85"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="oPf-eG-XL2"/>
@@ -610,14 +610,14 @@
                                 </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
-                                <rect key="frame" x="119" y="28" width="82" height="82"/>
+                                <rect key="frame" x="138" y="40" width="45" height="45"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="uoa-Yu-azp" secondAttribute="height" multiplier="1:1" id="Uqa-Yv-znh"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDT-9E-TKU">
-                                <rect key="frame" x="139" y="5" width="42" height="17"/>
+                                <rect key="frame" x="139" y="5" width="42" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -636,7 +636,10 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="175"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uN8-eR-Rwm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -664,26 +667,24 @@
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAo-2U-0sE">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SamplePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="ILt-Py-zEv">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="75" id="Orf-Ge-otn"/>
-                                                <constraint firstAttribute="height" constant="75" id="oqf-st-F63"/>
-                                            </constraints>
-                                        </view>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="SAo-2U-0sE" secondAttribute="trailing" id="NE6-Em-d3h"/>
-                                    <constraint firstItem="SAo-2U-0sE" firstAttribute="leading" secondItem="Ejg-cA-SjU" secondAttribute="leading" id="eMQ-if-9EW"/>
-                                    <constraint firstAttribute="bottom" secondItem="SAo-2U-0sE" secondAttribute="bottom" id="hOq-cX-V4b"/>
-                                    <constraint firstItem="SAo-2U-0sE" firstAttribute="top" secondItem="Ejg-cA-SjU" secondAttribute="top" id="rPi-CS-fcF"/>
+                                    <constraint firstItem="ILt-Py-zEv" firstAttribute="leading" secondItem="Ejg-cA-SjU" secondAttribute="leading" id="Bz4-J6-WRa"/>
+                                    <constraint firstAttribute="trailing" secondItem="ILt-Py-zEv" secondAttribute="trailing" id="IAU-LO-IXY"/>
+                                    <constraint firstAttribute="bottom" secondItem="ILt-Py-zEv" secondAttribute="bottom" id="LrN-JR-uis"/>
+                                    <constraint firstItem="ILt-Py-zEv" firstAttribute="top" secondItem="Ejg-cA-SjU" secondAttribute="top" id="hgi-av-Etz"/>
                                 </constraints>
                                 <size key="customSize" width="75" height="75"/>
+                                <connections>
+                                    <segue destination="W05-yl-9l2" kind="push" id="9hG-ku-bl0"/>
+                                </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vkt-Jp-L74">
                                 <rect key="frame" x="85" y="13" width="75" height="75"/>
@@ -728,30 +729,24 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WIM-L7-z5j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="934"/>
+            <point key="canvasLocation" x="1988" y="834"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Voi-an-MWC">
+        <!--Page View Controller-->
+        <scene sceneID="NWE-Ai-jvJ">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pfX-Zr-xLj" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Tbw-cS-KCk"/>
-                        <viewControllerLayoutGuide type="bottom" id="IVN-gg-W03"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ej2-7p-Ymc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sk1-23-ask" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="W05-yl-9l2" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="LvC-bl-qM3"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fZO-fL-YSu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2360" y="834"/>
         </scene>
     </scenes>
     <resources>
         <image name="K9s Tab Bar Unselected Template" width="30" height="29"/>
-        <image name="Sample Dog Image" width="90" height="90"/>
+        <image name="Sample Dog Image" width="45" height="45"/>
+        <image name="SamplePhoto" width="1224" height="1632"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -759,6 +754,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Y7U-HP-cob"/>
+        <segue reference="On6-mx-M6w"/>
     </inferredMetricsTieBreakers>
 </document>
