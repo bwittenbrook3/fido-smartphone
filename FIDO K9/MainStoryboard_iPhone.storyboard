@@ -127,6 +127,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="detailContainerView" destination="RvA-8B-w2t" id="86A-Jd-qFN"/>
                         <outlet property="doneBarButtonItem" destination="2Su-vV-m2y" id="r5Y-TG-89O"/>
                         <outlet property="infoBarButtonItem" destination="i9g-xH-eul" id="CBm-Lt-bUp"/>
                         <outlet property="subheaderBar" destination="KRk-RI-R0P" id="IKD-nW-1Ii"/>
@@ -138,6 +139,13 @@
                         <action selector="closeInfo:" destination="B0L-R4-HZi" id="t7b-OB-z0R"/>
                     </connections>
                 </barButtonItem>
+                <containerView opaque="NO" contentMode="scaleToFill" id="RvA-8B-w2t">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <segue destination="0Y7-5G-3g8" kind="embed" id="QZD-d9-p5B"/>
+                    </connections>
+                </containerView>
             </objects>
             <point key="canvasLocation" x="1172" y="89"/>
         </scene>

@@ -15,6 +15,7 @@
 @end
 @interface K9DogViewController ()
 
+@property (strong) IBOutlet UIView *detailContainerView;
 @property (strong) NSLayoutConstraint *heightConstraint;
 @property (strong) K9DogDetailViewController *detailsViewController;
 @property (strong) UIDynamicAnimator *animator;
@@ -44,10 +45,9 @@
     [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // Add the detail content to our subheader bar
-    self.detailsViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"k9Details"];
-    [self addChildViewController:[self detailsViewController]];
-    [[self detailsViewController] setDog:[self dog]];
-    UIView *detailsView = [[self detailsViewController] view];
+    self.detailsViewController = [[self childViewControllers] objectAtIndex:0];
+    self.detailsViewController.dog = self.dog;
+    UIView *detailsView = [self detailContainerView];
     [[self subheaderBar] addSubview:detailsView];
     [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[detailsView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
     [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[detailsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
