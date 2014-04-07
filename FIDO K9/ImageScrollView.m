@@ -77,6 +77,12 @@
     return self;
 }
 
+
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    [self displayImage:image];
+}
+
 //- (void)setIndex:(NSUInteger)index {
 //    
 //    _index = index;

@@ -68,6 +68,10 @@
 		34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B318F071950098D7EC /* K9RecentEventsViewController.m */; };
 		34D820B918F093540098D7EC /* K9EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B818F093540098D7EC /* K9EventViewController.m */; };
 		34DE105F18F3340700FB21D8 /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE105E18F3340700FB21D8 /* ImageScrollView.m */; };
+		34DE106218F3382A00FB21D8 /* K9PhotoBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106118F3382A00FB21D8 /* K9PhotoBrowserViewController.m */; };
+		34DE106518F338F000FB21D8 /* K9PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106418F338F000FB21D8 /* K9PhotoViewController.m */; };
+		34DE106818F351E500FB21D8 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */; };
+		34DE106B18F351F400FB21D8 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +205,14 @@
 		34D820B818F093540098D7EC /* K9EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventViewController.m; sourceTree = "<group>"; };
 		34DE105D18F3340700FB21D8 /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
 		34DE105E18F3340700FB21D8 /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
+		34DE106018F3382A00FB21D8 /* K9PhotoBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PhotoBrowserViewController.h; sourceTree = "<group>"; };
+		34DE106118F3382A00FB21D8 /* K9PhotoBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PhotoBrowserViewController.m; sourceTree = "<group>"; };
+		34DE106318F338F000FB21D8 /* K9PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PhotoViewController.h; sourceTree = "<group>"; };
+		34DE106418F338F000FB21D8 /* K9PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PhotoViewController.m; sourceTree = "<group>"; };
+		34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		34DE106918F351F400FB21D8 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +286,10 @@
 			children = (
 				34418A8A18EF214C00F1D2A1 /* K9AppDelegate.h */,
 				34418A8B18EF214C00F1D2A1 /* K9AppDelegate.m */,
+				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
+				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
+				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
+				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
 				348D9F3818EF34A20051C9C8 /* ViewControllers */,
 				345EE02A18F1AB4600BC8581 /* Model */,
 				34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */,
@@ -477,6 +493,10 @@
 				3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */,
 				34DE105D18F3340700FB21D8 /* ImageScrollView.h */,
 				34DE105E18F3340700FB21D8 /* ImageScrollView.m */,
+				34DE106018F3382A00FB21D8 /* K9PhotoBrowserViewController.h */,
+				34DE106118F3382A00FB21D8 /* K9PhotoBrowserViewController.m */,
+				34DE106318F338F000FB21D8 /* K9PhotoViewController.h */,
+				34DE106418F338F000FB21D8 /* K9PhotoViewController.m */,
 			);
 			name = "Event List + Details";
 			sourceTree = "<group>";
@@ -603,12 +623,16 @@
 				345EE09318F1C32400BC8581 /* NSDictionary+QueryString.m in Sources */,
 				345EE06218F1AFAC00BC8581 /* AFURLSessionManager.m in Sources */,
 				345EE0A018F1C32400BC8581 /* PTTargetActionEventListener.m in Sources */,
+				34DE106518F338F000FB21D8 /* K9PhotoViewController.m in Sources */,
 				345EE05C18F1AFAC00BC8581 /* AFHTTPSessionManager.m in Sources */,
 				34418A8C18EF214C00F1D2A1 /* K9AppDelegate.m in Sources */,
+				34DE106218F3382A00FB21D8 /* K9PhotoBrowserViewController.m in Sources */,
 				345EE0A618F1C67B00BC8581 /* SRWebSocket.m in Sources */,
 				345EE09818F1C32400BC8581 /* PTPusher.m in Sources */,
 				345EE09B18F1C32400BC8581 /* PTPusherChannelAuthorizationOperation.m in Sources */,
 				345EE05D18F1AFAC00BC8581 /* AFNetworkReachabilityManager.m in Sources */,
+				34DE106818F351E500FB21D8 /* UIImage+ImageEffects.m in Sources */,
+				34DE106B18F351F400FB21D8 /* UIView+Screenshot.m in Sources */,
 				345EE03018F1ABD400BC8581 /* K9Event.m in Sources */,
 				345EE06718F1AFAC00BC8581 /* UIImageView+AFNetworking.m in Sources */,
 				345EE06818F1AFAC00BC8581 /* UIProgressView+AFNetworking.m in Sources */,

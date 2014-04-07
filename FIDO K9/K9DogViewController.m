@@ -10,9 +10,6 @@
 #import "K9DogDetailViewController.h"
 #import "K9Dog.h"
 
-@interface UIView (Secret)
-@property (readonly) NSString *recursiveDescription;
-@end
 @interface K9DogViewController ()
 
 @property (strong) IBOutlet UIView *detailContainerView;
