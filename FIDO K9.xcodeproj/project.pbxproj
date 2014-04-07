@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3441347518F249650050B30F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3441347418F249650050B30F /* MapKit.framework */; };
+		3441347818F24B600050B30F /* K9PhotoBrowserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */; };
 		34418A7C18EF214C00F1D2A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7B18EF214C00F1D2A1 /* Foundation.framework */; };
 		34418A7E18EF214C00F1D2A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */; };
 		34418A8018EF214C00F1D2A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7F18EF214C00F1D2A1 /* UIKit.framework */; };
@@ -78,6 +80,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3441347418F249650050B30F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3441347618F24B5F0050B30F /* K9PhotoBrowserCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PhotoBrowserCollectionViewController.h; sourceTree = "<group>"; };
+		3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PhotoBrowserCollectionViewController.m; sourceTree = "<group>"; };
 		34418A7818EF214C00F1D2A1 /* FIDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34418A7B18EF214C00F1D2A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -200,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3441347518F249650050B30F /* MapKit.framework in Frameworks */,
 				345EE0AC18F1C79D00BC8581 /* Security.framework in Frameworks */,
 				345EE0AA18F1C79600BC8581 /* libicucore.dylib in Frameworks */,
 				345EE0A818F1C78E00BC8581 /* CFNetwork.framework in Frameworks */,
@@ -248,6 +254,7 @@
 		34418A7A18EF214C00F1D2A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3441347418F249650050B30F /* MapKit.framework */,
 				345EE0AB18F1C79D00BC8581 /* Security.framework */,
 				345EE0A918F1C79600BC8581 /* libicucore.dylib */,
 				345EE0A718F1C78E00BC8581 /* CFNetwork.framework */,
@@ -463,6 +470,8 @@
 				34D820B318F071950098D7EC /* K9RecentEventsViewController.m */,
 				34D820B718F093540098D7EC /* K9EventViewController.h */,
 				34D820B818F093540098D7EC /* K9EventViewController.m */,
+				3441347618F24B5F0050B30F /* K9PhotoBrowserCollectionViewController.h */,
+				3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */,
 			);
 			name = "Event List + Details";
 			sourceTree = "<group>";
@@ -518,6 +527,9 @@
 					34418A7718EF214C00F1D2A1 = {
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.iOS = {
 								enabled = 1;
 							};
 						};
@@ -608,6 +620,7 @@
 				345EE05E18F1AFAC00BC8581 /* AFSecurityPolicy.m in Sources */,
 				345EE09418F1C32400BC8581 /* NSString+Hashing.m in Sources */,
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
+				3441347818F24B600050B30F /* K9PhotoBrowserCollectionViewController.m in Sources */,
 				345EE06A18F1AFAC00BC8581 /* UIWebView+AFNetworking.m in Sources */,
 				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
 				345EE0A118F1C32400BC8581 /* PTURLRequestOperation.m in Sources */,

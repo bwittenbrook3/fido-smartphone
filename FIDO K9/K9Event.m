@@ -53,6 +53,9 @@
     
     CGFloat latitude = [[propertyList objectForKey:LATITUDE_KEY] floatValue];
     CGFloat longitude = [[propertyList objectForKey:LONGITUDE_KEY] floatValue];
+    
+    latitude = 33.7721200;
+    longitude = -84.392942;
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     return event;
