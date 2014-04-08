@@ -36,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    [[self view] setBackgroundColor:[UIColor whiteColor]];
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:[[self view] bounds]];
 
     self.viewControllerToImageIndexDictionary = [NSMutableDictionary dictionary];
@@ -50,6 +51,8 @@
 //    [self.backgroundImageView removeFromSuperview];
 //    [[self backgroundImageView] setFrame:[[[self view] superview] bounds]];
 //    [[[self view] superview] insertSubview:self.backgroundImageView atIndex:0];
+    [[[self view] superview] setBackgroundColor:[UIColor whiteColor]];
+    [[[[self view] superview] superview] setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

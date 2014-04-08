@@ -122,7 +122,7 @@
 
 - (UIImage *)applyDarkEffectWithRadius:(CGFloat)radius
 {
-    UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.73];
+    UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.85];
     return [self applyBlurWithRadius:radius tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
