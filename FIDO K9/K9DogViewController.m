@@ -125,7 +125,7 @@
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:label.superview];
     
     UIPushBehavior *pushBehavior = [[UIPushBehavior alloc] initWithItems:@[label] mode:UIPushBehaviorModeInstantaneous];
-    pushBehavior.magnitude = 0.001f;
+    pushBehavior.magnitude = 0.006f;
     pushBehavior.pushDirection = CGVectorMake(0.0f, -1.0f);
     UIDynamicItemBehavior* itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[label]];
     itemBehaviour.elasticity = 0.4;

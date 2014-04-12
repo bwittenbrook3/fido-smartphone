@@ -25,14 +25,19 @@
     dog.name = [propertyList objectForKey:NAME_KEY];
     dog.officerName = [propertyList objectForKey:OFFICER_NAME_KEY];
     
-    // TODO: Do this at some later point?
+    // TODO: Do this at some later point once the web APIs supports these kind of queries
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
+    [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];
     
     return dog;
 }
 
 - (NSArray *)events {
     return [[K9ObjectGraph sharedObjectGraph] eventsForDogWithID:self.dogID];
+}
+
+- (NSArray *)attachments {
+    return [[K9ObjectGraph sharedObjectGraph] attachmentsForDogWithID:self.dogID];
 }
 
 @end

@@ -16,6 +16,7 @@
 @property (copy, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *image;
 @property (readonly, nonatomic) NSArray *events;
+@property (readonly, nonatomic) NSArray *attachments;
 
 @property (copy, nonatomic) NSString *officerName;
 

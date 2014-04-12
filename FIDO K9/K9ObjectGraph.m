@@ -9,6 +9,7 @@
 #import "K9ObjectGraph.h"
 #import "AFHTTPSessionManager.h"
 #import "K9Dog.h"
+#import "K9Attachment.h"
 #import "K9Event.h"
 
 static NSString * const baseURLString = @"http://fido-api.herokuapp.com/api/";
@@ -19,9 +20,10 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
 @property (strong) AFHTTPSessionManager *sessionManager;
 @property (strong) NSMutableDictionary *eventDictionary;
 @property (strong) NSMutableDictionary *dogDictionary;
+@property (strong) NSMutableDictionary *attachmentDictionary;
 @end
 
-// TODO: Use CoreData instead?
+// TODO: Use CoreData instead for persistence.
 @implementation K9ObjectGraph
 
 - (id)init {
@@ -31,6 +33,7 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
         [_sessionManager.requestSerializer setAuthorizationHeaderFieldWithUsername:fidoUsername password:fidoPassword];
         _eventDictionary = [NSMutableDictionary dictionary];
         _dogDictionary = [NSMutableDictionary dictionary];
+        _attachmentDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -56,10 +59,10 @@ static K9ObjectGraph *sharedObjectGraph = nil;
             }
         }
         // TODO: Remove cached dogs that aren't reported?
-        completionHandler(dogs);
+        if(completionHandler) completionHandler(dogs);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
-        completionHandler(nil);
+        if(completionHandler) completionHandler(nil);
     }];
     
     return [self allDogs];
@@ -78,10 +81,32 @@ static K9ObjectGraph *sharedObjectGraph = nil;
             }
         }
         // TODO: Remove cached events that aren't reported?
-        completionHandler(events);
+        if(completionHandler) completionHandler(events);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
-        completionHandler(nil);
+        if(completionHandler) completionHandler(nil);
+    }];
+    
+    return [self allEvents];
+}
+
+- (NSArray *)fetchAllAttachmentsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
+    [self.sessionManager GET:@"attachments.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSMutableArray *attachments = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
+        for(NSDictionary *attachmentDictionary in responseObject) {
+            K9Attachment *attachment = [K9Attachment attachmentWithPropertyList:attachmentDictionary];
+            if(attachment) {
+                [attachments addObject:attachment];
+                if(![[self attachmentDictionary] objectForKey:@([attachment attachmentID])]) {
+                    [[self attachmentDictionary] setObject:attachment forKey:@([attachment attachmentID])];
+                }
+            }
+        }
+        // TODO: Remove cached events that aren't reported?
+        if(completionHandler) completionHandler(attachments);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        if(completionHandler) completionHandler(nil);
     }];
     
     return [self allEvents];
@@ -97,10 +122,10 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         if(event) {
             [[self eventDictionary] setObject:event forKey:@([event eventID])];
         }
-        completionHandler(event);
+        if(completionHandler) completionHandler(event);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
-        completionHandler(nil);
+        if(completionHandler) completionHandler(nil);
     }];
     
     return [self eventWithID:eventID];
@@ -116,10 +141,10 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         if(dog) {
             [[self dogDictionary] setObject:dog forKey:@([dog dogID])];
         }
-        completionHandler(dog);
+        if(completionHandler) completionHandler(dog);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
-        completionHandler(nil);
+        if(completionHandler) completionHandler(nil);
     }];
     
     return [self dogWithID:dogID];
@@ -141,6 +166,11 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     return [[self eventDictionary] allValues];
 }
 
+- (NSArray *)allAttachments {
+    return [[self attachmentDictionary] allValues];
+}
+
+
 - (NSArray *)eventsForDogWithID:(NSInteger)dogID {
     NSMutableArray *events = [NSMutableArray array];
     for(K9Event *event in [self allEvents]) {
@@ -152,9 +182,30 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *))completionHandler {
+    // TODO: Do this better when the web API supports it.
     [self fetchAllEventsWithCompletionHandler:^(NSArray *events) {
         if(completionHandler) {
             completionHandler([self eventsForDogWithID:dogID]);            
+        }
+    }];
+    return [self eventsForDogWithID:dogID];
+}
+
+- (NSArray *)attachmentsForDogWithID:(NSInteger)dogID {
+    NSMutableArray *events = [NSMutableArray array];
+    for(K9Attachment *attachment in [self allAttachments]) {
+        if([[[attachment associatedDogs] valueForKey:@"dogID"] containsObject:@(dogID)]) {
+            [events addObject:attachment];
+        }
+    }
+    return events;
+}
+
+- (NSArray *)fetchAttachmentsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *))completionHandler {
+    // TODO: Do this better when the web API supports it.
+    [self fetchAllAttachmentsWithCompletionHandler:^(NSArray *events) {
+        if(completionHandler) {
+            completionHandler([self eventsForDogWithID:dogID]);
         }
     }];
     return [self eventsForDogWithID:dogID];

@@ -9,6 +9,7 @@
 #import "K9DogDetailViewController.h"
 #import "K9Dog.h"
 #import "K9RecentEventsViewController.h"
+#import "K9AttachmentListViewController.h"
 
 @interface K9DogDetailViewController ()
 
@@ -17,6 +18,10 @@
 @property (weak) IBOutlet UILabel *recentEventCountLabel;
 @property (weak) IBOutlet UITableViewCell *recentEventTableViewCell;
 @property (weak) IBOutlet NSLayoutConstraint *recentEventsTableViewCellTrailingConstraint;
+
+@property (weak) IBOutlet UILabel *attachmentsCountLabel;
+@property (weak) IBOutlet UITableViewCell *attachmentsTableViewCell;
+@property (weak) IBOutlet NSLayoutConstraint *attachmentsTableViewCellTrailingConstraint;
 
 @end
 
@@ -57,6 +62,17 @@
         [self.recentEventTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self.recentEventsTableViewCellTrailingConstraint setConstant:10];
     }
+    
+    [self.attachmentsCountLabel setText:[NSString stringWithFormat:@"%ld", [[self.dog attachments] count]]];
+    if([[self.dog attachments] count]) {
+        [self.attachmentsTableViewCell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [self.attachmentsTableViewCell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+        [self.attachmentsTableViewCellTrailingConstraint setConstant:0];
+    } else {
+        [self.attachmentsTableViewCell setAccessoryType:UITableViewCellAccessoryNone];
+        [self.attachmentsTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [self.attachmentsTableViewCellTrailingConstraint setConstant:10];
+    }
 }
 
 #pragma mark - Navigation
@@ -66,13 +82,19 @@
         K9RecentEventsViewController *destination = [segue destinationViewController];
         [destination setEvents:[self.dog events]];
         [[destination navigationItem] setTitle:[NSString stringWithFormat:@"%@'s Events", [self.dog name]]];
+    } else if([[segue identifier] isEqualToString:@"attachmentsSegue"]) {
+        K9AttachmentListViewController *destination = [segue destinationViewController];
+        [destination setAttachments:[self.dog attachments]];
+        [[destination navigationItem] setTitle:[NSString stringWithFormat:@"%@'s Attachments", [self.dog name]]];
     }
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if([identifier isEqualToString:@"recentEventsSegue"]) {
+    if ([identifier isEqualToString:@"recentEventsSegue"]) {
         return [self.recentEventTableViewCell selectionStyle] != UITableViewCellSelectionStyleNone;
+    } else if ([identifier isEqualToString:@"attachmentsSegue"]) {
+        return [self.attachmentsTableViewCell selectionStyle] != UITableViewCellSelectionStyleNone;
     } else {
         return YES;
     }

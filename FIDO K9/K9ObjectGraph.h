@@ -29,4 +29,7 @@
 - (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
 - (NSArray *)eventsForDogWithID:(NSInteger)dogID;
 
+- (NSArray *)fetchAttachmentsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
+- (NSArray *)attachmentsForDogWithID:(NSInteger)dogID;
+
 @end

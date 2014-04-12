@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 
 @property (nonatomic) NSInteger eventID;
 @property (copy, nonatomic) NSString *title;
-@property (copy, nonatomic) NSString *description;
+@property (copy, nonatomic) NSString *eventDescription;
 @property (nonatomic) K9EventType eventType;
 
 @property (copy) NSDate *creationDate;
