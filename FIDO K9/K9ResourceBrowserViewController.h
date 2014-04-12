@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface K9PhotoBrowserViewController : UIPageViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+@interface K9ResourceBrowserViewController : UIPageViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
-@property (copy, nonatomic) NSArray *photos;
+@property (copy, nonatomic) NSArray *resources;
 @property (nonatomic) NSInteger currentIndex;
 
 

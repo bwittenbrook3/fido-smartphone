@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3437B40318F9EFCD0098F6C8 /* K9AttachmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */; };
+		3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40518F9F5750098F6C8 /* K9Photo.m */; };
+		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
 		3441347518F249650050B30F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3441347418F249650050B30F /* MapKit.framework */; };
-		3441347818F24B600050B30F /* K9PhotoBrowserCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */; };
+		3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */; };
 		34418A7C18EF214C00F1D2A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7B18EF214C00F1D2A1 /* Foundation.framework */; };
 		34418A7E18EF214C00F1D2A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */; };
 		34418A8018EF214C00F1D2A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7F18EF214C00F1D2A1 /* UIKit.framework */; };
@@ -69,7 +71,7 @@
 		34D820B418F071950098D7EC /* K9RecentEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B318F071950098D7EC /* K9RecentEventsViewController.m */; };
 		34D820B918F093540098D7EC /* K9EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D820B818F093540098D7EC /* K9EventViewController.m */; };
 		34DE105F18F3340700FB21D8 /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE105E18F3340700FB21D8 /* ImageScrollView.m */; };
-		34DE106218F3382A00FB21D8 /* K9PhotoBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106118F3382A00FB21D8 /* K9PhotoBrowserViewController.m */; };
+		34DE106218F3382A00FB21D8 /* K9ResourceBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106118F3382A00FB21D8 /* K9ResourceBrowserViewController.m */; };
 		34DE106518F338F000FB21D8 /* K9PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106418F338F000FB21D8 /* K9PhotoViewController.m */; };
 		34DE106818F351E500FB21D8 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */; };
 		34DE106B18F351F400FB21D8 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */; };
@@ -89,9 +91,13 @@
 /* Begin PBXFileReference section */
 		3437B40118F9EFCD0098F6C8 /* K9AttachmentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9AttachmentListViewController.h; sourceTree = "<group>"; };
 		3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9AttachmentListViewController.m; sourceTree = "<group>"; };
+		3437B40418F9F5750098F6C8 /* K9Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Photo.h; sourceTree = "<group>"; };
+		3437B40518F9F5750098F6C8 /* K9Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Photo.m; sourceTree = "<group>"; };
+		3437B40718F9FA3A0098F6C8 /* K9EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9EventDetailViewController.h; sourceTree = "<group>"; };
+		3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventDetailViewController.m; sourceTree = "<group>"; };
 		3441347418F249650050B30F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		3441347618F24B5F0050B30F /* K9PhotoBrowserCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PhotoBrowserCollectionViewController.h; sourceTree = "<group>"; };
-		3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PhotoBrowserCollectionViewController.m; sourceTree = "<group>"; };
+		3441347618F24B5F0050B30F /* K9ResourcesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9ResourcesCollectionViewController.h; sourceTree = "<group>"; };
+		3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9ResourcesCollectionViewController.m; sourceTree = "<group>"; };
 		34418A7818EF214C00F1D2A1 /* FIDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34418A7B18EF214C00F1D2A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -209,8 +215,8 @@
 		34D820B818F093540098D7EC /* K9EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventViewController.m; sourceTree = "<group>"; };
 		34DE105D18F3340700FB21D8 /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
 		34DE105E18F3340700FB21D8 /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
-		34DE106018F3382A00FB21D8 /* K9PhotoBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PhotoBrowserViewController.h; sourceTree = "<group>"; };
-		34DE106118F3382A00FB21D8 /* K9PhotoBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PhotoBrowserViewController.m; sourceTree = "<group>"; };
+		34DE106018F3382A00FB21D8 /* K9ResourceBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9ResourceBrowserViewController.h; sourceTree = "<group>"; };
+		34DE106118F3382A00FB21D8 /* K9ResourceBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9ResourceBrowserViewController.m; sourceTree = "<group>"; };
 		34DE106318F338F000FB21D8 /* K9PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PhotoViewController.h; sourceTree = "<group>"; };
 		34DE106418F338F000FB21D8 /* K9PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PhotoViewController.m; sourceTree = "<group>"; };
 		34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -345,6 +351,8 @@
 				34E4CBFB18F9E85B00CE61CF /* K9Attachment.m */,
 				345EE03118F1AC7F00BC8581 /* K9ObjectGraph.h */,
 				345EE03218F1AC7F00BC8581 /* K9ObjectGraph.m */,
+				3437B40418F9F5750098F6C8 /* K9Photo.h */,
+				3437B40518F9F5750098F6C8 /* K9Photo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -499,12 +507,14 @@
 				34D820B318F071950098D7EC /* K9RecentEventsViewController.m */,
 				34D820B718F093540098D7EC /* K9EventViewController.h */,
 				34D820B818F093540098D7EC /* K9EventViewController.m */,
-				3441347618F24B5F0050B30F /* K9PhotoBrowserCollectionViewController.h */,
-				3441347718F24B600050B30F /* K9PhotoBrowserCollectionViewController.m */,
+				3437B40718F9FA3A0098F6C8 /* K9EventDetailViewController.h */,
+				3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */,
+				3441347618F24B5F0050B30F /* K9ResourcesCollectionViewController.h */,
+				3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */,
 				34DE105D18F3340700FB21D8 /* ImageScrollView.h */,
 				34DE105E18F3340700FB21D8 /* ImageScrollView.m */,
-				34DE106018F3382A00FB21D8 /* K9PhotoBrowserViewController.h */,
-				34DE106118F3382A00FB21D8 /* K9PhotoBrowserViewController.m */,
+				34DE106018F3382A00FB21D8 /* K9ResourceBrowserViewController.h */,
+				34DE106118F3382A00FB21D8 /* K9ResourceBrowserViewController.m */,
 				34DE106318F338F000FB21D8 /* K9PhotoViewController.h */,
 				34DE106418F338F000FB21D8 /* K9PhotoViewController.m */,
 			);
@@ -632,12 +642,14 @@
 				345EE09D18F1C32400BC8581 /* PTPusherEvent.m in Sources */,
 				345EE09C18F1C32400BC8581 /* PTPusherConnection.m in Sources */,
 				345EE09318F1C32400BC8581 /* NSDictionary+QueryString.m in Sources */,
+				3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */,
 				345EE06218F1AFAC00BC8581 /* AFURLSessionManager.m in Sources */,
 				345EE0A018F1C32400BC8581 /* PTTargetActionEventListener.m in Sources */,
 				34DE106518F338F000FB21D8 /* K9PhotoViewController.m in Sources */,
+				3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */,
 				345EE05C18F1AFAC00BC8581 /* AFHTTPSessionManager.m in Sources */,
 				34418A8C18EF214C00F1D2A1 /* K9AppDelegate.m in Sources */,
-				34DE106218F3382A00FB21D8 /* K9PhotoBrowserViewController.m in Sources */,
+				34DE106218F3382A00FB21D8 /* K9ResourceBrowserViewController.m in Sources */,
 				345EE0A618F1C67B00BC8581 /* SRWebSocket.m in Sources */,
 				345EE09818F1C32400BC8581 /* PTPusher.m in Sources */,
 				345EE09B18F1C32400BC8581 /* PTPusherChannelAuthorizationOperation.m in Sources */,
@@ -661,7 +673,7 @@
 				345EE05E18F1AFAC00BC8581 /* AFSecurityPolicy.m in Sources */,
 				345EE09418F1C32400BC8581 /* NSString+Hashing.m in Sources */,
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
-				3441347818F24B600050B30F /* K9PhotoBrowserCollectionViewController.m in Sources */,
+				3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */,
 				345EE06A18F1AFAC00BC8581 /* UIWebView+AFNetworking.m in Sources */,
 				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
 				345EE0A118F1C32400BC8581 /* PTURLRequestOperation.m in Sources */,

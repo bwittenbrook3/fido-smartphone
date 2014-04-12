@@ -50,6 +50,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     [self.sessionManager GET:@"vests.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *dogs = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
         for(NSDictionary *dogDictionary in responseObject) {
+            // TODO: Don't create the dog if we already have it.. update it?
             K9Dog *dog = [K9Dog dogWithPropertyList:dogDictionary];
             if(dog) {
                 [dogs addObject:dog];
@@ -59,7 +60,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
             }
         }
         // TODO: Remove cached dogs that aren't reported?
-        if(completionHandler) completionHandler(dogs);
+        if(completionHandler) completionHandler([self allDogs]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
@@ -72,6 +73,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     [self.sessionManager GET:@"events.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *events = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
         for(NSDictionary *eventDictionary in responseObject) {
+            // TODO: Don't create the event if we already have it.. update it?
             K9Event *event = [K9Event eventWithPropertyList:eventDictionary];
             if(event) {
                 [events addObject:event];
@@ -81,7 +83,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
             }
         }
         // TODO: Remove cached events that aren't reported?
-        if(completionHandler) completionHandler(events);
+        if(completionHandler) completionHandler([self allEvents]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);

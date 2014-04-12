@@ -6,17 +6,18 @@
 //  Copyright (c) 2014 FIDO. All rights reserved.
 //
 
-#import "K9PhotoBrowserCollectionViewController.h"
-#import "K9PhotoBrowserViewController.h"
+#import "K9ResourcesCollectionViewController.h"
+#import "K9ResourceBrowserViewController.h"
 #import "UIView+Screenshot.h"
 #import "UIImage+ImageEffects.h"
 #import "K9PhotoViewController.h"
+#import "K9Photo.h"
 
-@interface K9PhotoBrowserCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
+@interface K9ResourcesCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
 
 @end
 
-@implementation K9PhotoBrowserCollectionViewController
+@implementation K9ResourcesCollectionViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,11 +30,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.collectionView.backgroundView = [UIView new];
-//    self.collectionView.backgroundView.backgroundColor = [UIColor clearColor];
-//    self.collectionView.backgroundView.opaque = NO;
-//    NSLog(@"%@", self.collectionView.backgroundView);
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -52,37 +48,54 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setResources:(NSArray *)resources {
+    if(_resources != resources && ![_resources isEqualToArray:resources]) {
+        _resources = resources;
+        [[self collectionView] reloadData];
+    }
+}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 8;
+    return self.resources.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+    id resource = [self.resources objectAtIndex:indexPath.row];
+    
+    UICollectionViewCell *cell = nil;
+    
+    if([resource isKindOfClass:[K9Photo class]]) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+        [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:[(K9Photo *)resource thumbnail]];
+    } else {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];        
+    }
+    
     cell.clipsToBounds = YES;
     cell.layer.borderWidth = 0.5;
     cell.layer.borderColor = [UIColor blackColor].CGColor;
+
+    
     return cell;
 }
 
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.navigationController.delegate = self;
     if([segue.identifier isEqualToString:@"selectPhotoSegue"]) {
-        K9PhotoBrowserViewController *destination = segue.destinationViewController;
-        [destination setPhotos:@[[UIImage imageNamed:@"SamplePhoto"], [UIImage imageNamed:@"SamplePhoto"], [UIImage imageNamed:@"SamplePhoto"], [UIImage imageNamed:@"SamplePhoto"]]];
+        K9ResourceBrowserViewController *destination = segue.destinationViewController;
+        [destination setResources:[self resources]];
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:sender];
         [destination setCurrentIndex:indexPath.row];
     }
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    if([toVC isKindOfClass:[K9PhotoBrowserViewController class]] && operation == UINavigationControllerOperationPush) {
+    if([toVC isKindOfClass:[K9ResourceBrowserViewController class]] && operation == UINavigationControllerOperationPush) {
         return self;
-    } else if([fromVC isKindOfClass:[K9PhotoBrowserViewController class]] && operation == UINavigationControllerOperationPop) {
+    } else if([fromVC isKindOfClass:[K9ResourceBrowserViewController class]] && operation == UINavigationControllerOperationPop) {
         return self;
     } else {
         return nil;
@@ -94,8 +107,8 @@
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
-    if([[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey] isKindOfClass:[K9PhotoBrowserViewController class]]) {
-        K9PhotoBrowserViewController *toViewController = (K9PhotoBrowserViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    if([[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey] isKindOfClass:[K9ResourceBrowserViewController class]]) {
+        K9ResourceBrowserViewController *toViewController = (K9ResourceBrowserViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
         UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
         
         UIView *containerView = [transitionContext containerView];
@@ -110,7 +123,8 @@
         UIImage *mergedImage = [self imageWithImage:finalBackground inRect:CGRectMake(0, y, width, height) borderImage:screenshot];
         toViewController.backgroundImageView.image = mergedImage;
 
-        UIImage *image = [UIImage imageNamed:@"SamplePhoto"];
+        // TODO: This assumes that it's a photo resource
+        UIImage *image = [[self.resources objectAtIndex:toViewController.currentIndex] image];
         CGRect cellFrame = [[[self collectionViewLayout] layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentIndex inSection:0]] frame];
         cellFrame = [[self collectionView] convertRect:cellFrame toView:containerView];
         
@@ -129,15 +143,6 @@
         [[toViewController backgroundImageView] setFrame:[[transitionContext containerView] bounds]];
         [containerView insertSubview:toViewController.backgroundImageView atIndex:0];
 
-//        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//            fromViewController.view.alpha = 0;
-//            [transitionImageView setFrame:finalFrame];
-//        } completion:^(BOOL finished) {
-//            toViewController.view.alpha = 1;
-//            fromViewController.view.alpha = 1;
-//            [transitionImageView removeFromSuperview];
-//            [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-//        }];
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:0 animations:^{
             fromViewController.view.alpha = 0;
             [transitionImageView setFrame:finalFrame];
@@ -149,7 +154,7 @@
         }];
     } else {
         UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-        K9PhotoBrowserViewController* fromViewController = (K9PhotoBrowserViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+        K9ResourceBrowserViewController* fromViewController = (K9ResourceBrowserViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
 
         UIView *containerView = [transitionContext containerView];
 
@@ -158,7 +163,9 @@
         toViewController.view.frame = frame;
         toViewController.view.alpha = 0;
         
-        UIImage *image = [UIImage imageNamed:@"SamplePhoto"];
+        
+        // TODO: This assumes that it's a photo resource
+        UIImage *image = [[self.resources objectAtIndex:fromViewController.currentIndex] image];
         
         K9PhotoViewController *photoVC = [[fromViewController viewControllers] firstObject];
         UIView *view = [[[photoVC scrollView] subviews] firstObject];
@@ -181,7 +188,6 @@
         [[transitionContext containerView] insertSubview:fromViewController.backgroundImageView atIndex:0];
 
         fromViewController.view.alpha = 0;
-        
         
         UICollectionViewCell *cell = [[self collectionView] cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromViewController.currentIndex inSection:0]];
         [cell setHidden:YES];
@@ -217,5 +223,9 @@
     CGImageRelease(imageRef);
     return image;
 }
+
+@end
+
+@implementation K9PhotoCollectionViewCell
 
 @end

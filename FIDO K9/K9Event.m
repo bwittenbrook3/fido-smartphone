@@ -10,6 +10,8 @@
 #import "K9ObjectGraph.h"
 #import "K9Dog.h"
 
+#import "K9Photo.h"
+
 #define ID_KEY @"id"
 #define DOG_KEY @"vest_id"
 #define ATTACHMENT_ID @"attachment_id"
@@ -50,6 +52,13 @@
     if((id)event.eventDescription == [NSNull null]) {
         event.eventDescription = nil;
     }
+    
+    // TODO: Get real resources when web API can give them.
+    K9Photo *photo = [K9Photo new];
+    photo.image = [UIImage imageNamed:@"SamplePhoto"];
+    K9Photo *photo2 = [K9Photo new];
+    photo2.image = [UIImage imageNamed:@"SamplePhoto"];
+    event.resources = @[photo, photo2];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];

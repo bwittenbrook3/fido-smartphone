@@ -27,6 +27,8 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 @property (copy) NSDate *updateDate;
 @property (copy, nonatomic) NSArray *associatedDogs;
 
+@property (copy, nonatomic) NSArray *resources;
+
 @property (copy, nonatomic) CLLocation *location;
 
 @end

@@ -9,12 +9,15 @@
 #import "K9EventViewController.h"
 #import "K9Event.h"
 #import <MapKit/MapKit.h>
+#import "K9EventDetailViewController.h"
 
 @interface K9EventViewController ()
 
 @property (strong) IBOutlet UIView *detailContainerView;
 @property (weak) IBOutlet UINavigationBar *subheaderBar;
 @property (weak) IBOutlet MKMapView *mapView;
+
+@property (strong) K9EventDetailViewController *detailsViewController;
 
 @end
 
@@ -29,6 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.detailsViewController = [[self childViewControllers] objectAtIndex:0];
+    self.detailsViewController.event = self.event;
+
     [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     UIView *detailsView = [self detailContainerView];
     [detailsView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
@@ -46,6 +52,7 @@
     _event = event;
     if(self.isViewLoaded) {
         [self updateEventViews];
+        self.detailsViewController.event = self.event;
     }
 }
 

@@ -600,10 +600,10 @@
             </objects>
             <point key="canvasLocation" x="1172" y="834"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Detail View Controller-->
         <scene sceneID="AHf-p7-4TG">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="xhq-e7-QIA" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="xhq-e7-QIA" customClass="K9EventDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QTX-Bx-iil"/>
                         <viewControllerLayoutGuide type="bottom" id="NOA-mn-p2E"/>
@@ -658,10 +658,10 @@
             </objects>
             <point key="canvasLocation" x="1592" y="834"/>
         </scene>
-        <!--Photo Browser Collection View Controller-->
+        <!--Resources Collection View Controller-->
         <scene sceneID="nlP-KC-6lf">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="2CL-qa-oBq" customClass="K9PhotoBrowserCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="2CL-qa-oBq" customClass="K9ResourcesCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="idG-ms-syb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -673,7 +673,7 @@
                             <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="Ejg-cA-SjU">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="Ejg-cA-SjU" customClass="K9PhotoCollectionViewCell">
                                 <rect key="frame" x="5" y="13" width="75" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -696,6 +696,7 @@
                                 </constraints>
                                 <size key="customSize" width="75" height="75"/>
                                 <connections>
+                                    <outlet property="imageView" destination="ILt-Py-zEv" id="yEY-oP-gnn"/>
                                     <segue destination="W05-yl-9l2" kind="push" identifier="selectPhotoSegue" id="9hG-ku-bl0"/>
                                 </connections>
                             </collectionViewCell>
@@ -744,10 +745,10 @@
             </objects>
             <point key="canvasLocation" x="1988" y="834"/>
         </scene>
-        <!--Photo Browser View Controller-->
+        <!--Resource Browser View Controller-->
         <scene sceneID="NWE-Ai-jvJ">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="W05-yl-9l2" customClass="K9PhotoBrowserViewController" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="W05-yl-9l2" customClass="K9ResourceBrowserViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="LvC-bl-qM3"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
