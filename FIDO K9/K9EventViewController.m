@@ -10,14 +10,23 @@
 #import "K9Event.h"
 #import <MapKit/MapKit.h>
 #import "K9EventDetailViewController.h"
+#import "K9Dog.h"
 
-@interface K9EventViewController ()
+#import <objc/runtime.h>
+
+@interface K9EventViewController () <K9EventDetailViewControllerDelegate>
 
 @property (strong) IBOutlet UIView *detailContainerView;
 @property (weak) IBOutlet UINavigationBar *subheaderBar;
 @property (weak) IBOutlet MKMapView *mapView;
 
 @property (strong) K9EventDetailViewController *detailsViewController;
+
+@end
+
+@interface K9DogPath (Renderer)
+
+@property (readonly) MKPolylineRenderer *renderer;
 
 @end
 
@@ -33,6 +42,7 @@
     [super viewDidLoad];
     
     self.detailsViewController = [[self childViewControllers] objectAtIndex:0];
+    self.detailsViewController.delegate = self;
     self.detailsViewController.event = self.event;
     
     self.mapView.delegate = self;
@@ -84,10 +94,43 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if([overlay isKindOfClass:[K9DogPath class]]) {
-        return [(K9DogPath *)overlay overlayRenderer];
+        [[(K9DogPath *)overlay renderer] setAlpha:0.7];
+        return [(K9DogPath *)overlay renderer];
     } else {
         return nil;
     }
 }
 
+- (void)eventDetailViewController:(K9EventDetailViewController *)eventDetail didFocusOnDog:(K9Dog *)dog wasFocusedOnDog:(K9Dog *)oldDog{
+    [UIView animateWithDuration:0.3 animations:^{
+        if(dog) {
+            K9DogPath *path = [[self.event dogPaths] objectAtIndex:[[[self.event dogPaths] valueForKey:@"dog"] indexOfObject:dog]];
+            
+            for(K9DogPath *otherPath in [self.event dogPaths]) {
+                [[otherPath renderer] setAlpha:0.3];
+            }
+            [[path renderer] setAlpha:0.9];
+        } else {
+            for(K9DogPath *path in [self.event dogPaths]) {
+                [[path renderer] setAlpha:0.7];
+            }
+        }
+    }];
+
+}
+
+@end
+
+@implementation K9DogPath (Renderer)
+
+- (MKPolylineRenderer *)renderer {
+    MKPolylineRenderer *renderer = objc_getAssociatedObject(self, _cmd);
+    if(!renderer) {
+        renderer = [[MKPolylineRenderer alloc] initWithPolyline:[self polyline]];
+        [renderer setStrokeColor:[[self dog] color]];
+        objc_setAssociatedObject(self, _cmd, renderer, OBJC_ASSOCIATION_RETAIN);
+    }
+    return renderer;
+
+}
 @end

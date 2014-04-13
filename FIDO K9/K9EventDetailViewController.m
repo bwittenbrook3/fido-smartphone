@@ -8,10 +8,19 @@
 
 #import "K9EventDetailViewController.h"
 #import "K9ResourcesCollectionViewController.h"
+#import "K9DogAvatarViewController.h"
 
-@interface K9EventDetailViewController ()
+#import "K9Event.h"
+#import "K9Dog.h"
+
+@interface UIView (Secret)
+@property (readonly) NSString *recursiveDescription;
+@end
+@interface K9EventDetailViewController () <K9DogAvatarViewControllerDelegate>
 
 @property (strong, nonatomic) K9ResourcesCollectionViewController *resourcesViewController;
+
+@property (weak) IBOutlet UIView *dogAvatarStackView;
 
 @end
 
@@ -29,13 +38,73 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.resourcesViewController = [[self childViewControllers] lastObject];
-    self.resourcesViewController.resources = [self.event resources];
+    
+    if(self.event) {
+        [self reloadEventViews];
+    }
 }
 
 - (void)setEvent:(K9Event *)event {
     if(_event != event) {
         _event = event;
-        self.resourcesViewController.resources = [event resources];
+        if(self.isViewLoaded) [self reloadEventViews];
+    }
+}
+
+- (void)reloadEventViews {
+    self.resourcesViewController.resources = [self.event resources];
+
+    
+    for(UIView *subview in [self.dogAvatarStackView subviews]) {
+        [subview removeFromSuperview];
+    }
+    
+    UIView *previousView = nil;
+    for(K9Dog *dog in [self.event associatedDogs]) {
+        K9DogAvatarViewController *avatarVC = [[self storyboard] instantiateViewControllerWithIdentifier:@"avatarVC"];
+        [avatarVC setDelegate:self];
+        [avatarVC setDog:dog];
+        [self addChildViewController:avatarVC];
+        UIView *avatarView = [avatarVC view];
+        [avatarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.dogAvatarStackView addSubview:avatarView];
+        
+        if(previousView) {
+            [self.dogAvatarStackView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[previousView]-[avatarView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousView, avatarView)]];
+            
+        } else {
+            [self.dogAvatarStackView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[avatarView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(avatarView)]];
+            
+        }
+        [self.dogAvatarStackView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[avatarView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(avatarView)]];
+        previousView = avatarView;
+    }
+    [self.dogAvatarStackView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[previousView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(previousView)]];
+
+}
+
+- (void)dogAvatarViewControllerToggledSelected:(K9DogAvatarViewController *)dogAvatarViewController {
+    if(dogAvatarViewController.selected) {
+        K9DogAvatarViewController *oldSelected = nil;
+        for(id childViewController in [self childViewControllers]) {
+            if([childViewController isKindOfClass:[K9DogAvatarViewController class]] && childViewController != dogAvatarViewController) {
+                [childViewController setSelected:NO];
+                oldSelected = childViewController;
+            }
+        }
+        [self.delegate eventDetailViewController:self didFocusOnDog:dogAvatarViewController.dog wasFocusedOnDog:oldSelected.dog];
+    }
+    
+    if(!dogAvatarViewController.selected) {
+        BOOL anySelected = NO;
+        for(id childViewController in [self childViewControllers]) {
+            if([childViewController isKindOfClass:[K9DogAvatarViewController class]] && [childViewController isSelected]) {
+                anySelected = YES;
+            }
+        }
+        if(!anySelected) {
+            [self.delegate eventDetailViewController:self didFocusOnDog:nil wasFocusedOnDog:dogAvatarViewController.dog];
+        }
     }
 }
 

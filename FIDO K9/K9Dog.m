@@ -25,6 +25,9 @@
     dog.name = [propertyList objectForKey:NAME_KEY];
     dog.officerName = [propertyList objectForKey:OFFICER_NAME_KEY];
     
+    // TODO: Grab URL when web API supports it.
+    dog.image = [UIImage imageNamed:@"Sample Dog Image"];
+    
     // TODO: Do this at some later point once the web APIs supports these kind of queries
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
     [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];

@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CLLocation.h>
 #import <MapKit/MKOverlay.h>
-#import <MapKit/MKOverlayRenderer.h>
 
+@class MKPolyline;
 typedef NS_ENUM(NSInteger, K9EventType) {
     K9EventTypeSuspiciousItem,
     
@@ -46,6 +46,6 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 
 - (void)setCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count;
 
-@property (readonly) MKOverlayRenderer *overlayRenderer;
+@property (readonly) MKPolyline *polyline;
 
 @end

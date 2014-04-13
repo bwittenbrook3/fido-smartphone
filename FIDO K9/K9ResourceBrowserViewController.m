@@ -12,10 +12,6 @@
 #import "UIView+Screenshot.h"
 #import "K9Photo.h"
 
-
-@interface UIView (Secret)
-@property (readonly) NSString *recursiveDescription;
-@end
 @interface K9ResourceBrowserViewController ()
 
 @property (strong) NSMutableDictionary *viewControllerToResourceIndexDictionary;

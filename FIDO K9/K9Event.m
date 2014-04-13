@@ -26,6 +26,8 @@
 #define LATITUDE_KEY @"latitude"
 #define LONGITUDE_KEY @"longitude"
 
+#define RAND ((((float)rand() / RAND_MAX)-0.5)*0.0002)
+
 @implementation K9Event
 
 + (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {    
@@ -45,7 +47,12 @@
             }
         }];
     } else {
-        event.associatedDogs = @[dog];
+        // TODO: Remove the extra test dog when the API supports it
+        K9Dog *dog2 = [K9Dog new];
+        dog2.name = @"Long Dog Name";
+        dog2.image = [UIImage imageNamed:@"Sample Dog Image"];
+        dog2.color = [UIColor blueColor];
+        event.associatedDogs = @[dog, dog2];
     }
 
     event.eventID = [[propertyList valueForKeyPath:ID_KEY] integerValue];
@@ -75,18 +82,24 @@
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     // TODO: Get the real paths when web API can give them
-    K9DogPath *path = [K9DogPath new];
-    path.dog = [event.associatedDogs firstObject];
-    path.event = event;
-    CLLocationCoordinate2D coord = event.location.coordinate;
-    CLLocationCoordinate2D coordinates[4] = {
-        CLLocationCoordinate2DMake(coord.latitude + 0.0005, coord.longitude - 0.0005),
-        CLLocationCoordinate2DMake(coord.latitude + 0.0005, coord.longitude),
-        CLLocationCoordinate2DMake(coord.latitude + 0.0005, coord.longitude + 0.0005),
-        CLLocationCoordinate2DMake(coord.latitude + 0.001, coord.longitude + 0.001)
-    };
-    [path setCoordinates:coordinates count:4];
-    event.dogPaths = @[path];
+    NSMutableArray *paths = [NSMutableArray array];
+    for(K9Dog *dog in event.associatedDogs) {
+        K9DogPath *path = [K9DogPath new];
+        path.dog = dog;
+        path.event = event;
+        NSUInteger numCoordinates = arc4random_uniform(50) + 2;
+        CLLocationCoordinate2D coordinates[numCoordinates];
+        for(int i = 0; i < numCoordinates; i++) {
+            CLLocationCoordinate2D lastCoord = CLLocationCoordinate2DMake(event.location.coordinate.latitude + RAND, event.location.coordinate.longitude + RAND);
+            if(i != 0) {
+                lastCoord = coordinates[i - 1];
+            }
+            coordinates[i] = CLLocationCoordinate2DMake(lastCoord.latitude + RAND, lastCoord.longitude + RAND);
+        }
+        [path setCoordinates:coordinates count:numCoordinates];
+        [paths addObject:path];
+    }
+    event.dogPaths = paths;
 
     
     return event;
@@ -97,15 +110,19 @@
 @implementation K9DogPath {
     __strong MKPolyline *polyline;
 }
+/*
+MKMapPoint *points = self.points;
+NSData *pointData = [NSData dataWithBytes:points length:self.pointCount * sizeof(MKMapPoint)];
+[aCoder encodeObject:pointData forKey:@"points"];
+
+NSData *pointData = [aCode decodeObjectForKey:@"points"];
+MKMapPoint *points = malloc(pointData.length);
+memcpy([pointData bytes], points);
+self.points = points;
+ */
 
 - (void)setCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count {
     polyline = [MKPolyline polylineWithCoordinates:coordinates count:count];
-}
-
-- (MKOverlayRenderer *)overlayRenderer {
-    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
-    [renderer setStrokeColor:[[[self dog] color] colorWithAlphaComponent:0.7]];
-    return renderer;
 }
 
 - (CLLocationCoordinate2D)coordinate {
@@ -118,6 +135,10 @@
 
 - (BOOL)intersectsMapRect:(MKMapRect)mapRect {
     return [polyline intersectsMapRect:mapRect];
+}
+
+- (MKPolyline *)polyline {
+    return polyline;
 }
 
 @end
