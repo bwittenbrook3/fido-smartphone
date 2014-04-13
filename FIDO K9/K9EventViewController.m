@@ -26,7 +26,8 @@
 
 @interface K9DogPath (Renderer)
 
-@property (readonly) MKPolylineRenderer *renderer;
+@property (readonly, retain) MKPolylineRenderer *renderer;
+- (void)clearRenderer;
 
 @end
 
@@ -68,6 +69,12 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    for(K9DogPath *path in self.event.dogPaths) {
+        [path clearRenderer];
+    }
+}
+
 - (void)updateEventViews {
     self.navigationItem.title = [self.event title];
     
@@ -94,8 +101,9 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if([overlay isKindOfClass:[K9DogPath class]]) {
-        [[(K9DogPath *)overlay renderer] setAlpha:0.7];
-        return [(K9DogPath *)overlay renderer];
+        MKPolylineRenderer *renderer = [(K9DogPath *)overlay renderer];
+        [renderer setAlpha:0.7];
+        return renderer;
     } else {
         return nil;
     }
@@ -124,13 +132,17 @@
 @implementation K9DogPath (Renderer)
 
 - (MKPolylineRenderer *)renderer {
-    MKPolylineRenderer *renderer = objc_getAssociatedObject(self, _cmd);
+    MKPolylineRenderer *renderer = objc_getAssociatedObject(self, @selector(renderer));
     if(!renderer) {
         renderer = [[MKPolylineRenderer alloc] initWithPolyline:[self polyline]];
         [renderer setStrokeColor:[[self dog] color]];
-        objc_setAssociatedObject(self, _cmd, renderer, OBJC_ASSOCIATION_RETAIN);
+        objc_setAssociatedObject(self, @selector(renderer), renderer, OBJC_ASSOCIATION_RETAIN);
     }
     return renderer;
-
 }
+
+- (void)clearRenderer {
+    objc_setAssociatedObject(self, @selector(renderer), nil, OBJC_ASSOCIATION_RETAIN);
+}
+
 @end

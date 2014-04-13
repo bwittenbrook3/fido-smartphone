@@ -11,11 +11,11 @@
 #define THUMBNAIL_SIZE CGSizeMake(100, 100)
 
 @implementation K9Photo
+@synthesize thumbnail = _thumbnail;
 
 - (void)setImage:(UIImage *)image {
     if(_image != image) {
         _image = image;
-        [self performSelector:@selector(_generateThumbnail) withObject:nil afterDelay:0.2];
     }
 }
 
@@ -23,14 +23,14 @@
     if(_thumbnail != thumbnail) {
         _thumbnail = thumbnail;
     }
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_generateThumbnail) object:nil];
 }
 
-- (void)_generateThumbnail {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-                                             (unsigned long)NULL), ^(void) {
+- (UIImage *)thumbnail {
+    if(!_thumbnail) {
+//        return _image;
         [self setThumbnail:[K9Photo imageWithImage:_image scaledToFillSize:THUMBNAIL_SIZE]];
-    });
+    }
+    return _thumbnail;
 }
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size {
