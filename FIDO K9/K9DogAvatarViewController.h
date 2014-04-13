@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class K9Dog;
+@class K9Dog, K9CircularBorderImageView;
 @protocol K9DogAvatarViewControllerDelegate;
 
 @interface K9DogAvatarViewController : UIViewController
@@ -16,7 +16,7 @@
 
 @property (weak) id<K9DogAvatarViewControllerDelegate> delegate;
 
-@property (weak) IBOutlet UIImageView *avatarImageView;
+@property (weak) IBOutlet K9CircularBorderImageView *avatarImageView;
 @property (weak) IBOutlet UILabel *nameLabel;
 
 @property (strong, nonatomic) K9Dog *dog;
@@ -29,5 +29,13 @@
 
 @required
 - (void)dogAvatarViewControllerToggledSelected:(K9DogAvatarViewController *)dogAvatarViewController;
+
+@end
+
+@interface K9CircularBorderImageView : UIView
+
+@property (copy) UIImage *image;
+@property (copy) UIColor *borderColor;
+@property CGFloat borderWidth;
 
 @end

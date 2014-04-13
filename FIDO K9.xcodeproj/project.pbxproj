@@ -11,6 +11,7 @@
 		3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40518F9F5750098F6C8 /* K9Photo.m */; };
 		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
 		3437B40F18FB1C5D0098F6C8 /* K9DogAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */; };
+		3437B41118FB379B0098F6C8 /* TestDog.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3437B41018FB379B0098F6C8 /* TestDog.jpg */; };
 		3441347518F249650050B30F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3441347418F249650050B30F /* MapKit.framework */; };
 		3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */; };
 		34418A7C18EF214C00F1D2A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7B18EF214C00F1D2A1 /* Foundation.framework */; };
@@ -98,6 +99,7 @@
 		3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventDetailViewController.m; sourceTree = "<group>"; };
 		3437B40D18FB1C5D0098F6C8 /* K9DogAvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogAvatarViewController.h; sourceTree = "<group>"; };
 		3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogAvatarViewController.m; sourceTree = "<group>"; };
+		3437B41018FB379B0098F6C8 /* TestDog.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TestDog.jpg; sourceTree = "<group>"; };
 		3441347418F249650050B30F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3441347618F24B5F0050B30F /* K9ResourcesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9ResourcesCollectionViewController.h; sourceTree = "<group>"; };
 		3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9ResourcesCollectionViewController.m; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				348D9F3818EF34A20051C9C8 /* ViewControllers */,
 				345EE02A18F1AB4600BC8581 /* Model */,
 				34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */,
+				3437B41018FB379B0098F6C8 /* TestDog.jpg */,
 				34418A8D18EF214C00F1D2A1 /* Images.xcassets */,
 				34418A8218EF214C00F1D2A1 /* Supporting Files */,
 			);
@@ -612,6 +615,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3437B41118FB379B0098F6C8 /* TestDog.jpg in Resources */,
 				34418AAB18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard in Resources */,
 				34418A8618EF214C00F1D2A1 /* InfoPlist.strings in Resources */,
 				34418A8E18EF214C00F1D2A1 /* Images.xcassets in Resources */,
