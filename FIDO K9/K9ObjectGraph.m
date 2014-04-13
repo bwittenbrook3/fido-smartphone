@@ -71,14 +71,14 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
     [self.sessionManager GET:@"events.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSMutableArray *events = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
         for(NSDictionary *eventDictionary in responseObject) {
-            // TODO: Don't create the event if we already have it.. update it?
-            K9Event *event = [K9Event eventWithPropertyList:eventDictionary];
-            if(event) {
-                [events addObject:event];
-                if(![[self eventDictionary] objectForKey:@([event eventID])]) {
-                    [[self eventDictionary] setObject:event forKey:@([event eventID])];
+            if(![[self eventDictionary] objectForKey:[eventDictionary objectForKey:@"id"]]) {
+                // TODO: Don't create the event if we already have it.. update it?
+                K9Event *event = [K9Event eventWithPropertyList:eventDictionary];
+                if(event) {
+                    if(![[self eventDictionary] objectForKey:@([event eventID])]) {
+                        [[self eventDictionary] setObject:event forKey:@([event eventID])];
+                    }
                 }
             }
         }

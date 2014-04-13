@@ -34,6 +34,8 @@
     
     self.detailsViewController = [[self childViewControllers] objectAtIndex:0];
     self.detailsViewController.event = self.event;
+    
+    self.mapView.delegate = self;
 
     [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     UIView *detailsView = [self detailContainerView];
@@ -57,29 +59,35 @@
 }
 
 - (void)updateEventViews {
-//    [self.mapView setRegion:MKCoordinateRegionMake(self.event.location.coordinate, MKCoordinateSpanMake(0.005, 0.005))];
-    [self setLocation:self.event.location.coordinate inBottomCenterOfMapView:self.mapView];
-    MKPointAnnotation *pa = [[MKPointAnnotation alloc] init];
-    pa.coordinate = self.event.location.coordinate;
-    pa.title = self.event.title;
-    pa.subtitle = self.event.description;
-    [self.mapView addAnnotation:pa];
     self.navigationItem.title = [self.event title];
+    
+    [self setLocation:self.event.location.coordinate inBottomCenterOfMapView:self.mapView];
+//    MKPointAnnotation *pa = [[MKPointAnnotation alloc] init];
+//    pa.coordinate = self.event.location.coordinate;
+//    pa.title = self.event.title;
+//    pa.subtitle = self.event.description;
+//    [self.mapView addAnnotation:pa];
+    
+    for(K9DogPath *path in self.event.dogPaths) {
+        [self.mapView addOverlay:path];
+    }
 }
 
 -(void)setLocation:(CLLocationCoordinate2D)location inBottomCenterOfMapView:(MKMapView*)mapView {
-    //Get the region (with the location centered) and the center point of that region
     MKCoordinateRegion oldRegion = [mapView regionThatFits:MKCoordinateRegionMakeWithDistance(location, 200, 200)];
     CLLocationCoordinate2D centerPointOfOldRegion = oldRegion.center;
-    
-    //Create a new center point (I added a quarter of oldRegion's latitudinal span)
+    //We want it to be 2/3 of the way down. 1/6 = 2/3 - 1/2
     CLLocationCoordinate2D centerPointOfNewRegion = CLLocationCoordinate2DMake(centerPointOfOldRegion.latitude + oldRegion.span.latitudeDelta/6.0, centerPointOfOldRegion.longitude);
-    
-    //Create a new region with the new center point (same span as oldRegion)
     MKCoordinateRegion newRegion = MKCoordinateRegionMake(centerPointOfNewRegion, oldRegion.span);
-    
-    //Set the mapView's region
     [mapView setRegion:newRegion animated:YES];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    if([overlay isKindOfClass:[K9DogPath class]]) {
+        return [(K9DogPath *)overlay overlayRenderer];
+    } else {
+        return nil;
+    }
 }
 
 @end

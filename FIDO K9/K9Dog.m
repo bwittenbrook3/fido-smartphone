@@ -29,6 +29,8 @@
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
     [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];
     
+    dog.color = [UIColor redColor];
+    
     return dog;
 }
 

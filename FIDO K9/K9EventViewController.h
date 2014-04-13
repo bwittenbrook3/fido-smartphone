@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @class K9Event;
-@interface K9EventViewController : UIViewController
+@interface K9EventViewController : UIViewController <MKMapViewDelegate>
 
 @property (strong, nonatomic) K9Event *event;
 

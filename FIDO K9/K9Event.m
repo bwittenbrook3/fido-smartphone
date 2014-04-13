@@ -12,6 +12,8 @@
 
 #import "K9Photo.h"
 
+#import <MapKit/MapKit.h>
+
 #define ID_KEY @"id"
 #define DOG_KEY @"vest_id"
 #define ATTACHMENT_ID @"attachment_id"
@@ -72,7 +74,50 @@
     longitude = -84.392942;
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
+    // TODO: Get the real paths when web API can give them
+    K9DogPath *path = [K9DogPath new];
+    path.dog = [event.associatedDogs firstObject];
+    path.event = event;
+    CLLocationCoordinate2D coord = event.location.coordinate;
+    CLLocationCoordinate2D coordinates[4] = {
+        CLLocationCoordinate2DMake(coord.latitude + 0.0005, coord.longitude - 0.0005),
+        CLLocationCoordinate2DMake(coord.latitude + 0.0005, coord.longitude),
+        CLLocationCoordinate2DMake(coord.latitude + 0.0005, coord.longitude + 0.0005),
+        CLLocationCoordinate2DMake(coord.latitude + 0.001, coord.longitude + 0.001)
+    };
+    [path setCoordinates:coordinates count:4];
+    event.dogPaths = @[path];
+
+    
     return event;
+}
+
+@end
+
+@implementation K9DogPath {
+    __strong MKPolyline *polyline;
+}
+
+- (void)setCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count {
+    polyline = [MKPolyline polylineWithCoordinates:coordinates count:count];
+}
+
+- (MKOverlayRenderer *)overlayRenderer {
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
+    [renderer setStrokeColor:[[[self dog] color] colorWithAlphaComponent:0.7]];
+    return renderer;
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    return [polyline coordinate];
+}
+
+- (MKMapRect)boundingMapRect {
+    return [polyline boundingMapRect];
+}
+
+- (BOOL)intersectsMapRect:(MKMapRect)mapRect {
+    return [polyline intersectsMapRect:mapRect];
 }
 
 @end

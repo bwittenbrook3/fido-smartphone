@@ -15,7 +15,7 @@
 - (void)setImage:(UIImage *)image {
     if(_image != image) {
         _image = image;
-        [self performSelector:@selector(_generateThumbnail) withObject:nil afterDelay:1.0];
+        [self performSelector:@selector(_generateThumbnail) withObject:nil afterDelay:0.2];
     }
 }
 
@@ -27,7 +27,10 @@
 }
 
 - (void)_generateThumbnail {
-    [self setThumbnail:[K9Photo imageWithImage:_image scaledToFillSize:THUMBNAIL_SIZE]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
+        [self setThumbnail:[K9Photo imageWithImage:_image scaledToFillSize:THUMBNAIL_SIZE]];
+    });
 }
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size {

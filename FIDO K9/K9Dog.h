@@ -20,4 +20,8 @@
 
 @property (copy, nonatomic) NSString *officerName;
 
+
+@property (copy, nonatomic) UIColor *color;
+
+
 @end

@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CLLocation.h>
+#import <MapKit/MKOverlay.h>
+#import <MapKit/MKOverlayRenderer.h>
 
 typedef NS_ENUM(NSInteger, K9EventType) {
     K9EventTypeSuspiciousItem,
     
 };
 
+@class K9Dog;
 @interface K9Event : NSObject
 
 + (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList;
@@ -27,8 +30,22 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 @property (copy) NSDate *updateDate;
 @property (copy, nonatomic) NSArray *associatedDogs;
 
+@property (copy, nonatomic) NSArray *dogPaths;
+
 @property (copy, nonatomic) NSArray *resources;
 
 @property (copy, nonatomic) CLLocation *location;
+
+@end
+
+
+@interface K9DogPath : NSObject <MKOverlay>
+
+@property (weak) K9Event *event;
+@property (weak) K9Dog *dog;
+
+- (void)setCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count;
+
+@property (readonly) MKOverlayRenderer *overlayRenderer;
 
 @end
