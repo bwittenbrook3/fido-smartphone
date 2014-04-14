@@ -12,6 +12,7 @@
 		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
 		3437B40F18FB1C5D0098F6C8 /* K9DogAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */; };
 		3437B41118FB379B0098F6C8 /* TestDog.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3437B41018FB379B0098F6C8 /* TestDog.jpg */; };
+		3437B41418FB8BCB0098F6C8 /* K9TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B41318FB8BCB0098F6C8 /* K9TrainingViewController.m */; };
 		3441347518F249650050B30F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3441347418F249650050B30F /* MapKit.framework */; };
 		3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */; };
 		34418A7C18EF214C00F1D2A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34418A7B18EF214C00F1D2A1 /* Foundation.framework */; };
@@ -100,6 +101,8 @@
 		3437B40D18FB1C5D0098F6C8 /* K9DogAvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogAvatarViewController.h; sourceTree = "<group>"; };
 		3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogAvatarViewController.m; sourceTree = "<group>"; };
 		3437B41018FB379B0098F6C8 /* TestDog.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TestDog.jpg; sourceTree = "<group>"; };
+		3437B41218FB8BCB0098F6C8 /* K9TrainingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9TrainingViewController.h; sourceTree = "<group>"; };
+		3437B41318FB8BCB0098F6C8 /* K9TrainingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9TrainingViewController.m; sourceTree = "<group>"; };
 		3441347418F249650050B30F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3441347618F24B5F0050B30F /* K9ResourcesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9ResourcesCollectionViewController.h; sourceTree = "<group>"; };
 		3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9ResourcesCollectionViewController.m; sourceTree = "<group>"; };
@@ -483,6 +486,8 @@
 		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3437B41218FB8BCB0098F6C8 /* K9TrainingViewController.h */,
+				3437B41318FB8BCB0098F6C8 /* K9TrainingViewController.m */,
 				34D820B618F071AE0098D7EC /* Event List + Details */,
 				34D820B518F0719C0098D7EC /* Dog List + Details */,
 			);
@@ -689,6 +694,7 @@
 				345EE09A18F1C32400BC8581 /* PTPusherChannel.m in Sources */,
 				345EE09718F1C32400BC8581 /* PTPusher+Testing.m in Sources */,
 				34D820B918F093540098D7EC /* K9EventViewController.m in Sources */,
+				3437B41418FB8BCB0098F6C8 /* K9TrainingViewController.m in Sources */,
 				34E4CBFC18F9E85B00CE61CF /* K9Attachment.m in Sources */,
 				3437B40F18FB1C5D0098F6C8 /* K9DogAvatarViewController.m in Sources */,
 				345EE06518F1AFAC00BC8581 /* UIAlertView+AFNetworking.m in Sources */,

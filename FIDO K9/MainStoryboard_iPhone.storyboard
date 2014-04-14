@@ -18,6 +18,7 @@
                     <connections>
                         <segue destination="6li-uA-vZT" kind="relationship" relationship="viewControllers" id="fmL-kK-C7c"/>
                         <segue destination="433-Cl-9KS" kind="relationship" relationship="viewControllers" id="4db-19-WNZ"/>
+                        <segue destination="MmM-ap-NQ7" kind="relationship" relationship="viewControllers" id="GtA-GG-IZU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PQF-tF-hP4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -275,6 +276,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iW3-9J-QmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="192" y="834"/>
+        </scene>
+        <!--Training View Controller - Training-->
+        <scene sceneID="Fm8-eL-ZNF">
+            <objects>
+                <viewController id="MmM-ap-NQ7" customClass="K9TrainingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bQa-sG-nCr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Oxu-dv-7Dc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Btt-IU-0LY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Training" image="Whistle" id="3LJ-eC-ChA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ank-3f-SKY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="208" y="1522"/>
         </scene>
         <!--Dog Detail View Controller-->
         <scene sceneID="Zpj-Kc-61Y">
@@ -626,11 +646,11 @@
                                     <segue destination="2CL-qa-oBq" kind="embed" id="r91-Zy-O5X"/>
                                 </connections>
                             </containerView>
-                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-1G-jA6">
+                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-1G-jA6">
                                 <rect key="frame" x="138" y="5" width="45" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <constraints>
@@ -926,6 +946,7 @@
         <image name="K9s Tab Bar Unselected Template" width="30" height="29"/>
         <image name="Sample Dog Image" width="45" height="45"/>
         <image name="SamplePhoto" width="1224" height="1632"/>
+        <image name="Whistle" width="34" height="26"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

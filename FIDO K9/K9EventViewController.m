@@ -200,13 +200,12 @@
             CGRect frame = [button frame];
             frame.size.width -= 10;
             frame.origin.x += 5;
+            frame.size.height += 1;
             [button setFrame:frame];
             
             UIRectCorner corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopLeft | UIRectCornerTopRight);
             if([[button titleForState:UIControlStateNormal] isEqualToString:@"Take Photo"]) {
                 corners = UIRectCornerTopLeft | UIRectCornerTopRight;
-                frame.size.height += 1;
-                [button setFrame:frame];
             } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Record Audio"]) {
                 corners = UIRectCornerBottomLeft | UIRectCornerBottomRight;
             }
