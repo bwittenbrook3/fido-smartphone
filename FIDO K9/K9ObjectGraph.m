@@ -12,6 +12,10 @@
 #import "K9Attachment.h"
 #import "K9Event.h"
 
+
+NSString *const K9EventWasAddedNotification = @"K9EventWasAddedNotification";
+NSString *const K9ModifiedEventKey = @"K9ModifiedEventKey";
+
 static NSString * const baseURLString = @"http://fido-api.herokuapp.com/api/";
 static NSString * const fidoUsername = @"FiDo";
 static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
@@ -121,8 +125,11 @@ static K9ObjectGraph *sharedObjectGraph = nil;
             responseObject = [responseObject objectAtIndex:0];
         }
         K9Event *event = [K9Event eventWithPropertyList:responseObject];
-        if(event) {
+        if(event && ![[self eventDictionary] objectForKey:@([event eventID])]) {
             [[self eventDictionary] setObject:event forKey:@([event eventID])];
+            
+            NSDictionary *userInfo = @{K9ModifiedEventKey: event};
+            [[NSNotificationCenter defaultCenter] postNotificationName:K9EventWasAddedNotification object:self userInfo:userInfo];
         }
         if(completionHandler) completionHandler(event);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

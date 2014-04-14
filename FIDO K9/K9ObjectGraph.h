@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @class K9Event, K9Dog;
+
+
+extern NSString *const K9EventWasAddedNotification;
+extern NSString *const K9ModifiedEventKey;
+
 @interface K9ObjectGraph : NSObject
 
 + (K9ObjectGraph *)sharedObjectGraph;
-
 
 - (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler;
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler;

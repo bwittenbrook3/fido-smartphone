@@ -36,8 +36,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setClearsSelectionOnViewWillAppear:YES];
-    
-    
+
     self.dogs = sortDogs([[K9ObjectGraph sharedObjectGraph] fetchAllDogsWithCompletionHandler:^(NSArray *dogs) {
         self.dogs = sortDogs(dogs);
         [[self tableView] reloadData];

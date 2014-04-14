@@ -32,6 +32,11 @@ static inline NSArray *sortEvents(NSArray *events) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:K9EventWasAddedNotification object:[K9ObjectGraph sharedObjectGraph] queue:nil usingBlock:^(NSNotification *note) {
+        self.events = sortEvents([[K9ObjectGraph sharedObjectGraph] allEvents]);
+        [[self tableView] insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
     if(!self.events) {
         self.events = sortEvents([[K9ObjectGraph sharedObjectGraph] fetchAllEventsWithCompletionHandler:^(NSArray *events) {
             self.events = sortEvents(events);

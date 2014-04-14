@@ -110,7 +110,6 @@
             localNotif.soundName = UILocalNotificationDefaultSoundName;
             localNotif.userInfo = @{LOCAL_NOTIFICATION_EVENT_ID_KEY: @(eventID)};
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-        } else {
         }
     }];
 }
