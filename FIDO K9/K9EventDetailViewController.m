@@ -46,9 +46,17 @@
 
 - (void)setEvent:(K9Event *)event {
     if(_event != event) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:K9EventDidModifyResourcesNotification object:_event];
         _event = event;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventDidModifyResources:) name:K9EventDidModifyResourcesNotification object:_event];
+        
         if(self.isViewLoaded) [self reloadEventViews];
     }
+}
+
+- (void)eventDidModifyResources:(NSNotification *)notification {
+    self.resourcesViewController.resources = [[notification object] resources];
+    NSLog(@"updating resources");
 }
 
 - (void)reloadEventViews {

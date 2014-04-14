@@ -16,6 +16,9 @@ typedef NS_ENUM(NSInteger, K9EventType) {
     
 };
 
+
+extern NSString *const K9EventDidModifyResourcesNotification;
+
 @class K9Dog;
 @interface K9Event : NSObject
 
@@ -33,6 +36,7 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 @property (copy, nonatomic) NSArray *dogPaths;
 
 @property (copy, nonatomic) NSArray *resources;
+- (void)addResource:(id)resource;
 
 @property (copy, nonatomic) CLLocation *location;
 

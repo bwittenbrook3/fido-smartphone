@@ -557,7 +557,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgX-xc-Pdi">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="-10" y="0.0" width="340" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
                             <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Ws0-vw-NFr" userLabel="Info Bar">
@@ -570,18 +570,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="cgX-xc-Pdi" secondAttribute="trailing" id="161-fh-z3k"/>
+                            <constraint firstAttribute="trailing" secondItem="cgX-xc-Pdi" secondAttribute="trailing" constant="-10" id="161-fh-z3k"/>
                             <constraint firstItem="Ws0-vw-NFr" firstAttribute="leading" secondItem="QhM-fd-PuE" secondAttribute="leading" id="3jC-ja-aKL"/>
                             <constraint firstItem="Ws0-vw-NFr" firstAttribute="top" secondItem="cgX-xc-Pdi" secondAttribute="top" constant="64" id="8mw-BB-eWG"/>
-                            <constraint firstItem="cgX-xc-Pdi" firstAttribute="leading" secondItem="QhM-fd-PuE" secondAttribute="leading" id="ABd-aN-ffO"/>
-                            <constraint firstItem="1MI-4f-gBM" firstAttribute="top" secondItem="cgX-xc-Pdi" secondAttribute="bottom" id="H1b-Dg-6gX"/>
+                            <constraint firstItem="cgX-xc-Pdi" firstAttribute="leading" secondItem="QhM-fd-PuE" secondAttribute="leading" constant="-10" id="ABd-aN-ffO"/>
                             <constraint firstAttribute="trailing" secondItem="Ws0-vw-NFr" secondAttribute="trailing" id="SCF-Hr-Jgb"/>
                             <constraint firstItem="cgX-xc-Pdi" firstAttribute="top" secondItem="QhM-fd-PuE" secondAttribute="top" id="kfV-5w-Ryi"/>
+                            <constraint firstAttribute="bottom" secondItem="cgX-xc-Pdi" secondAttribute="bottom" id="tWf-jL-130"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event" id="HZh-6Q-QPP">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="jR6-2p-8FC"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="jR6-2p-8FC">
+                            <connections>
+                                <action selector="showActions:" destination="cxK-C6-StQ" id="Qey-5x-kmL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="detailContainerView" destination="rOx-le-DXB" id="qEi-gc-ttc"/>
                         <outlet property="mapView" destination="cgX-xc-Pdi" id="FDD-1z-VYG"/>
@@ -596,7 +601,6 @@
                         <segue destination="xhq-e7-QIA" kind="embed" id="JoI-z6-UIx"/>
                     </connections>
                 </containerView>
-                <barButtonItem systemItem="done" id="450-UN-1AH"/>
             </objects>
             <point key="canvasLocation" x="1172" y="834"/>
         </scene>

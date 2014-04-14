@@ -28,6 +28,8 @@
 
 #define RAND ((((float)rand() / RAND_MAX)-0.5)*0.0002)
 
+NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResourcesNotification";
+
 @implementation K9Event
 
 + (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {    
@@ -103,6 +105,12 @@
 
     
     return event;
+}
+
+- (void)addResource:(id)resource {
+    // TODO: Upload to server when web API supports it.
+    self.resources = [self.resources arrayByAddingObject:resource];
+    [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self];
 }
 
 @end

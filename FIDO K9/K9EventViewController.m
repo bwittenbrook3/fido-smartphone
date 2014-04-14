@@ -11,16 +11,24 @@
 #import <MapKit/MapKit.h>
 #import "K9EventDetailViewController.h"
 #import "K9Dog.h"
+#import "K9Photo.h"
 
 #import <objc/runtime.h>
 
-@interface K9EventViewController () <K9EventDetailViewControllerDelegate>
+@interface K9EventViewController () <K9EventDetailViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong) IBOutlet UIView *detailContainerView;
 @property (weak) IBOutlet UINavigationBar *subheaderBar;
 @property (weak) IBOutlet MKMapView *mapView;
 
 @property (strong) K9EventDetailViewController *detailsViewController;
+@property (strong) UIMotionEffectGroup *mapEffects;
+
+@end
+
+@interface UIButton (ColorForState)
+
+- (void)setColor:(UIColor *)color forState:(UIControlState)state;
 
 @end
 
@@ -47,6 +55,21 @@
     self.detailsViewController.event = self.event;
     
     self.mapView.delegate = self;
+    
+    UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
+                                                                                                        type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    verticalMotionEffect.minimumRelativeValue = @(25);
+    verticalMotionEffect.maximumRelativeValue = @(-25);
+    UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
+                                                                                                          type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    horizontalMotionEffect.minimumRelativeValue = @(12);
+    horizontalMotionEffect.maximumRelativeValue = @(-12);
+    
+    UIMotionEffectGroup *group = [UIMotionEffectGroup new];
+    group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+    self.mapEffects = group;
+    [self.mapView addMotionEffect:group];
+
 
     [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     UIView *detailsView = [self detailContainerView];
@@ -69,9 +92,12 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    for(K9DogPath *path in self.event.dogPaths) {
-        [path clearRenderer];
+- (void)viewWillDisappear:(BOOL)animated {
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if([viewControllers indexOfObject:(self)] == NSNotFound) {
+        for(K9DogPath *path in self.event.dogPaths) {
+            [path clearRenderer];
+        }
     }
 }
 
@@ -127,6 +153,106 @@
 
 }
 
+- (IBAction)showActions:(id)sender {
+    UIActionSheet *sheet;
+    sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                        delegate:self
+                               cancelButtonTitle:@"Cancel"
+                          destructiveButtonTitle:nil
+                               otherButtonTitles:@"Take Photo", @"Record Audio", nil];
+    [sheet showFromBarButtonItem:sender animated:YES];
+    [self.mapView removeMotionEffect:self.mapEffects];
+}
+
+- (void)recordAudio {
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            [self takePhoto];
+            break;
+        case 1:
+            [self recordAudio];
+            break;
+        default:
+            break;
+    }
+    [self.mapView addMotionEffect:self.mapEffects];
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+    UIColor *textColor = [[[[UIApplication sharedApplication] windows] firstObject] tintColor];
+    UIColor *backgroundColor = [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:150.0];
+    for (UIView *subview in actionSheet.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            
+            for(UIView *buttonSubview in subview.subviews) {
+                if (![buttonSubview isKindOfClass:[UILabel class]]) {
+                    [buttonSubview setHidden:YES];
+                }
+            }
+            
+            UIButton *button = (UIButton *)subview;
+            [button setColor:backgroundColor forState:UIControlStateNormal];
+            [button setClipsToBounds:YES];
+            CGRect frame = [button frame];
+            frame.size.width -= 10;
+            frame.origin.x += 5;
+            [button setFrame:frame];
+            
+            UIRectCorner corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopLeft | UIRectCornerTopRight);
+            if([[button titleForState:UIControlStateNormal] isEqualToString:@"Take Photo"]) {
+                corners = UIRectCornerTopLeft | UIRectCornerTopRight;
+                frame.size.height += 1;
+                [button setFrame:frame];
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Record Audio"]) {
+                corners = UIRectCornerBottomLeft | UIRectCornerBottomRight;
+            }
+            
+            
+            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:button.bounds byRoundingCorners:corners cornerRadii:CGSizeMake(4.0, 4.0)];
+            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+            maskLayer.frame = button.bounds;
+            maskLayer.path = maskPath.CGPath;
+            button.layer.mask = maskLayer;
+            
+            
+            [button setTitleColor:textColor forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (void)takePhoto {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = nil;
+    if([info objectForKey:UIImagePickerControllerEditedImage]) {
+        image = [info objectForKey:UIImagePickerControllerEditedImage];
+    } else {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    K9Photo *photo = [K9Photo new];
+    photo.image = image;
+    [self.event addResource:photo];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+}
+
+
 @end
 
 @implementation K9DogPath (Renderer)
@@ -143,6 +269,23 @@
 
 - (void)clearRenderer {
     objc_setAssociatedObject(self, @selector(renderer), nil, OBJC_ASSOCIATION_RETAIN);
+}
+
+@end
+
+@implementation UIButton (ColorForState)
+
+- (void)setColor:(UIColor *)color forState:(UIControlState)state {
+    UIView *colorView = [[UIView alloc] initWithFrame:self.frame];
+    colorView.backgroundColor = color;
+    
+    UIGraphicsBeginImageContext(colorView.bounds.size);
+    [colorView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self setBackgroundImage:colorImage forState:state];
 }
 
 @end
