@@ -23,6 +23,8 @@
 @property (weak) IBOutlet UITableViewCell *attachmentsTableViewCell;
 @property (weak) IBOutlet NSLayoutConstraint *attachmentsTableViewCellTrailingConstraint;
 
+@property (weak) IBOutlet UILabel *ageLabel;
+
 @end
 
 @implementation K9DogDetailViewController
@@ -51,7 +53,9 @@
 }
 
 - (void)loadDogViews {
+    [self.statusLabel setText:[self.dog status]];
     [self.officerNameLabel setText:[self.dog officerName]];
+    [self.ageLabel setText:[self.dog formattedAge]];
     [self.recentEventCountLabel setText:[NSString stringWithFormat:@"%ld", [[self.dog events] count]]];
     if([[self.dog events] count]) {
         [self.recentEventTableViewCell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];

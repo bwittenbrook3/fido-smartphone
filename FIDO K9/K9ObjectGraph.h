@@ -22,6 +22,7 @@
 
 @property (readonly, nonatomic) NSArray *allEvents;
 @property (readonly, nonatomic) NSArray *allDogs;
+@property (readonly, nonatomic) NSArray *allAttachments;
 
 - (K9Event *)eventWithID:(NSInteger)eventID;
 - (K9Dog *)dogWithID:(NSInteger)eventID;

@@ -25,6 +25,10 @@
     dog.name = [propertyList objectForKey:NAME_KEY];
     dog.officerName = [propertyList objectForKey:OFFICER_NAME_KEY];
     
+    // TODO: Get this from the web API when it supports it
+    dog.ageInMonths = 33;
+    dog.status = @"Patrolling";
+    
     // TODO: Do this at some later point once the web APIs supports these kind of queries
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
     [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];
@@ -38,6 +42,29 @@
     
     return dog;
 }
+
+- (NSString *)formattedAge {
+    NSUInteger years = self.ageInMonths/12;
+    NSUInteger months = self.ageInMonths%12;
+    
+    NSString *formattedAge;
+    
+    NSString *yearString = years == 1 ? @"year" : @"years";
+    NSString *monthString = months == 1 ? @"month" : @"months";
+    
+    if(years) {
+        if(months) {
+            formattedAge = [NSString stringWithFormat:@"%d %@, %d %@", (int)years, yearString, (int)months, monthString];
+        } else {
+            formattedAge = [NSString stringWithFormat:@"%d %@", (int)years, yearString];
+        }
+    } else {
+        formattedAge = [NSString stringWithFormat:@"%d %@", (int)months, monthString];
+    }
+    
+    return formattedAge;
+}
+
 
 - (NSArray *)events {
     return [[K9ObjectGraph sharedObjectGraph] eventsForDogWithID:self.dogID];

@@ -8,6 +8,7 @@
 
 #import "K9AttachmentListViewController.h"
 #import "K9Attachment.h"
+#import "K9ObjectGraph.h"
 
 @interface K9AttachmentListViewController ()
 
@@ -26,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.possibleAttachments = [[K9ObjectGraph sharedObjectGraph] allAttachments];
     
     // Since the table view has such a light background, we shouldn't use yellow for the checkmarks.
     // If this ever gets a dark theme, we should respect the inherited tint color

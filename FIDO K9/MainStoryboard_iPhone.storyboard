@@ -635,6 +635,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="ageLabel" destination="kGF-dT-vFi" id="iRp-rk-cCC"/>
                         <outlet property="attachmentsCountLabel" destination="NxJ-lY-v0x" id="83d-LS-THc"/>
                         <outlet property="attachmentsTableViewCell" destination="XA3-W5-T5v" id="Efv-Ji-OCu"/>
                         <outlet property="attachmentsTableViewCellTrailingConstraint" destination="Qmj-3y-APr" id="AW5-pB-XyL"/>

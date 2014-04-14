@@ -15,13 +15,18 @@
 @property (nonatomic) NSInteger dogID;
 @property (copy, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImage *image;
+@property (copy, nonatomic) UIColor *color;
+
+@property (nonatomic) NSUInteger ageInMonths;
+@property (readonly, nonatomic) NSString *formattedAge;
+
+@property (copy, nonatomic) NSString *officerName;
+@property (copy, nonatomic) NSString *status;
+
 @property (readonly, nonatomic) NSArray *events;
 @property (readonly, nonatomic) NSArray *attachments;
 
-@property (copy, nonatomic) NSString *officerName;
 
-
-@property (copy, nonatomic) UIColor *color;
 
 
 @end
