@@ -117,7 +117,21 @@
         UIImage *screenshot = [[fromViewController view] screenshot];
         UIImage *finalBackground = [screenshot applyDarkEffect];
         CGFloat y = 64;//[[fromViewController topLayoutGuide] length];
-        CGFloat height = fromViewController.view.frame.size.height - y - 49;//[[fromViewController bottomLayoutGuide] length];
+        
+        CGRect tabBarRect = CGRectIntersection([[fromViewController.tabBarController view] bounds], [[fromViewController.tabBarController tabBar] frame]);
+        
+        if(tabBarRect.size.height == 0) {
+            toViewController.edgesForExtendedLayout = UIRectEdgeBottom;
+            toViewController.extendedLayoutIncludesOpaqueBars = NO;
+            toViewController.automaticallyAdjustsScrollViewInsets=YES;
+            CGRect frame = [[toViewController view] frame];
+            frame.size.height += [[fromViewController.tabBarController tabBar] frame].size.height;
+            [[toViewController view] setFrame:frame];
+        } else {
+            toViewController.edgesForExtendedLayout = 0;
+        }
+        
+        CGFloat height = fromViewController.view.frame.size.height - y - tabBarRect.size.height;
         CGFloat width = fromViewController.view.frame.size.width;
         UIImage *mergedImage = [self imageWithImage:finalBackground inRect:CGRectMake(0, y, width, height) borderImage:screenshot];
         toViewController.backgroundImageView.image = mergedImage;
