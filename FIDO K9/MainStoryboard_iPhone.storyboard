@@ -572,7 +572,7 @@
                         <viewControllerLayoutGuide type="top" id="K1S-46-kLm"/>
                         <viewControllerLayoutGuide type="bottom" id="1MI-4f-gBM"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QhM-fd-PuE">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="QhM-fd-PuE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
