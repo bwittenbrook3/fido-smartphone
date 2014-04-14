@@ -130,8 +130,9 @@
         
         K9PhotoViewController *photoVC = [[toViewController childViewControllers] firstObject];
         UIView *view = [[[photoVC scrollView] subviews] firstObject];
+        // Make sure it's actually laid out before getting its frame
+        [[toViewController view] layoutIfNeeded];
         CGRect finalFrame = [view convertRect:[view bounds] toView:containerView];
-        finalFrame.origin.y += 14;
         
         UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cellFrame];
         [transitionImageView setContentMode:UIViewContentModeScaleAspectFill];
