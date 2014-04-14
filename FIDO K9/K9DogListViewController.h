@@ -12,9 +12,10 @@
 
 @end
 
+@class K9CircularBorderImageView;
 @interface K9DogTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *dogProfileView;
+@property (strong, nonatomic) IBOutlet K9CircularBorderImageView *dogProfileView;
 @property (strong, nonatomic) IBOutlet UILabel *dogNameView;
 
 @end

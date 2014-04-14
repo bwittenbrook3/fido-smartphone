@@ -12,6 +12,8 @@
 
 #import "K9DogViewController.h"
 
+#import "K9CircularBorderImageView.h"
+
 
 @interface K9DogListViewController ()
 @property (copy) NSArray *dogs;
@@ -59,6 +61,9 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     K9DogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DogCell" forIndexPath:indexPath];
     [[cell dogNameView] setText:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] name]];
     [[cell dogProfileView] setImage:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] image]];
+    [[cell dogProfileView] setBorderColor:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] color]];
+    [[cell dogProfileView] setBorderWidth:0.5];
+
     return cell;
 }
 

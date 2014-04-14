@@ -31,11 +31,3 @@
 - (void)dogAvatarViewControllerToggledSelected:(K9DogAvatarViewController *)dogAvatarViewController;
 
 @end
-
-@interface K9CircularBorderImageView : UIView
-
-@property (copy) UIImage *image;
-@property (copy) UIColor *borderColor;
-@property CGFloat borderWidth;
-
-@end

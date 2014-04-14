@@ -41,33 +41,33 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="F8f-Gc-Xrh">
-                                            <rect key="frame" x="15" y="3" width="38" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="F8f-Gc-Xrh" secondAttribute="height" multiplier="1:1" id="da4-CW-5J9"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Falco" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G06-jg-1ac">
                                             <rect key="frame" x="68" y="12" width="219" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view opaque="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="5Po-B2-v4l" customClass="K9CircularBorderImageView">
+                                            <rect key="frame" x="15" y="3" width="38" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="5Po-B2-v4l" secondAttribute="height" multiplier="1:1" id="vIM-q3-Ibu"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="F8f-Gc-Xrh" firstAttribute="leading" secondItem="mDU-Pv-2V8" secondAttribute="leading" constant="15" id="4Pd-5u-ioG"/>
-                                        <constraint firstItem="F8f-Gc-Xrh" firstAttribute="top" secondItem="mDU-Pv-2V8" secondAttribute="top" constant="3" id="Ew4-GO-0i6"/>
-                                        <constraint firstItem="G06-jg-1ac" firstAttribute="leading" secondItem="F8f-Gc-Xrh" secondAttribute="trailing" constant="15" id="Mag-B3-MvF"/>
+                                        <constraint firstItem="5Po-B2-v4l" firstAttribute="top" secondItem="mDU-Pv-2V8" secondAttribute="top" constant="3" id="Hbu-RL-E6b"/>
+                                        <constraint firstItem="G06-jg-1ac" firstAttribute="leading" secondItem="5Po-B2-v4l" secondAttribute="trailing" constant="15" id="Ijw-lM-XMq"/>
+                                        <constraint firstItem="5Po-B2-v4l" firstAttribute="leading" secondItem="mDU-Pv-2V8" secondAttribute="leading" constant="15" id="LMA-a5-kvm"/>
                                         <constraint firstAttribute="centerY" secondItem="G06-jg-1ac" secondAttribute="centerY" id="RtF-ig-V2U"/>
-                                        <constraint firstAttribute="centerY" secondItem="F8f-Gc-Xrh" secondAttribute="centerY" id="Uqo-L1-QQd"/>
                                         <constraint firstAttribute="trailing" secondItem="G06-jg-1ac" secondAttribute="trailing" id="Xbk-0n-Asi"/>
+                                        <constraint firstAttribute="centerY" secondItem="5Po-B2-v4l" secondAttribute="centerY" id="fLI-Gv-0fm"/>
                                         <constraint firstItem="G06-jg-1ac" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mDU-Pv-2V8" secondAttribute="top" constant="7" id="w5v-nN-EXQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dogNameView" destination="G06-jg-1ac" id="THv-Ee-i2n"/>
-                                    <outlet property="dogProfileView" destination="F8f-Gc-Xrh" id="Arf-1g-KER"/>
+                                    <outlet property="dogProfileView" destination="5Po-B2-v4l" id="9Ih-Di-WYD"/>
                                     <segue destination="B0L-R4-HZi" kind="push" identifier="selectedDogSegue" id="5wd-Kx-C0q"/>
                                 </connections>
                             </tableViewCell>
@@ -576,7 +576,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgX-xc-Pdi">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgX-xc-Pdi">
                                 <rect key="frame" x="-10" y="0.0" width="340" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
@@ -646,11 +646,11 @@
                                     <segue destination="2CL-qa-oBq" kind="embed" id="r91-Zy-O5X"/>
                                 </connections>
                             </containerView>
-                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-1G-jA6">
+                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-1G-jA6">
                                 <rect key="frame" x="138" y="5" width="45" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <constraints>
