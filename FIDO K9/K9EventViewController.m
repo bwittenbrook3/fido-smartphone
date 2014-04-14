@@ -93,10 +93,18 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    if([viewControllers indexOfObject:(self)] == NSNotFound) {
-        for(K9DogPath *path in self.event.dogPaths) {
-            [path clearRenderer];
+    BOOL disappearingForGood = ![self.navigationController.viewControllers containsObject:self];
+    
+    for(K9DogPath *path in self.event.dogPaths) {
+        [[self mapView] removeOverlay:path];
+        if(disappearingForGood) [path clearRenderer];
+    }
+    
+}
+- (void)viewWillAppear:(BOOL)animated {
+    for(K9DogPath *path in self.event.dogPaths) {
+        if(![[self.mapView overlays] containsObject:path]) {
+            [self.mapView addOverlay:path];
         }
     }
 }
@@ -112,7 +120,9 @@
 //    [self.mapView addAnnotation:pa];
     
     for(K9DogPath *path in self.event.dogPaths) {
-        [self.mapView addOverlay:path];
+        if(![[self.mapView overlays] containsObject:path]) {
+            [self.mapView addOverlay:path];
+        }
     }
 }
 
@@ -128,7 +138,6 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if([overlay isKindOfClass:[K9DogPath class]]) {
         MKPolylineRenderer *renderer = [(K9DogPath *)overlay renderer];
-        [renderer setAlpha:0.7];
         return renderer;
     } else {
         return nil;
@@ -159,7 +168,7 @@
                                         delegate:self
                                cancelButtonTitle:@"Cancel"
                           destructiveButtonTitle:nil
-                               otherButtonTitles:@"Take Photo", @"Record Audio", nil];
+                               otherButtonTitles:@"Take Photo", @"Record Audio", @"Make Annotation", nil];
     [sheet showFromBarButtonItem:sender animated:YES];
     [self.mapView removeMotionEffect:self.mapEffects];
 }
@@ -168,7 +177,7 @@
     
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case 0:
             [self takePhoto];
@@ -200,14 +209,17 @@
             CGRect frame = [button frame];
             frame.size.width -= 10;
             frame.origin.x += 5;
-            frame.size.height += 1;
+            frame.origin.y -= 1;
+            frame.size.height += 2;
             [button setFrame:frame];
             
-            UIRectCorner corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopLeft | UIRectCornerTopRight);
+            UIRectCorner corners = 0;
             if([[button titleForState:UIControlStateNormal] isEqualToString:@"Take Photo"]) {
                 corners = UIRectCornerTopLeft | UIRectCornerTopRight;
-            } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Record Audio"]) {
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Make Annotation"]) {
                 corners = UIRectCornerBottomLeft | UIRectCornerBottomRight;
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Cancel"]) {
+                corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopLeft | UIRectCornerTopRight);
             }
             
             
@@ -248,7 +260,9 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 
@@ -261,6 +275,7 @@
     if(!renderer) {
         renderer = [[MKPolylineRenderer alloc] initWithPolyline:[self polyline]];
         [renderer setStrokeColor:[[self dog] color]];
+        [renderer setAlpha:0.7];
         objc_setAssociatedObject(self, @selector(renderer), renderer, OBJC_ASSOCIATION_RETAIN);
     }
     return renderer;

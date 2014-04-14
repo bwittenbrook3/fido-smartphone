@@ -46,7 +46,6 @@
  */
 
 #import "ImageScrollView.h"
-//#import "PageViewControllerData.h"
 
 @interface ImageScrollView () <UIScrollViewDelegate>
 
