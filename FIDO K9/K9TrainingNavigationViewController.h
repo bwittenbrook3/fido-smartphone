@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface K9TrainingViewController : UIViewController
+@interface K9TrainingNavigationViewController : UINavigationController
 
 @end
