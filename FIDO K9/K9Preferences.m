@@ -28,5 +28,4 @@ static K9Preferences *_sharedPreferences;
     [[NSUserDefaults standardUserDefaults] setInteger:locationPreference forKey:LOCATION_PREFERENCES_KEY];
 }
 
-
 @end

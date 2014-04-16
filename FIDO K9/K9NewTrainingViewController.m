@@ -130,8 +130,9 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         [self showK9Picker];
     } else if(indexPath.section == 0 && indexPath.row == (wasShowingK9Picker ? 2 : 1)) {
         shouldDeselect = [self didSelectLocationCell];
+    } else if(indexPath.section == 0 && indexPath.row == (wasShowingK9Picker ? 4 : 3)) {
+        shouldDeselect = [self didSelectWeatherCell];
     }
-
     if(shouldDeselect) [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self.tableView endUpdates];
@@ -156,6 +157,24 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     return shouldDeselectCell;
 }
 
+- (BOOL)didSelectWeatherCell {
+    BOOL shouldDeselectCell = YES;
+    if(!self.training.weather && !self.training.location && !self.loadingLocation) {
+        // We don't have a location, so the user has to either manually enter it or we can fetch it.
+        if([K9Preferences locationPreference] == K9PreferencesLocationNoStatus) {
+            // If we haven't asked before, ask if we can use their location using our own UI
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Use Current Location?" message:@"FIDO will automatically fill out location and weather information" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            [alert show];
+            shouldDeselectCell = NO;
+        } else if([K9Preferences locationPreference] == K9PreferencesLocationAbsoluteAccepted) {
+            // If we've asked before and they've accepted everything, we're free to go.
+            [self getCurrentLocationAndUpdateTable];
+        } else {
+            // We've asked before and they've denied either locally or absolutely. Either way, don't ask again.
+        }
+    }
+    return shouldDeselectCell;
+}
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 1) {
