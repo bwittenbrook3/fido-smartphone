@@ -11,18 +11,21 @@
 #import "PTPusherChannel.h"
 #import "PTPusherEvent.h"
 #import "K9Event.h"
+#import "Forecastr.h"
 
-#define API_KEY @"e7b137a34da31bed01d9"
-
+#define PUSHER_API_KEY @"e7b137a34da31bed01d9"
+#define FORECAST_API_KEY @"2dfce017e2dab289bc77cdabd3e77c44"
 
 @implementation K9AppDelegate {
     __strong PTPusher *_client;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"%@", [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey]);
     [self.window setTintColor:[UIColor colorWithRed:238.0/255.0 green:230.0/255.0 blue:104.0/255.0 alpha:1.0]];
     [self registerForPusher];
+    
+    [[Forecastr sharedManager] setApiKey:FORECAST_API_KEY];
+
     return YES;
 }
 
@@ -84,7 +87,7 @@
     
     if(!_client) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            _client = [PTPusher pusherWithKey:API_KEY delegate:self encrypted:YES];
+            _client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePusherEvent:) name:PTPusherEventReceivedNotification object:_client];
             
             [_client connect];
