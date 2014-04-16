@@ -68,6 +68,9 @@
 		345EE0A818F1C78E00BC8581 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345EE0A718F1C78E00BC8581 /* CFNetwork.framework */; };
 		345EE0AA18F1C79600BC8581 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 345EE0A918F1C79600BC8581 /* libicucore.dylib */; };
 		345EE0AC18F1C79D00BC8581 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345EE0AB18F1C79D00BC8581 /* Security.framework */; };
+		347D24EC18FEF5B6004270FA /* K9TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24EB18FEF5B6004270FA /* K9TrainingListTableViewController.m */; };
+		347D24EF18FEF698004270FA /* K9Training.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24EE18FEF698004270FA /* K9Training.m */; };
+		347D24F218FEF7D4004270FA /* K9TrainingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -218,6 +221,12 @@
 		345EE0A718F1C78E00BC8581 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		345EE0A918F1C79600BC8581 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		345EE0AB18F1C79D00BC8581 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		347D24EA18FEF5B6004270FA /* K9TrainingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9TrainingListTableViewController.h; sourceTree = "<group>"; };
+		347D24EB18FEF5B6004270FA /* K9TrainingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9TrainingListTableViewController.m; sourceTree = "<group>"; };
+		347D24ED18FEF698004270FA /* K9Training.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Training.h; sourceTree = "<group>"; };
+		347D24EE18FEF698004270FA /* K9Training.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Training.m; sourceTree = "<group>"; };
+		347D24F018FEF7D4004270FA /* K9TrainingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9TrainingDetailViewController.h; sourceTree = "<group>"; };
+		347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9TrainingDetailViewController.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -299,6 +308,10 @@
 			children = (
 				3437B41218FB8BCB0098F6C8 /* K9TrainingNavigationViewController.h */,
 				3437B41318FB8BCB0098F6C8 /* K9TrainingNavigationViewController.m */,
+				347D24EA18FEF5B6004270FA /* K9TrainingListTableViewController.h */,
+				347D24EB18FEF5B6004270FA /* K9TrainingListTableViewController.m */,
+				347D24F018FEF7D4004270FA /* K9TrainingDetailViewController.h */,
+				347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */,
 				34D9095418FE29EF0075C2D6 /* K9NewTrainingViewController.h */,
 				34D9095518FE29EF0075C2D6 /* K9NewTrainingViewController.m */,
 			);
@@ -409,6 +422,8 @@
 				3437B40518F9F5750098F6C8 /* K9Photo.m */,
 				34D9095718FEEBD90075C2D6 /* K9Weather.h */,
 				34D9095818FEEBD90075C2D6 /* K9Weather.m */,
+				347D24ED18FEF698004270FA /* K9Training.h */,
+				347D24EE18FEF698004270FA /* K9Training.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -748,10 +763,12 @@
 				345EE06018F1AFAC00BC8581 /* AFURLRequestSerialization.m in Sources */,
 				345EE09E18F1C32400BC8581 /* PTPusherEventDispatcher.m in Sources */,
 				34D9095918FEEBD90075C2D6 /* K9Weather.m in Sources */,
+				347D24EF18FEF698004270FA /* K9Training.m in Sources */,
 				345EE05F18F1AFAC00BC8581 /* AFURLConnectionOperation.m in Sources */,
 				345EE06618F1AFAC00BC8581 /* UIButton+AFNetworking.m in Sources */,
 				34D9095118FE12B90075C2D6 /* Forecastr.m in Sources */,
 				345EE06418F1AFAC00BC8581 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				347D24EC18FEF5B6004270FA /* K9TrainingListTableViewController.m in Sources */,
 				34D9095218FE12B90075C2D6 /* ForecastrAPIClient.m in Sources */,
 				345EE05B18F1AFAC00BC8581 /* AFHTTPRequestOperationManager.m in Sources */,
 				34418A8818EF214C00F1D2A1 /* main.m in Sources */,
@@ -768,6 +785,7 @@
 				345EE09718F1C32400BC8581 /* PTPusher+Testing.m in Sources */,
 				34D820B918F093540098D7EC /* K9EventViewController.m in Sources */,
 				3437B41418FB8BCB0098F6C8 /* K9TrainingNavigationViewController.m in Sources */,
+				347D24F218FEF7D4004270FA /* K9TrainingDetailViewController.m in Sources */,
 				34E4CBFC18F9E85B00CE61CF /* K9Attachment.m in Sources */,
 				3437B40F18FB1C5D0098F6C8 /* K9DogAvatarViewController.m in Sources */,
 				345EE06518F1AFAC00BC8581 /* UIAlertView+AFNetworking.m in Sources */,
