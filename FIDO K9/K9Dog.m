@@ -24,6 +24,9 @@
     dog.dogID = [[propertyList objectForKey:ID_KEY] integerValue];
     dog.name = [propertyList objectForKey:NAME_KEY];
     dog.officerName = [propertyList objectForKey:OFFICER_NAME_KEY];
+    if((id)dog.officerName == [NSNull null]) {
+        dog.officerName = nil;
+    }
     
     // TODO: Get this from the web API when it supports it
     dog.ageInMonths = 33;
