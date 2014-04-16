@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self view] bringSubviewToFront:[self subheaderBar]];
     [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // Add the detail content to our subheader bar
