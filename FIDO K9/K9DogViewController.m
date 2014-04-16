@@ -9,6 +9,7 @@
 #import "K9DogViewController.h"
 #import "K9DogDetailViewController.h"
 #import "K9Dog.h"
+#import "Forecastr+CLLocation.h"
 
 #import <MapKit/MapKit.h>
 
@@ -112,7 +113,7 @@
     if(_dog != dog) {
         if(_dog) [self.mapView removeAnnotation:_dog];
         _dog = dog;
-        [self updateDogViews];
+        if(self.isViewLoaded) [self updateDogViews];
     }
 }
 
