@@ -16,7 +16,6 @@
 
 @end
 
-
 @class K9Weather, CLLocation;
 @interface K9TrainingDetailViewController (ProtectedMethods)
 - (void)updateCell:(UITableViewCell *)weatherCell withWeather:(K9Weather *)weather;

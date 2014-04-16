@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, K9TrainingType) {
-    K9TrainingTypeStandard
+    K9TrainingTypeNone
 };
 
 @class K9Dog, K9Weather, CLLocation;

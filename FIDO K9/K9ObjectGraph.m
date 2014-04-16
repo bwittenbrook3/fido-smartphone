@@ -16,6 +16,9 @@
 NSString *const K9EventWasAddedNotification = @"K9EventWasAddedNotification";
 NSString *const K9ModifiedEventKey = @"K9ModifiedEventKey";
 
+NSString *const K9TrainingWasAddedNotification = @"K9TrainingWasAddedNotification";
+
+
 static NSString * const baseURLString = @"http://fido-api.herokuapp.com/api/";
 static NSString * const fidoUsername = @"FiDo";
 static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
@@ -228,6 +231,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 
 - (void)addTraining:(K9Training *)training {
     [[self trainingDictionary] setObject:training forKey:@([training trainingID])];
+    [[NSNotificationCenter defaultCenter] postNotificationName:K9TrainingWasAddedNotification object:self userInfo:nil];
 }
 
 @end

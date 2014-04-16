@@ -509,7 +509,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Training" id="2o1-qY-fDs">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="e1a-Hj-fBP"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="e1a-Hj-fBP">
+                            <connections>
+                                <action selector="submitTraining:" destination="j2r-Dx-Ddz" id="LRq-Vx-9jh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="k9Picker" destination="XY9-lj-R70" id="paf-BD-u6B"/>

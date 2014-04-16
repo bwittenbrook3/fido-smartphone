@@ -16,8 +16,6 @@
 @interface K9NewTrainingViewController () <UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property NSArray *cachedDogs;
-
-
 @property IBOutlet UITableViewCell *k9PickerTableViewCell;
 @property IBOutlet UIPickerView *k9Picker;
 @property (getter = isShowingK9Picker)BOOL showingK9Picker;
@@ -27,6 +25,12 @@
 @property BOOL loadingLocation;
 @end
 
+
+@interface K9Training (TrainingValidation)
+
+- (BOOL)isValidTraining;
+
+@end
 
 static inline NSArray *sortDogs(NSArray *dogs) {
     return [dogs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -214,6 +218,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         self.training.trainedDog = selectedDog;
         [pickerView reloadComponent:component];
         [pickerView selectRow:row inComponent:component animated:NO];
+        [self checkForValidTraining];
     }
 }
 
@@ -250,6 +255,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     [manager stopUpdatingLocation];
     self.training.location = newLocation;
+    [self checkForValidTraining];
     
     UITableViewCell *locationCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:([self isShowingK9Picker] ? 2 : 1) inSection:0]];
     [self updateCell:locationCell withLocation:self.training.location completionHandler:^{
@@ -258,6 +264,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     [K9Weather fetchWeatherForLocation:self.training.location completionHandler:^(K9Weather *weather) {
         UITableViewCell *weatherCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:([self isShowingK9Picker] ? 4 : 3) inSection:0]];
         self.training.weather = weather;
+        [self checkForValidTraining];
         [self updateCell:weatherCell withWeather:weather];
     }];
 }
@@ -271,5 +278,28 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     self.loadingLocation = NO;
 }
 
+- (void)checkForValidTraining {
+    if(self.training.isValidTraining) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    }
+}
+
+- (IBAction)submitTraining:(id)sender {
+    if(self.training.isValidTraining) {
+        self.training.startTime = [NSDate date];
+        [[K9ObjectGraph sharedObjectGraph] addTraining:self.training];
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
+}
+
+
+@end
+
+
+@implementation K9Training (TrainingValidation)
+
+- (BOOL)isValidTraining {
+    return self.trainedDog && self.location && self.weather;//(self.trainingType != K9TrainingTypeNone)
+}
 
 @end

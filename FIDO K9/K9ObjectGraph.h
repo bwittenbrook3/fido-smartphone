@@ -14,6 +14,8 @@
 extern NSString *const K9EventWasAddedNotification;
 extern NSString *const K9ModifiedEventKey;
 
+extern NSString *const K9TrainingWasAddedNotification;
+
 @interface K9ObjectGraph : NSObject
 
 + (K9ObjectGraph *)sharedObjectGraph;

@@ -13,6 +13,15 @@
 
 @implementation K9Training
 
+static NSInteger globalTrainingID = 0;
+
+
+- (id)init {
+    if(self = [super init]) {
+        _trainingID = globalTrainingID++;
+    }
+    return self;
+}
 
 - (NSString *)formattedTrainingType {
     return @"XYZ";

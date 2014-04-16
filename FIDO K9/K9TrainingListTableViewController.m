@@ -10,10 +10,18 @@
 #import "K9Training.h"
 #import "K9Dog.h"
 #import "K9TrainingDetailViewController.h"
+#import "K9ObjectGraph.h"
 
 @interface K9TrainingListTableViewController ()
 
 @end
+
+
+static inline NSArray *sortTraining(NSArray *events) {
+    return [events sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj2 startTime] compare:[obj1 startTime]];
+    }];
+}
 
 @implementation K9TrainingListTableViewController
 
@@ -26,7 +34,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.trainings = @[[K9Training sampleTraining], [K9Training sampleTraining]];
+    
+    [[K9ObjectGraph sharedObjectGraph] addTraining:[K9Training sampleTraining]];
+    [[K9ObjectGraph sharedObjectGraph] addTraining:[K9Training sampleTraining]];
+    
+    self.trainings = sortTraining([[K9ObjectGraph sharedObjectGraph] allTraining]);
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:K9TrainingWasAddedNotification object:[K9ObjectGraph sharedObjectGraph] queue:nil usingBlock:^(NSNotification *note) {
+        self.trainings = sortTraining([[K9ObjectGraph sharedObjectGraph] allTraining]);
+        [[self tableView] insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
     
 }
 
@@ -61,6 +79,7 @@
         K9Training *training = [self.trainings objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         [destination setTraining:training];
     }
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 @end
