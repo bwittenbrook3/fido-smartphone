@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class K9Event, K9Dog;
+@class K9Event, K9Dog, K9Training;
 
 
 extern NSString *const K9EventWasAddedNotification;
@@ -18,23 +18,35 @@ extern NSString *const K9ModifiedEventKey;
 
 + (K9ObjectGraph *)sharedObjectGraph;
 
-- (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler;
+
+// Events
+@property (readonly, nonatomic) NSArray *allEvents;
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler;
 
+- (K9Event *)eventWithID:(NSInteger)eventID;
 - (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
+
+
+// Dogs
+@property (readonly, nonatomic) NSArray *allDogs;
+- (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler;
+
+- (K9Dog *)dogWithID:(NSInteger)eventID;
 - (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler;
 
-@property (readonly, nonatomic) NSArray *allEvents;
-@property (readonly, nonatomic) NSArray *allDogs;
+- (NSArray *)eventsForDogWithID:(NSInteger)dogID;
+- (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
+
+- (NSArray *)attachmentsForDogWithID:(NSInteger)dogID;
+- (NSArray *)fetchAttachmentsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
+
+
+// Attachments
 @property (readonly, nonatomic) NSArray *allAttachments;
 
-- (K9Event *)eventWithID:(NSInteger)eventID;
-- (K9Dog *)dogWithID:(NSInteger)eventID;
 
-- (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
-- (NSArray *)eventsForDogWithID:(NSInteger)dogID;
-
-- (NSArray *)fetchAttachmentsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
-- (NSArray *)attachmentsForDogWithID:(NSInteger)dogID;
+// Training
+@property (readonly, nonatomic) NSArray *allTraining;
+- (void)addTraining:(K9Training *)training;
 
 @end

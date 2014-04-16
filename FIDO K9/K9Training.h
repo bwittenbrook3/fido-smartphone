@@ -15,17 +15,20 @@ typedef NS_ENUM(NSUInteger, K9TrainingType) {
 @class K9Dog, K9Weather, CLLocation;
 @interface K9Training : NSObject
 
-@property K9Dog *trainedDog;
+
+@property NSInteger trainingID;
+
+@property (weak) K9Dog *trainedDog;
 @property K9TrainingType trainingType;
-@property (readonly) NSString *formattedTrainingType;
+@property (copy, readonly) NSString *formattedTrainingType;
 
-@property NSDate *startTime;
-@property NSDate *endTime;
+@property (copy) NSDate *startTime;
+@property (copy) NSDate *endTime;
 
-@property CLLocation *location;
-@property K9Weather *weather;
+@property (strong) CLLocation *location;
+@property (strong) K9Weather *weather;
 
-@property NSArray *trainingAidList;
+@property (strong) NSArray *trainingAidList;
 
 + (K9Training *)sampleTraining;
 

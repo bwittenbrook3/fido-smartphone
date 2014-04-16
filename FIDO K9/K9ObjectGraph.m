@@ -11,7 +11,7 @@
 #import "K9Dog.h"
 #import "K9Attachment.h"
 #import "K9Event.h"
-
+#import "K9Training.h"
 
 NSString *const K9EventWasAddedNotification = @"K9EventWasAddedNotification";
 NSString *const K9ModifiedEventKey = @"K9ModifiedEventKey";
@@ -24,6 +24,7 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
 @property (strong) AFHTTPSessionManager *sessionManager;
 @property (strong) NSMutableDictionary *eventDictionary;
 @property (strong) NSMutableDictionary *dogDictionary;
+@property (strong) NSMutableDictionary *trainingDictionary;
 @property (strong) NSMutableDictionary *attachmentDictionary;
 @end
 
@@ -38,6 +39,7 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
         _eventDictionary = [NSMutableDictionary dictionary];
         _dogDictionary = [NSMutableDictionary dictionary];
         _attachmentDictionary = [NSMutableDictionary dictionary];
+        _trainingDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -218,6 +220,14 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         }
     }];
     return [self eventsForDogWithID:dogID];
+}
+
+- (NSArray *)allTraining {
+    return [[self trainingDictionary] allValues];
+}
+
+- (void)addTraining:(K9Training *)training {
+    [[self trainingDictionary] setObject:training forKey:@([training trainingID])];
 }
 
 @end
