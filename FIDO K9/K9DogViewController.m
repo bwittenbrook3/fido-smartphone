@@ -10,7 +10,13 @@
 #import "K9DogDetailViewController.h"
 #import "K9Dog.h"
 
-@interface K9DogViewController ()
+#import <MapKit/MapKit.h>
+
+
+
+#define DEFAULT_ZOOM_LEVEL 600
+
+@interface K9DogViewController () <MKMapViewDelegate>
 
 @property (strong) IBOutlet UIView *detailContainerView;
 @property (strong) NSLayoutConstraint *heightConstraint;
@@ -23,6 +29,12 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneBarButtonItem;
 - (IBAction)showInfo:(id)sender;
 - (IBAction)closeInfo:(id)sender;
+
+@property (weak) IBOutlet MKMapView *mapView;
+
+@end
+
+@interface K9Dog (K9DogAnnotation) <MKAnnotation>
 
 @end
 
@@ -58,6 +70,24 @@
     [[self subheaderBar] addConstraint:[self heightConstraint]];
     
     [[self subheaderBar] setClipsToBounds:YES];
+    
+    
+    UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
+                                                                                                        type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    verticalMotionEffect.minimumRelativeValue = @(25);
+    verticalMotionEffect.maximumRelativeValue = @(-25);
+    UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
+                                                                                                          type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    horizontalMotionEffect.minimumRelativeValue = @(12);
+    horizontalMotionEffect.maximumRelativeValue = @(-12);
+    
+    UIMotionEffectGroup *group = [UIMotionEffectGroup new];
+    group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+    [self.mapView addMotionEffect:group];
+    
+    if(self.dog) {
+        [self updateDogViews];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,9 +109,19 @@
 }
 
 - (void)setDog:(K9Dog *)dog {
-    _dog = dog;
-    [[self detailsViewController] setDog:dog];
-    [self.navigationItem setTitle:[dog name]];
+    if(_dog != dog) {
+        if(_dog) [self.mapView removeAnnotation:_dog];
+        _dog = dog;
+        [self updateDogViews];
+    }
+}
+
+- (void)updateDogViews {
+    [[self detailsViewController] setDog:self.dog];
+    [self.navigationItem setTitle:[self.dog name]];
+    
+    [self.mapView setRegion:[self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance([[self.dog lastKnownLocation] coordinate], DEFAULT_ZOOM_LEVEL, DEFAULT_ZOOM_LEVEL)]];
+    [self.mapView addAnnotation:self.dog];
 }
 
 - (IBAction)showInfo:(id)sender {
@@ -173,5 +213,23 @@
     }
     [UIView commitAnimations];
 }
+
+#define ANNOTATION_VIEW_ID (@"MKPinAnnotationView")
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_ID];
+    if (annotationView == nil) {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_ID];
+    }
+    annotationView.image = [UIImage imageNamed:@"Dog Annotation"];
+    return annotationView;
+}
     
+@end
+
+@implementation K9Dog (K9DogAnnotation)
+
+- (CLLocationCoordinate2D)coordinate {
+    return self.lastKnownLocation.coordinate;
+}
+
 @end

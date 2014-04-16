@@ -41,7 +41,11 @@
     // TODO: Grab URL when web API supports it.
     UIImage *image = [UIImage imageNamed:@"TestDog.jpg"];
     dog.image = [K9Dog centerCircularImage:image];
-
+    
+    // TODO: Get last known location when web API supports it.
+    CGFloat latitude = 33.7721200;
+    CGFloat longitude = -84.392942;
+    dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     return dog;
 }

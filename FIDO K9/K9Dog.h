@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+@class CLLocation;
 @interface K9Dog : NSObject
 
 + (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList;
@@ -26,6 +28,7 @@
 @property (readonly, nonatomic) NSArray *events;
 @property (readonly, nonatomic) NSArray *attachments;
 
+@property (copy, nonatomic) CLLocation *lastKnownLocation;
 
 
 
