@@ -23,6 +23,12 @@
 @implementation K9TrainingDetailViewController
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    if(self.training.trainedDog) {
+        [self.navigationItem setTitle:[NSString stringWithFormat:@"%@ Training", self.training.trainedDog.name]];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -51,7 +57,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
-    if(indexPath.section == 0) {
+    if (indexPath.section == 0) {
         NSUInteger row = indexPath.row;
         switch (row) {
             case 0:
@@ -77,7 +83,7 @@
                 }
                 break;
         }
-    } else {
+    } else if (indexPath.section == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"aidTableCell" forIndexPath:indexPath];
     }
     
@@ -112,6 +118,9 @@
 }
 
 - (void)updateCell:(UITableViewCell *)weatherCell withWeather:(K9Weather *)weather {
+    weatherCell.accessoryView = nil;
+    weatherCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    weatherCell.selectionStyle = UITableViewCellSelectionStyleDefault;
     weatherCell.detailTextLabel.text = [weather formattedDescription];
 }
 

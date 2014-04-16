@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "K9TrainingDetailViewController.h"
 
-@interface K9NewTrainingViewController : UITableViewController
+@interface K9NewTrainingViewController : K9TrainingDetailViewController
 
 @end

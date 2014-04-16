@@ -509,7 +509,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Training" id="2o1-qY-fDs">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="e1a-Hj-fBP"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="e1a-Hj-fBP"/>
                     </navigationItem>
                     <connections>
                         <outlet property="k9Picker" destination="XY9-lj-R70" id="paf-BD-u6B"/>
@@ -1263,7 +1263,7 @@
             </objects>
             <point key="canvasLocation" x="2244" y="27"/>
         </scene>
-        <!--Training Detail View Controller - New Training-->
+        <!--Training Detail View Controller - Training-->
         <scene sceneID="7hf-Ma-wmH">
             <objects>
                 <tableViewController id="zf9-6N-F2n" customClass="K9TrainingDetailViewController" sceneMemberID="viewController">
@@ -1399,7 +1399,7 @@
                             <outlet property="delegate" destination="zf9-6N-F2n" id="MJ7-70-ewT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Training" id="QOg-la-Adv"/>
+                    <navigationItem key="navigationItem" title="Training" id="QOg-la-Adv"/>
                     <connections>
                         <outlet property="k9Picker" destination="XY9-lj-R70" id="AwO-Sm-C8w"/>
                         <outlet property="k9PickerTableViewCell" destination="lb6-Jk-dfN" id="XQe-2K-IPq"/>
