@@ -11,6 +11,7 @@
 #import "K9Dog.h"
 #import "K9Weather.h"
 #import "K9Training.h"
+#import "K9Preferences.h"
 #import <MapKit/MapKit.h>
 
 @interface K9NewTrainingViewController () <UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
@@ -139,9 +140,18 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (BOOL)didSelectLocationCell {
     BOOL shouldDeselectCell = YES;
     if(!self.training.location && !self.loadingLocation) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Use Current Location?" message:@"FIDO will automatically fill out location and weather information" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-        [alert show];
-        shouldDeselectCell = NO;
+        // We don't have a location, so the user has to either manually enter it or we can fetch it.
+        if([K9Preferences locationPreference] == K9PreferencesLocationNoStatus) {
+            // If we haven't asked before, ask if we can use their location using our own UI
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Use Current Location?" message:@"FIDO will automatically fill out location and weather information" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            [alert show];
+            shouldDeselectCell = NO;
+        } else if([K9Preferences locationPreference] == K9PreferencesLocationAbsoluteAccepted) {
+            // If we've asked before and they've accepted everything, we're free to go.
+            [self getCurrentLocationAndUpdateTable];
+        } else {
+            // We've asked before and they've denied either locally or absolutely. Either way, don't ask again.
+        }
     }
     return shouldDeselectCell;
 }
@@ -150,32 +160,36 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 1) {
         // YES Button
-        
-        UITableViewCell *locationCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:([self isShowingK9Picker] ? 2 : 1) inSection:0]];
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [activityView startAnimating];
-        [locationCell setAccessoryView:activityView];
-        [locationCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-        
-        UITableViewCell *weatherCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:([self isShowingK9Picker] ? 4 : 3) inSection:0]];
-        UIActivityIndicatorView *activityView2 = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [activityView2 startAnimating];
-        [weatherCell setAccessoryView:activityView2];
-        [weatherCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-        
-        [self.locationManager startUpdatingLocation];
-        
-        self.loadingLocation = YES;
+        [self getCurrentLocationAndUpdateTable];
     } else {
+        [K9Preferences setLocationPreference:K9PreferencesLocationLocalDenied];
         // NO Button -- show alternate UI.
     }
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
+- (void)getCurrentLocationAndUpdateTable {
+    UITableViewCell *locationCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:([self isShowingK9Picker] ? 2 : 1) inSection:0]];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityView startAnimating];
+    [locationCell setAccessoryView:activityView];
+    [locationCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    
+    UITableViewCell *weatherCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:([self isShowingK9Picker] ? 4 : 3) inSection:0]];
+    UIActivityIndicatorView *activityView2 = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityView2 startAnimating];
+    [weatherCell setAccessoryView:activityView2];
+    [weatherCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    
+    [self.locationManager startUpdatingLocation];
+    
+    self.loadingLocation = YES;
 }
 
 
@@ -277,6 +291,16 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     locationCell.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.loadingLocation = NO;
 }
+
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusDenied) {
+        [K9Preferences setLocationPreference:K9PreferencesLocationAbsoluteDenied];
+    } else if (status == kCLAuthorizationStatusAuthorized) {
+        [K9Preferences setLocationPreference:K9PreferencesLocationAbsoluteAccepted];
+    }
+}
+
 
 - (void)checkForValidTraining {
     if(self.training.isValidTraining) {

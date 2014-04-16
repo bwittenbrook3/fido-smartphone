@@ -71,6 +71,7 @@
 		347D24EC18FEF5B6004270FA /* K9TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24EB18FEF5B6004270FA /* K9TrainingListTableViewController.m */; };
 		347D24EF18FEF698004270FA /* K9Training.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24EE18FEF698004270FA /* K9Training.m */; };
 		347D24F218FEF7D4004270FA /* K9TrainingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */; };
+		347D24F518FF330A004270FA /* K9Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F418FF330A004270FA /* K9Preferences.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -227,6 +228,8 @@
 		347D24EE18FEF698004270FA /* K9Training.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Training.m; sourceTree = "<group>"; };
 		347D24F018FEF7D4004270FA /* K9TrainingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9TrainingDetailViewController.h; sourceTree = "<group>"; };
 		347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9TrainingDetailViewController.m; sourceTree = "<group>"; };
+		347D24F318FF330A004270FA /* K9Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Preferences.h; sourceTree = "<group>"; };
+		347D24F418FF330A004270FA /* K9Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Preferences.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -362,6 +365,8 @@
 			children = (
 				34418A8A18EF214C00F1D2A1 /* K9AppDelegate.h */,
 				34418A8B18EF214C00F1D2A1 /* K9AppDelegate.m */,
+				347D24F318FF330A004270FA /* K9Preferences.h */,
+				347D24F418FF330A004270FA /* K9Preferences.m */,
 				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
 				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
 				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
@@ -756,6 +761,7 @@
 				345EE03018F1ABD400BC8581 /* K9Event.m in Sources */,
 				345EE06718F1AFAC00BC8581 /* UIImageView+AFNetworking.m in Sources */,
 				34D9095618FE29EF0075C2D6 /* K9NewTrainingViewController.m in Sources */,
+				347D24F518FF330A004270FA /* K9Preferences.m in Sources */,
 				345EE06818F1AFAC00BC8581 /* UIProgressView+AFNetworking.m in Sources */,
 				345EE06118F1AFAC00BC8581 /* AFURLResponseSerialization.m in Sources */,
 				345EE09918F1C32400BC8581 /* PTPusherAPI.m in Sources */,
