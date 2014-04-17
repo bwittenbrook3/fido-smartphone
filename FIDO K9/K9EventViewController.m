@@ -14,6 +14,7 @@
 #import "K9Photo.h"
 
 #import <objc/runtime.h>
+#import <MapKit/MapKit.h>
 
 @interface K9EventViewController () <K9EventDetailViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -24,6 +25,12 @@
 @property (strong) K9EventDetailViewController *detailsViewController;
 @property (strong) UIMotionEffectGroup *mapEffects;
 
+
+@property (strong) UIActionSheet *directionsSheet;
+@property (strong) UIActionSheet *actionsSheet;
+
+
+@property (strong) CLGeocoder *geocoder;
 @end
 
 @interface UIButton (ColorForState)
@@ -113,11 +120,23 @@
     self.navigationItem.title = [self.event title];
     
     [self setLocation:self.event.location.coordinate inBottomCenterOfMapView:self.mapView];
-//    MKPointAnnotation *pa = [[MKPointAnnotation alloc] init];
-//    pa.coordinate = self.event.location.coordinate;
-//    pa.title = self.event.title;
-//    pa.subtitle = self.event.description;
-//    [self.mapView addAnnotation:pa];
+    MKPointAnnotation *pa = [[MKPointAnnotation alloc] init];
+    pa.coordinate = self.event.location.coordinate;
+    
+    
+    if (!self.geocoder)
+        self.geocoder = [[CLGeocoder alloc] init];
+    
+    [self.geocoder reverseGeocodeLocation:self.event.location completionHandler:
+     ^(NSArray* placemarks, NSError* error){
+         if(placemarks.count) {
+             pa.title = [[placemarks firstObject] name];
+         } else {
+             pa.title = self.event.title;
+         }
+     }];
+    
+    [self.mapView addAnnotation:pa];
     
     for(K9DogPath *path in self.event.dogPaths) {
         if(![[self.mapView overlays] containsObject:path]) {
@@ -133,6 +152,80 @@
     CLLocationCoordinate2D centerPointOfNewRegion = CLLocationCoordinate2DMake(centerPointOfOldRegion.latitude + oldRegion.span.latitudeDelta/6.0, centerPointOfOldRegion.longitude);
     MKCoordinateRegion newRegion = MKCoordinateRegionMake(centerPointOfNewRegion, oldRegion.span);
     [mapView setRegion:newRegion animated:YES];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    MKAnnotationView* pinView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+    
+    if (!pinView) {
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+    }
+
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    button.titleLabel.text = @"Route";
+    button.backgroundColor = [UIColor blueColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Police Car"]];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    UILabel *directionsLabel = [[UILabel alloc] init];
+    [directionsLabel setText:@"Route"];
+    [directionsLabel setFont:[UIFont boldSystemFontOfSize:11]];
+    [directionsLabel setTextColor:[UIColor whiteColor]];
+    [directionsLabel setTextAlignment:NSTextAlignmentCenter];
+    directionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [button addSubview:imageView];
+    [button addSubview:directionsLabel];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(1)-[imageView][directionsLabel]-(5)-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(imageView, directionsLabel)]];
+    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[directionsLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings( directionsLabel)]];
+
+    
+    [button addTarget:self action:@selector(updateButtonColor:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(releaseButtonColor:) forControlEvents:UIControlEventTouchCancel|UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
+    [button addTarget:self action:@selector(getDirections:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //    pinView.leftCalloutAccessoryView = leftView;
+    pinView.leftCalloutAccessoryView = button;
+    pinView.canShowCallout = YES;
+    
+    return pinView;
+}
+
+- (void)updateButtonColor:(id)sender {
+    [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0.6 alpha:1.0]];
+}
+
+- (void)releaseButtonColor:(id)sender {
+    [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1.0 alpha:1.0]];
+}
+
+- (void)getDirections:(id)sender {
+    self.directionsSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                    delegate:self
+                                           cancelButtonTitle:@"Cancel"
+                                      destructiveButtonTitle:nil
+                                           otherButtonTitles:@"Maps App", @"Google Glass", nil];
+    [self.directionsSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    [self.mapView removeMotionEffect:self.mapEffects];
+    
+}
+
+- (void)sendDirectionsToGlass {
+    // No op... for now.
+}
+
+- (void)getDirectionsInMaps {
+    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate:self.event.location.coordinate addressDictionary: nil];
+    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
+    destination.name = self.event.title;
+    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
+    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             MKLaunchOptionsDirectionsModeDriving,
+                             MKLaunchOptionsDirectionsModeKey, nil];
+    [MKMapItem openMapsWithItems: items launchOptions: options];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
@@ -163,13 +256,12 @@
 }
 
 - (IBAction)showActions:(id)sender {
-    UIActionSheet *sheet;
-    sheet = [[UIActionSheet alloc] initWithTitle:nil
+    self.actionsSheet = [[UIActionSheet alloc] initWithTitle:nil
                                         delegate:self
                                cancelButtonTitle:@"Cancel"
                           destructiveButtonTitle:nil
                                otherButtonTitles:@"Take Photo", @"Record Audio", @"Make Annotation", nil];
-    [sheet showFromBarButtonItem:sender animated:YES];
+    [self.actionsSheet showFromBarButtonItem:sender animated:YES];
     [self.mapView removeMotionEffect:self.mapEffects];
 }
 
@@ -178,16 +270,32 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        case 0:
-            [self takePhoto];
-            break;
-        case 1:
-            [self recordAudio];
-            break;
-        default:
-            break;
+    if(actionSheet == self.actionsSheet) {
+        switch (buttonIndex) {
+            case 0:
+                [self takePhoto];
+                break;
+            case 1:
+                [self recordAudio];
+                break;
+            default:
+                break;
+        }
+        self.actionsSheet = nil;
+    } else if(actionSheet == self.directionsSheet) {
+        switch (buttonIndex) {
+            case 0:
+                [self getDirectionsInMaps];
+                break;
+            case 1:
+                [self sendDirectionsToGlass];
+                break;
+            default:
+                break;
+        }
+        self.directionsSheet = nil;
     }
+
     [self.mapView addMotionEffect:self.mapEffects];
 }
 
@@ -213,12 +321,13 @@
             frame.size.height += 2;
             [button setFrame:frame];
             
+            
             UIRectCorner corners = 0;
-            if([[button titleForState:UIControlStateNormal] isEqualToString:@"Take Photo"]) {
+            if([[button titleForState:UIControlStateNormal] isEqualToString:[actionSheet buttonTitleAtIndex:0]]) {
                 corners = UIRectCornerTopLeft | UIRectCornerTopRight;
-            } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Make Annotation"]) {
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:[actionSheet buttonTitleAtIndex:([actionSheet numberOfButtons]-2)]]) {
                 corners = UIRectCornerBottomLeft | UIRectCornerBottomRight;
-            } else if([[button titleForState:UIControlStateNormal] isEqualToString:@"Cancel"]) {
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:[actionSheet buttonTitleAtIndex:[actionSheet cancelButtonIndex]]]) {
                 corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopLeft | UIRectCornerTopRight);
             }
             
