@@ -10,6 +10,7 @@
 #import "K9Dog.h"
 #import "K9RecentEventsViewController.h"
 #import "K9AttachmentListViewController.h"
+#import "K9CertificationAndTrainingListViewController.h"
 
 @interface K9DogDetailViewController ()
 
@@ -90,6 +91,9 @@
         K9AttachmentListViewController *destination = [segue destinationViewController];
         [destination setAttachments:[self.dog attachments]];
         [[destination navigationItem] setTitle:[NSString stringWithFormat:@"%@'s Attachments", [self.dog name]]];
+    } else if([[segue identifier] isEqualToString:@"certificateSegue"]) {
+        K9CertificationAndTrainingListViewController *destination = [segue destinationViewController];
+        [destination setDog:[self dog]];
     }
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }

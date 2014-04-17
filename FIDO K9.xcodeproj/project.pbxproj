@@ -72,6 +72,7 @@
 		347D24EF18FEF698004270FA /* K9Training.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24EE18FEF698004270FA /* K9Training.m */; };
 		347D24F218FEF7D4004270FA /* K9TrainingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */; };
 		347D24F518FF330A004270FA /* K9Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F418FF330A004270FA /* K9Preferences.m */; };
+		347D24F818FF3F21004270FA /* K9CertificationAndTrainingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -230,6 +231,9 @@
 		347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9TrainingDetailViewController.m; sourceTree = "<group>"; };
 		347D24F318FF330A004270FA /* K9Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Preferences.h; sourceTree = "<group>"; };
 		347D24F418FF330A004270FA /* K9Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Preferences.m; sourceTree = "<group>"; };
+		347D24F618FF3F21004270FA /* K9CertificationAndTrainingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9CertificationAndTrainingListViewController.h; sourceTree = "<group>"; };
+		347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9CertificationAndTrainingListViewController.m; sourceTree = "<group>"; };
+		347D24F918FF4417004270FA /* Klaus.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Klaus.gpx; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				3437B41518FB8FBD0098F6C8 /* Views */,
 				34D9094718FE120A0075C2D6 /* Utilities */,
 				34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */,
+				347D24F918FF4417004270FA /* Klaus.gpx */,
 				3437B41018FB379B0098F6C8 /* TestDog.jpg */,
 				34418A8D18EF214C00F1D2A1 /* Images.xcassets */,
 				34418A8218EF214C00F1D2A1 /* Supporting Files */,
@@ -573,6 +578,8 @@
 				34D820B018F069830098D7EC /* K9DogDetailViewController.m */,
 				3437B40118F9EFCD0098F6C8 /* K9AttachmentListViewController.h */,
 				3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */,
+				347D24F618FF3F21004270FA /* K9CertificationAndTrainingListViewController.h */,
+				347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */,
 			);
 			name = "Dog List + Details";
 			sourceTree = "<group>";
@@ -773,6 +780,7 @@
 				345EE05F18F1AFAC00BC8581 /* AFURLConnectionOperation.m in Sources */,
 				345EE06618F1AFAC00BC8581 /* UIButton+AFNetworking.m in Sources */,
 				34D9095118FE12B90075C2D6 /* Forecastr.m in Sources */,
+				347D24F818FF3F21004270FA /* K9CertificationAndTrainingListViewController.m in Sources */,
 				345EE06418F1AFAC00BC8581 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				347D24EC18FEF5B6004270FA /* K9TrainingListTableViewController.m in Sources */,
 				34D9095218FE12B90075C2D6 /* ForecastrAPIClient.m in Sources */,

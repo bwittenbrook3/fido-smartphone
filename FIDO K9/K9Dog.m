@@ -38,6 +38,8 @@
     
     dog.color = [UIColor redColor];
     
+    dog.certifications = @[@"Explosive Detection"];
+    
     // TODO: Grab URL when web API supports it.
     UIImage *image = [UIImage imageNamed:@"TestDog.jpg"];
     dog.image = [K9Dog centerCircularImage:image];

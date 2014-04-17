@@ -42,6 +42,8 @@ extern NSString *const K9TrainingWasAddedNotification;
 - (NSArray *)attachmentsForDogWithID:(NSInteger)dogID;
 - (NSArray *)fetchAttachmentsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
 
+- (NSArray *)trainingForDogWithID:(NSInteger)dogID;
+
 
 // Attachments
 @property (readonly, nonatomic) NSArray *allAttachments;

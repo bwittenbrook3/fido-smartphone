@@ -35,16 +35,18 @@ static inline NSArray *sortTraining(NSArray *events) {
     [super viewDidLoad];
     
     
-    [[K9ObjectGraph sharedObjectGraph] addTraining:[K9Training sampleTraining]];
-    [[K9ObjectGraph sharedObjectGraph] addTraining:[K9Training sampleTraining]];
-    
-    self.trainings = sortTraining([[K9ObjectGraph sharedObjectGraph] allTraining]);
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:K9TrainingWasAddedNotification object:[K9ObjectGraph sharedObjectGraph] queue:nil usingBlock:^(NSNotification *note) {
+    if(!self.trainings) {
+        [[K9ObjectGraph sharedObjectGraph] addTraining:[K9Training sampleTraining]];
+        [[K9ObjectGraph sharedObjectGraph] addTraining:[K9Training sampleTraining]];
+        
         self.trainings = sortTraining([[K9ObjectGraph sharedObjectGraph] allTraining]);
-        [[self tableView] insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:K9TrainingWasAddedNotification object:[K9ObjectGraph sharedObjectGraph] queue:nil usingBlock:^(NSNotification *note) {
+            self.trainings = sortTraining([[K9ObjectGraph sharedObjectGraph] allTraining]);
+            [[self tableView] insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }];
+    }
     
 }
 

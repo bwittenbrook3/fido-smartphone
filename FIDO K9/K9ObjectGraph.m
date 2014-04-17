@@ -234,4 +234,14 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:K9TrainingWasAddedNotification object:self userInfo:nil];
 }
 
+- (NSArray *)trainingForDogWithID:(NSInteger)dogID {
+    NSMutableArray *trainingList = [NSMutableArray array];
+    for(K9Training *training in [self allTraining]) {
+        if([[training trainedDog] dogID] == dogID) {
+            [trainingList addObject:training];
+        }
+    }
+    return trainingList;
+}
+
 @end
