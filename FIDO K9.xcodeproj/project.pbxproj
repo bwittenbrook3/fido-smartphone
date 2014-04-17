@@ -372,10 +372,6 @@
 				34418A8B18EF214C00F1D2A1 /* K9AppDelegate.m */,
 				347D24F318FF330A004270FA /* K9Preferences.h */,
 				347D24F418FF330A004270FA /* K9Preferences.m */,
-				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
-				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
-				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
-				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
 				348D9F3818EF34A20051C9C8 /* ViewControllers */,
 				345EE02A18F1AB4600BC8581 /* Model */,
 				3437B41518FB8FBD0098F6C8 /* Views */,
@@ -609,6 +605,10 @@
 		34D9094718FE120A0075C2D6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
+				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
+				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
+				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
 				34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */,
 			);
 			name = Utilities;
@@ -632,9 +632,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		34418A7718EF214C00F1D2A1 /* FIDO */ = {
+		34418A7718EF214C00F1D2A1 /* FIDO K9 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO" */;
+			buildConfigurationList = 34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO K9" */;
 			buildPhases = (
 				34418A7418EF214C00F1D2A1 /* Sources */,
 				34418A7518EF214C00F1D2A1 /* Frameworks */,
@@ -644,7 +644,7 @@
 			);
 			dependencies = (
 			);
-			name = FIDO;
+			name = "FIDO K9";
 			productName = "FIDO K9";
 			productReference = 34418A7818EF214C00F1D2A1 /* FIDO.app */;
 			productType = "com.apple.product-type.application";
@@ -678,6 +678,7 @@
 				ORGANIZATIONNAME = FIDO;
 				TargetAttributes = {
 					34418A7718EF214C00F1D2A1 = {
+						DevelopmentTeam = 9N79E8SMNY;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -704,7 +705,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				34418A7718EF214C00F1D2A1 /* FIDO */,
+				34418A7718EF214C00F1D2A1 /* FIDO K9 */,
 				34418A9218EF214C00F1D2A1 /* FIDO K9Tests */,
 			);
 		};
@@ -821,7 +822,7 @@
 /* Begin PBXTargetDependency section */
 		34418A9918EF214C00F1D2A1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 34418A7718EF214C00F1D2A1 /* FIDO */;
+			target = 34418A7718EF214C00F1D2A1 /* FIDO K9 */;
 			targetProxy = 34418A9818EF214C00F1D2A1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -923,10 +924,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FIDO K9/FIDO K9-Prefix.pch";
 				INFOPLIST_FILE = "FIDO K9/FIDO K9-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -936,10 +940,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FIDO K9/FIDO K9-Prefix.pch";
 				INFOPLIST_FILE = "FIDO K9/FIDO K9-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -996,7 +1003,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO" */ = {
+		34418AA418EF214D00F1D2A1 /* Build configuration list for PBXNativeTarget "FIDO K9" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				34418AA518EF214D00F1D2A1 /* Debug */,

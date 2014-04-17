@@ -70,7 +70,6 @@
 }
 
 
-
 - (void)registerForPusher {
     __block UIBackgroundTaskIdentifier bgTask;
     bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"Pusher Background Task" expirationHandler:^{
@@ -89,8 +88,6 @@
     if(!_client) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             _client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePusherEvent:) name:PTPusherEventReceivedNotification object:_client];
-            
             [_client connect];
             [_client subscribeToChannelNamed:@"debc87ae93c311bfda576017ef636f9db75e9050"];
             [_client bindToEventNamed:@"sync" handleWithBlock:^(PTPusherEvent *event) {
@@ -117,9 +114,5 @@
         }
     }];
 }
-
-- (void)handlePusherEvent:(PTPusher *)pusher {
-}
-
 
 @end
