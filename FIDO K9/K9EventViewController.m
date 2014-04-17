@@ -187,7 +187,6 @@
     [button addTarget:self action:@selector(releaseButtonColor:) forControlEvents:UIControlEventTouchCancel|UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
     [button addTarget:self action:@selector(getDirections:) forControlEvents:UIControlEventTouchUpInside];
     
-    //    pinView.leftCalloutAccessoryView = leftView;
     pinView.leftCalloutAccessoryView = button;
     pinView.canShowCallout = YES;
     pinView.image = [UIImage imageNamed:@"Alert"];

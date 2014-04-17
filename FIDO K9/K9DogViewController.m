@@ -17,7 +17,7 @@
 
 #define DEFAULT_ZOOM_LEVEL 600
 
-@interface K9DogViewController () <MKMapViewDelegate>
+@interface K9DogViewController () <MKMapViewDelegate, UIActionSheetDelegate>
 
 @property (strong) IBOutlet UIView *detailContainerView;
 @property (strong) NSLayoutConstraint *heightConstraint;
@@ -32,6 +32,13 @@
 - (IBAction)closeInfo:(id)sender;
 
 @property (weak) IBOutlet MKMapView *mapView;
+@property (strong) UIMotionEffectGroup *mapEffects;
+
+@end
+
+@interface UIButton (ColorForState)
+
+- (void)setColor:(UIColor *)color forState:(UIControlState)state;
 
 @end
 
@@ -84,6 +91,7 @@
     
     UIMotionEffectGroup *group = [UIMotionEffectGroup new];
     group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+    self.mapEffects = group;
     [self.mapView addMotionEffect:group];
     
     if(self.dog) {
@@ -221,10 +229,132 @@
     if (annotationView == nil) {
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_ID];
     }
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    button.titleLabel.text = @"Route";
+    button.backgroundColor = [UIColor blueColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Police Car"]];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    UILabel *directionsLabel = [[UILabel alloc] init];
+    [directionsLabel setText:@"Route"];
+    [directionsLabel setFont:[UIFont boldSystemFontOfSize:11]];
+    [directionsLabel setTextColor:[UIColor whiteColor]];
+    [directionsLabel setTextAlignment:NSTextAlignmentCenter];
+    directionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [button addSubview:imageView];
+    [button addSubview:directionsLabel];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(1)-[imageView][directionsLabel]-(5)-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(imageView, directionsLabel)]];
+    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[directionsLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings( directionsLabel)]];
+    
+    
+    [button addTarget:self action:@selector(updateButtonColor:) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(releaseButtonColor:) forControlEvents:UIControlEventTouchCancel|UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
+    [button addTarget:self action:@selector(getDirections:) forControlEvents:UIControlEventTouchUpInside];
+    
+    annotationView.leftCalloutAccessoryView = button;
+    annotationView.canShowCallout = YES;
     annotationView.image = [UIImage imageNamed:@"Dog Annotation"];
+    
+    
     return annotationView;
 }
+
+- (void)updateButtonColor:(id)sender {
+    [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0.6 alpha:1.0]];
+}
+
+- (void)releaseButtonColor:(id)sender {
+    [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1.0 alpha:1.0]];
+}
+
+- (void)getDirections:(id)sender {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Maps App", @"Google Glass", nil];
+    [sheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    [self.mapView removeMotionEffect:self.mapEffects];
     
+}
+
+- (void)sendDirectionsToGlass {
+    // No op... for now.
+}
+
+- (void)getDirectionsInMaps {
+    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate:self.dog.lastKnownLocation.coordinate addressDictionary: nil];
+    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
+    destination.name = self.dog.name;
+    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
+    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             MKLaunchOptionsDirectionsModeDriving,
+                             MKLaunchOptionsDirectionsModeKey, nil];
+    [MKMapItem openMapsWithItems: items launchOptions: options];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            [self getDirectionsInMaps];
+            break;
+        case 1:
+            [self sendDirectionsToGlass];
+            break;
+        default:
+            break;
+    }
+    
+    [self.mapView addMotionEffect:self.mapEffects];
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+    UIColor *textColor = [[[[UIApplication sharedApplication] windows] firstObject] tintColor];
+    UIColor *backgroundColor = [UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:150.0];
+    for (UIView *subview in actionSheet.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            
+            for(UIView *buttonSubview in subview.subviews) {
+                if (![buttonSubview isKindOfClass:[UILabel class]]) {
+                    [buttonSubview setHidden:YES];
+                }
+            }
+            
+            UIButton *button = (UIButton *)subview;
+            [button setColor:backgroundColor forState:UIControlStateNormal];
+            [button setClipsToBounds:YES];
+            CGRect frame = [button frame];
+            frame.size.width -= 10;
+            frame.origin.x += 5;
+            frame.origin.y -= 1;
+            frame.size.height += 2;
+            [button setFrame:frame];
+            
+            
+            UIRectCorner corners = 0;
+            if([[button titleForState:UIControlStateNormal] isEqualToString:[actionSheet buttonTitleAtIndex:0]]) {
+                corners = UIRectCornerTopLeft | UIRectCornerTopRight;
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:[actionSheet buttonTitleAtIndex:([actionSheet numberOfButtons]-2)]]) {
+                corners = UIRectCornerBottomLeft | UIRectCornerBottomRight;
+            } else if([[button titleForState:UIControlStateNormal] isEqualToString:[actionSheet buttonTitleAtIndex:[actionSheet cancelButtonIndex]]]) {
+                corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerTopLeft | UIRectCornerTopRight);
+            }
+            
+            
+            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:button.bounds byRoundingCorners:corners cornerRadii:CGSizeMake(4.0, 4.0)];
+            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+            maskLayer.frame = button.bounds;
+            maskLayer.path = maskPath.CGPath;
+            button.layer.mask = maskLayer;
+            
+            
+            [button setTitleColor:textColor forState:UIControlStateNormal];
+        }
+    }
+}
+
 @end
 
 @implementation K9Dog (K9DogAnnotation)
@@ -233,4 +363,13 @@
     return self.lastKnownLocation.coordinate;
 }
 
+- (NSString *)title {
+    return self.name;
+}
+
+- (NSString *)subtitle {
+    return self.status;
+}
+
 @end
+
