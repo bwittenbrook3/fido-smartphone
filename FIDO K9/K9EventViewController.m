@@ -161,7 +161,7 @@
     MKAnnotationView* pinView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
     
     if (!pinView) {
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+        pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
     }
 
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -190,6 +190,7 @@
     //    pinView.leftCalloutAccessoryView = leftView;
     pinView.leftCalloutAccessoryView = button;
     pinView.canShowCallout = YES;
+    pinView.image = [UIImage imageNamed:@"Alert"];
     
     return pinView;
 }
