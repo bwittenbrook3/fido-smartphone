@@ -13,7 +13,14 @@
 
 #import <MapKit/MapKit.h>
 
+#define COLOR_PART_RED(color)    (((color) >> 16) & 0xff)
+#define COLOR_PART_GREEN(color)  (((color) >>  8) & 0xff)
+#define COLOR_PART_BLUE(color)   ( (color)        & 0xff)
 
+
+@interface UIImage (Additions)
+- (UIImage *)replaceBlueWithColor:(UIColor *)newColor;
+@end
 
 #define DEFAULT_ZOOM_LEVEL 600
 
@@ -255,11 +262,12 @@
     
     annotationView.leftCalloutAccessoryView = button;
     annotationView.canShowCallout = YES;
-    annotationView.image = [UIImage imageNamed:@"Dog Annotation"];
-    
+    annotationView.image = [[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
+    [annotationView setTintColor:[UIColor redColor]];
     
     return annotationView;
 }
+
 
 - (void)updateButtonColor:(id)sender {
     [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0.6 alpha:1.0]];
@@ -373,3 +381,57 @@
 
 @end
 
+@implementation UIImage (Additions)
+- (UIImage *)replaceBlueWithColor:(UIColor *)newColor{
+    CGImageRef imageRef = [self CGImage];
+    
+    NSUInteger width = CGImageGetWidth(imageRef);
+    NSUInteger height = CGImageGetHeight(imageRef);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    NSUInteger bytesPerPixel = 4;
+    NSUInteger bytesPerRow = bytesPerPixel * width;
+    NSUInteger bitsPerComponent = 8;
+    NSUInteger bitmapByteCount = bytesPerRow * height;
+    
+    unsigned char *rawData = (unsigned char*) calloc(bitmapByteCount, sizeof(unsigned char));
+    
+    
+    CGContextRef context = CGBitmapContextCreate(rawData, width, height,
+                                                 bitsPerComponent, bytesPerRow, colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+    
+    CGColorRef newCgColor = [newColor CGColor];
+    const CGFloat *newComponents = CGColorGetComponents(newCgColor);
+    float newRed = newComponents[0] * 255.0;
+    float newGreen = newComponents[1] * 255.0;
+    float newBlue = newComponents[2] * 255.0;
+
+    int byteIndex = 0;
+    
+    while (byteIndex < bitmapByteCount) {
+        unsigned char red   = rawData[byteIndex];
+        unsigned char blue  = rawData[byteIndex + 2];
+        unsigned char alpha  = rawData[byteIndex + 3];
+        
+        float blueDiff = (blue - red)/255.0;
+        
+        rawData[byteIndex] = red + blueDiff*newRed;
+        rawData[byteIndex + 1] = red + blueDiff*newGreen;
+        rawData[byteIndex + 2] = red + blueDiff*newBlue;
+        rawData[byteIndex + 3] = alpha;
+
+        byteIndex += 4;
+    }
+    
+    UIImage *result = [UIImage imageWithCGImage:CGBitmapContextCreateImage(context) scale:[self scale] orientation:UIImageOrientationUp];
+    
+    CGContextRelease(context);
+    free(rawData);
+    
+    return result;
+}
+@end
