@@ -73,7 +73,7 @@
     
     cell.clipsToBounds = YES;
     cell.layer.borderWidth = 0.5;
-    cell.layer.borderColor = [UIColor blackColor].CGColor;
+    cell.layer.borderColor = [UIColor grayColor].CGColor;
 
     
     return cell;
@@ -102,7 +102,7 @@
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.6;
+    return 0.4;
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -115,7 +115,7 @@
         toViewController.view.alpha = 0;
 
         UIImage *screenshot = [[fromViewController view] screenshot];
-        UIImage *finalBackground = [screenshot applyDarkEffect];
+        UIImage *finalBackground = [screenshot applyLightEffect];
         CGFloat y = 64;//[[fromViewController topLayoutGuide] length];
         
         CGRect tabBarRect = CGRectIntersection([[fromViewController.tabBarController view] bounds], [[fromViewController.tabBarController tabBar] frame]);
@@ -192,7 +192,7 @@
         [transitionImageView setContentMode:UIViewContentModeScaleAspectFill];
         [transitionImageView setClipsToBounds:YES];
         transitionImageView.layer.borderWidth = 0.5;
-        transitionImageView.layer.borderColor = [UIColor blackColor].CGColor;
+        transitionImageView.layer.borderColor = [UIColor grayColor].CGColor;
         [transitionImageView setImage:image];
         [containerView addSubview:transitionImageView];
 
@@ -222,8 +222,10 @@
 -(UIImage *)imageWithImage:(UIImage *)image inRect:(CGRect)cropRect borderImage:(UIImage *)borderImage{
     UIGraphicsBeginImageContext(borderImage.size);
     [borderImage drawAtPoint:CGPointZero];
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
-    image = [UIImage imageWithCGImage:imageRef];
+    CGFloat scaleFactor =  image.scale;
+    CGRect captureRect = CGRectMake(scaleFactor * cropRect.origin.x, scaleFactor * cropRect.origin.y, scaleFactor * cropRect.size.width, scaleFactor * cropRect.size.height);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], captureRect);
+    image = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:UIImageOrientationUp];
     CGImageRelease(imageRef);
     [image drawAtPoint:cropRect.origin];
     UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -232,7 +234,10 @@
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image croppedToRect:(CGRect)cropRect {
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    CGFloat scaleFactor =  image.scale;
+    CGRect captureRect = CGRectMake(scaleFactor * cropRect.origin.x, scaleFactor * cropRect.origin.y, scaleFactor * cropRect.size.width, scaleFactor * cropRect.size.height);
+
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], captureRect);
     image = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     return image;

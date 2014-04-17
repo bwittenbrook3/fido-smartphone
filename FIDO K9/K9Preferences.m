@@ -9,6 +9,7 @@
 #import "K9Preferences.h"
 
 #define LOCATION_PREFERENCES_KEY @"K9PreferencesLocation"
+#define OPEN_IMAGE_DRAWER_PREFERENCES_KEY @"K9PreferencesEventImageDrawerIsOpen"
 
 @implementation K9Preferences
 
@@ -27,5 +28,14 @@ static K9Preferences *_sharedPreferences;
 + (void)setLocationPreference:(K9PreferencesLocation)locationPreference {
     [[NSUserDefaults standardUserDefaults] setInteger:locationPreference forKey:LOCATION_PREFERENCES_KEY];
 }
+
++ (BOOL)eventImageDrawerIsOpen {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:OPEN_IMAGE_DRAWER_PREFERENCES_KEY];
+}
+
++ (void)setEventImageDrawerIsOpen:(BOOL)isOpen {
+    [[NSUserDefaults standardUserDefaults] setBool:isOpen forKey:OPEN_IMAGE_DRAWER_PREFERENCES_KEY];
+}
+
 
 @end

@@ -17,9 +17,11 @@ typedef NS_ENUM(NSInteger, K9PreferencesLocation) {
 
 @interface K9Preferences : NSObject
 
-+ (K9Preferences *)sharedPreferences;
-
 + (K9PreferencesLocation)locationPreference;
 + (void)setLocationPreference:(K9PreferencesLocation)locationPreference;
+
++ (BOOL)eventImageDrawerIsOpen;
++ (void)setEventImageDrawerIsOpen:(BOOL)isOpen;
+
 
 @end

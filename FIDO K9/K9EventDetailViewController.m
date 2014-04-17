@@ -9,6 +9,7 @@
 #import "K9EventDetailViewController.h"
 #import "K9ResourcesCollectionViewController.h"
 #import "K9DogAvatarViewController.h"
+#import "K9Preferences.h"
 
 #import "K9Event.h"
 #import "K9Dog.h"
@@ -22,7 +23,21 @@
 
 @property (weak) IBOutlet UIView *dogAvatarStackView;
 
+@property (weak) IBOutlet UIView *resourceCollectionWrapperView;
+
+@property (weak) IBOutlet UIButton *revealButton;
+@property (weak) IBOutlet NSLayoutConstraint *resourceCollectionWrapperViewHeight;
+
+@property BOOL ignoreDrawerToggleForPreferences;
+
 @end
+
+
+#define OPEN_IMAGE_DRAWER_HEIGHT (75)
+#define OPEN_IMAGE_DRAWER_REVEAL_IMAGE (@"Reveal Reverse")
+#define CLOSED_IMAGE_DRAWER_HEIGHT (0)
+#define CLOSED_IMAGE_DRAWER_REVEAL_IMAGE (@"Reveal")
+
 
 @implementation K9EventDetailViewController
 
@@ -37,8 +52,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[self view] bringSubviewToFront:[self revealButton]];
     self.resourcesViewController = [[self childViewControllers] lastObject];
     
+    self.resourceCollectionWrapperViewHeight.constant = CLOSED_IMAGE_DRAWER_HEIGHT;
+    [self.revealButton setHidden:YES];
+
     if(self.event) {
         [self reloadEventViews];
     }
@@ -56,7 +75,22 @@
 
 - (void)eventDidModifyResources:(NSNotification *)notification {
     self.resourcesViewController.resources = [[notification object] resources];
-    NSLog(@"updating resources");
+    if(self.revealButton.hidden && self.event.resources) {
+        self.revealButton.alpha = 0;
+        self.revealButton.hidden = NO;
+    }
+    
+    if(self.resourceCollectionWrapperViewHeight.constant == CLOSED_IMAGE_DRAWER_HEIGHT) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.revealButton.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                self.ignoreDrawerToggleForPreferences = YES;
+                [self toggleResourcesDrawer:self];
+                self.ignoreDrawerToggleForPreferences = NO;
+            }];
+        });
+    }
 }
 
 - (void)reloadEventViews {
@@ -66,6 +100,15 @@
     for(UIView *subview in [self.dogAvatarStackView subviews]) {
         [subview removeFromSuperview];
     }
+    
+    if([K9Preferences eventImageDrawerIsOpen] && self.event.resources.count) {
+        self.resourceCollectionWrapperViewHeight.constant = OPEN_IMAGE_DRAWER_HEIGHT;
+        [self.revealButton setImage:[UIImage imageNamed:OPEN_IMAGE_DRAWER_REVEAL_IMAGE] forState:UIControlStateNormal];
+    } else {
+        self.resourceCollectionWrapperViewHeight.constant = CLOSED_IMAGE_DRAWER_HEIGHT;
+        [self.revealButton setImage:[UIImage imageNamed:CLOSED_IMAGE_DRAWER_REVEAL_IMAGE] forState:UIControlStateNormal];
+    }
+    [self.revealButton setHidden:!(self.event.resources.count)];
     
     UIView *previousView = nil;
     for(K9Dog *dog in [self.event associatedDogs]) {
@@ -114,6 +157,24 @@
             [self.delegate eventDetailViewController:self didFocusOnDog:nil wasFocusedOnDog:dogAvatarViewController.dog];
         }
     }
+}
+
+- (IBAction)toggleResourcesDrawer:(id)sender {
+    BOOL collapsing = (self.resourceCollectionWrapperViewHeight.constant != CLOSED_IMAGE_DRAWER_HEIGHT);
+    
+    if(!self.ignoreDrawerToggleForPreferences) {
+        [K9Preferences setEventImageDrawerIsOpen:!collapsing];
+    }
+    
+    CGFloat finalHeight = collapsing ? CLOSED_IMAGE_DRAWER_HEIGHT : OPEN_IMAGE_DRAWER_HEIGHT;
+    UIImage *finalImage = [UIImage imageNamed:(collapsing ? CLOSED_IMAGE_DRAWER_REVEAL_IMAGE : OPEN_IMAGE_DRAWER_REVEAL_IMAGE)];
+    
+    [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.resourceCollectionWrapperViewHeight.constant = finalHeight;
+        [self.revealButton setImage:finalImage forState:UIControlStateNormal];
+        [[[self.view superview] superview] layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 /*

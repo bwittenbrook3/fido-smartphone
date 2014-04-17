@@ -234,6 +234,7 @@
 		347D24F618FF3F21004270FA /* K9CertificationAndTrainingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9CertificationAndTrainingListViewController.h; sourceTree = "<group>"; };
 		347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9CertificationAndTrainingListViewController.m; sourceTree = "<group>"; };
 		347D24F918FF4417004270FA /* Klaus.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Klaus.gpx; sourceTree = "<group>"; };
+		34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = K9ModelUtilities.h; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -608,6 +609,7 @@
 		34D9094718FE120A0075C2D6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";

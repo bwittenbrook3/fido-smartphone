@@ -10,9 +10,14 @@
 #import "K9Event.h"
 #import "K9ObjectGraph.h"
 
+#import "K9ModelUtilities.h"
+
 #define NAME_KEY @"K9"
 #define ID_KEY @"id"
 #define OFFICER_NAME_KEY @"officer"
+#define AGE_KEY @"age"
+#define STATUS_KEY @"status"
+
 
 @implementation K9Dog
 
@@ -22,15 +27,11 @@
     K9Dog *dog = [K9Dog new];
 
     dog.dogID = [[propertyList objectForKey:ID_KEY] integerValue];
-    dog.name = [propertyList objectForKey:NAME_KEY];
-    dog.officerName = [propertyList objectForKey:OFFICER_NAME_KEY];
-    if((id)dog.officerName == [NSNull null]) {
-        dog.officerName = nil;
-    }
+    dog.name = objectWithNullCheck([propertyList objectForKey:NAME_KEY], @"Scout");
+    dog.officerName = objectWithNullCheck([propertyList objectForKey:OFFICER_NAME_KEY], @"Officer Chad Michaels");
     
-    // TODO: Get this from the web API when it supports it
-    dog.ageInMonths = 33;
-    dog.status = @"Patrolling";
+    dog.ageInMonths = [objectWithNullCheck([propertyList objectForKey:AGE_KEY], @(33)) integerValue];
+    dog.status = objectWithNullCheck([propertyList objectForKey:STATUS_KEY], @"Off Duty");
     
     // TODO: Do this at some later point once the web APIs supports these kind of queries
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
