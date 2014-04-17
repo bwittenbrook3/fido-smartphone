@@ -963,11 +963,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-1G-jA6">
+                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NHS-1G-jA6">
                                 <rect key="frame" x="138" y="5" width="45" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sample Dog Image" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Yu-azp">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <constraints>
@@ -1040,6 +1040,7 @@
                             <constraint firstAttribute="trailing" secondItem="iWY-gU-38w" secondAttribute="trailing" id="h4d-xD-Y2O"/>
                             <constraint firstAttribute="trailing" secondItem="gku-a6-6or" secondAttribute="trailing" id="iS8-xs-Hy2"/>
                             <constraint firstItem="NHS-1G-jA6" firstAttribute="top" secondItem="QTX-Bx-iil" secondAttribute="bottom" constant="5" id="qJI-dg-Pl6"/>
+                            <constraint firstItem="gku-a6-6or" firstAttribute="top" secondItem="NHS-1G-jA6" secondAttribute="bottom" constant="5" id="w2S-eQ-nCs"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
