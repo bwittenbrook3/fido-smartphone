@@ -20,8 +20,9 @@ extern NSString *const K9TrainingWasAddedNotification;
 
 + (K9ObjectGraph *)sharedObjectGraph;
 
-
 // Events
+- (void)fetchEventPusherChannelWithCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler;
+
 @property (readonly, nonatomic) NSArray *allEvents;
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler;
 

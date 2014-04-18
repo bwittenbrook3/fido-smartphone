@@ -86,6 +86,16 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     return [self allDogs];
 }
 
+- (void)fetchEventPusherChannelWithCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler {
+    [self.sessionManager GET:@"events/new_channel.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSString *channel = [responseObject objectForKey:@"channel"];
+        if(completionHandler) completionHandler(channel);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        if(completionHandler) completionHandler(nil);
+    }];
+}
+
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
     [self.sessionManager GET:@"events.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         for(NSDictionary *eventDictionary in responseObject) {
