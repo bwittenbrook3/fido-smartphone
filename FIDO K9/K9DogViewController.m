@@ -124,7 +124,7 @@
 - (IBAction)showInfo:(id)sender {
     _showingDetails = YES;
     [self.navigationItem setRightBarButtonItem:self.doneBarButtonItem animated:YES];
-    [self.navigationItem setHidesBackButton:YES animated:YES];
+//    [self.navigationItem setHidesBackButton:YES animated:YES];
 
     CGFloat finalHeight = self.view.window.frame.size.height - self.subheaderBar.frame.origin.y;
     
@@ -140,7 +140,7 @@
 - (IBAction)closeInfo:(id)sender {
     _showingDetails = NO;
     [self.navigationItem setRightBarButtonItem:self.infoBarButtonItem animated:YES];
-    [self.navigationItem setHidesBackButton:NO animated:YES];
+//    [self.navigationItem setHidesBackButton:NO animated:YES];
     
     UIView *detailsView = [[self detailsViewController] view];
     UIView *statusLabel = [[self detailsViewController] statusLabel];
