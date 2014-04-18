@@ -34,6 +34,7 @@
     if(self.mapView) {
         self.mapView.delegate = self;
         self.mapView.tintColor = [UIColor defaultSystemTintColor];
+        self.mapView.showsPointsOfInterest = NO;                                                                                                                    
         
         UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
                                                                                                             type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
