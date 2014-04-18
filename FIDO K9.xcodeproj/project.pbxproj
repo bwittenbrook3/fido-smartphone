@@ -73,6 +73,7 @@
 		347D24F218FEF7D4004270FA /* K9TrainingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */; };
 		347D24F518FF330A004270FA /* K9Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F418FF330A004270FA /* K9Preferences.m */; };
 		347D24F818FF3F21004270FA /* K9CertificationAndTrainingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */; };
+		34841B2C1900D4FC00FD9125 /* UIColor+DefaultTintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -235,6 +236,8 @@
 		347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9CertificationAndTrainingListViewController.m; sourceTree = "<group>"; };
 		347D24F918FF4417004270FA /* Klaus.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Klaus.gpx; sourceTree = "<group>"; };
 		34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = K9ModelUtilities.h; sourceTree = "<group>"; };
+		34841B2A1900D4FC00FD9125 /* UIColor+DefaultTintColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+DefaultTintColor.h"; sourceTree = "<group>"; };
+		34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DefaultTintColor.m"; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -605,6 +608,8 @@
 		34D9094718FE120A0075C2D6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				34841B2A1900D4FC00FD9125 /* UIColor+DefaultTintColor.h */,
+				34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */,
 				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
 				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
 				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
@@ -767,6 +772,7 @@
 				345EE09B18F1C32400BC8581 /* PTPusherChannelAuthorizationOperation.m in Sources */,
 				345EE05D18F1AFAC00BC8581 /* AFNetworkReachabilityManager.m in Sources */,
 				34DE106818F351E500FB21D8 /* UIImage+ImageEffects.m in Sources */,
+				34841B2C1900D4FC00FD9125 /* UIColor+DefaultTintColor.m in Sources */,
 				34DE106B18F351F400FB21D8 /* UIView+Screenshot.m in Sources */,
 				345EE03018F1ABD400BC8581 /* K9Event.m in Sources */,
 				345EE06718F1AFAC00BC8581 /* UIImageView+AFNetworking.m in Sources */,

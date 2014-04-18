@@ -11,7 +11,9 @@
 #import <MapKit/MapKit.h>
 #import "K9EventDetailViewController.h"
 #import "K9Dog.h"
+#import "K9Preferences.h"
 #import "K9Photo.h"
+#import "UIColor+DefaultTintColor.h"
 
 #import <objc/runtime.h>
 #import <MapKit/MapKit.h>
@@ -62,6 +64,7 @@
     self.detailsViewController.event = self.event;
     
     self.mapView.delegate = self;
+    self.mapView.tintColor = [UIColor defaultSystemTintColor];
     
     UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
                                                                                                         type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
@@ -85,6 +88,10 @@
     [[self subheaderBar] addSubview:detailsView];
     [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[detailsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
     [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[detailsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
+    
+    if([K9Preferences locationPreference] == K9PreferencesLocationAbsoluteAccepted) {
+        [self.mapView setShowsUserLocation:YES];
+    }
     
     if(self.event) {
         [self updateEventViews];
@@ -179,7 +186,7 @@
     [button addSubview:imageView];
     [button addSubview:directionsLabel];
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(1)-[imageView][directionsLabel]-(5)-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(imageView, directionsLabel)]];
+    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(2)-[imageView]-(-1)-[directionsLabel]-(7)-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(imageView, directionsLabel)]];
     [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[directionsLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings( directionsLabel)]];
 
     
