@@ -149,6 +149,8 @@
     pinView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
     pinView.canShowCallout = YES;
     pinView.image = [UIImage imageNamed:@"Alert"];
+    pinView.calloutOffset = CGPointMake(0, 0);
+
     
     return pinView;
 }

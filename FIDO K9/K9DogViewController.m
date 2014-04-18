@@ -10,6 +10,8 @@
 #import "K9DogDetailViewController.h"
 #import "K9Dog.h"
 #import "Forecastr+CLLocation.h"
+#import "UIView+Screenshot.h"
+#import "K9CircularBorderImageView.h"
 
 #import <MapKit/MapKit.h>
 
@@ -223,8 +225,20 @@
     
     annotationView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
     annotationView.canShowCallout = YES;
-    annotationView.image = [[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
+    
+    K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    dogProfile.backgroundColor = [UIColor clearColor];
+    dogProfile.opaque = NO;
+    [dogProfile setImageWithURL:self.dog.imageURL placeholderImage:[K9Dog defaultDogImage]];
+    dogProfile.borderColor = self.dog.color;
+    dogProfile.borderWidth = 1;
+    
+    UIImage *dogProfileImage = [dogProfile screenshot];
+    
+    annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
     [annotationView setTintColor:[UIColor redColor]];
+    
+    annotationView.calloutOffset = CGPointMake(0, 0);
     
     return annotationView;
 }
