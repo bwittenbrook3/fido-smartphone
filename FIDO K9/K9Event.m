@@ -51,7 +51,7 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
         // TODO: Remove the extra test dog when the API supports it
         K9Dog *dog2 = [K9Dog new];
         dog2.name = @"Long Dog Name";
-        dog2.color = [UIColor blueColor];
+        dog2.color = [UIColor colorWithHue:((float)rand() / RAND_MAX) saturation:0.9 brightness:1.0 alpha:1.0];
         event.associatedDogs = @[dog, dog2];
     }
 

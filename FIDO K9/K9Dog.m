@@ -52,7 +52,8 @@ static UIImage *_defaultSharedImage;
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
     [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];
     
-    dog.color = [UIColor redColor];
+    // TODO: Use real dog color when web api supports it
+    dog.color = [UIColor colorWithHue:(dog.dogID/8.0) saturation:0.9 brightness:1.0 alpha:1.0];
     
     dog.certifications = @[@"Explosive Detection"];
     

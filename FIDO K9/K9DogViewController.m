@@ -232,11 +232,12 @@
     
     __weak typeof(dogProfile) weakDogProfile = dogProfile;
     [dogProfile setImageWithURL:self.dog.imageURL placeholderImage:[K9Dog defaultDogImage] completion:^{
+        weakDogProfile.borderColor = self.dog.color;
+        weakDogProfile.borderWidth = 1;
+
         UIImage *dogProfileImage = [weakDogProfile screenshot];
         annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
     }];
-    dogProfile.borderColor = self.dog.color;
-    dogProfile.borderWidth = 1;
     
     
     annotationView.calloutOffset = CGPointMake(0, 0);
