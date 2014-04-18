@@ -51,7 +51,6 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     for (id <MKAnnotation> annotation in self.dogs) {
         MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 50, 50);
-        NSLog(@"%f %f", annotationPoint.x, annotationPoint.y);
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
     [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(64 + 30, 30, 50 + 30, 30) animated:NO];
