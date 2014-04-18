@@ -20,6 +20,9 @@
 #define URL_KEY @"url"
 
 
+#define RAND ((((float)rand() / RAND_MAX)-0.5)*0.008)
+
+
 @interface K9Dog()
 
 @end
@@ -59,8 +62,8 @@ static UIImage *_defaultSharedImage;
     
     
     // TODO: Get last known location when web API supports it.
-    CGFloat latitude = 33.7721200;
-    CGFloat longitude = -84.392942;
+    CGFloat latitude = 33.7721200 + RAND;
+    CGFloat longitude = -84.392942 + RAND;
     dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     return dog;

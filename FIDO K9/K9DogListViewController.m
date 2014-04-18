@@ -9,6 +9,7 @@
 #import "K9DogListViewController.h"
 #import "K9Dog.h"
 #import "K9ObjectGraph.h"
+#import "K9DogMapViewController.h"
 
 #import "K9DogViewController.h"
 
@@ -16,7 +17,6 @@
 
 
 @interface K9DogListViewController ()
-@property (copy) NSArray *dogs;
 @end
 
 static inline NSArray *sortDogs(NSArray *dogs) {
@@ -37,10 +37,20 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     [super viewDidLoad];
     [self setClearsSelectionOnViewWillAppear:YES];
 
-    self.dogs = sortDogs([[K9ObjectGraph sharedObjectGraph] fetchAllDogsWithCompletionHandler:^(NSArray *dogs) {
-        self.dogs = sortDogs(dogs);
-        [[self tableView] reloadData];
-    }]);
+    if(!self.dogs) {
+        self.dogs = sortDogs([[K9ObjectGraph sharedObjectGraph] fetchAllDogsWithCompletionHandler:^(NSArray *dogs) {
+            self.dogs = sortDogs(dogs);
+        }]);
+    }
+}
+
+- (void)setDogs:(NSArray *)dogs {
+    if(_dogs != dogs) {
+        _dogs = dogs;
+        if(self.isViewLoaded) {
+            [[self tableView] reloadData];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,9 +79,12 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"selectedDogSegue"]) {
+    if ([segue.identifier isEqualToString:@"selectedDogSegue"]) {
         K9DogViewController *destination = [segue destinationViewController];
         [destination setDog:[self.dogs objectAtIndex:[self.tableView indexPathForSelectedRow].row]];
+    } else if ([segue.identifier isEqualToString:@"mapModeSegue"]) {
+        K9DogMapViewController *destination = [segue destinationViewController];
+        [destination setDogs:self.dogs];
     }
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }

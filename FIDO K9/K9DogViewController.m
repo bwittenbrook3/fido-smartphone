@@ -12,6 +12,7 @@
 #import "Forecastr+CLLocation.h"
 #import "UIView+Screenshot.h"
 #import "K9CircularBorderImageView.h"
+#import "K9Dog+Annotation.h"
 
 #import <MapKit/MapKit.h>
 
@@ -45,10 +46,6 @@
 @interface UIButton (ColorForState)
 
 - (void)setColor:(UIColor *)color forState:(UIControlState)state;
-
-@end
-
-@interface K9Dog (K9DogAnnotation) <MKAnnotation>
 
 @end
 
@@ -218,9 +215,9 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     if([annotation isKindOfClass:[MKUserLocation class]]) return nil;
     
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_ID];
+    MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_ID];
     if (annotationView == nil) {
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_ID];
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_ID];
     }
     
     annotationView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
@@ -238,10 +235,7 @@
         UIImage *dogProfileImage = [weakDogProfile screenshot];
         annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
     }];
-    
-    
-    annotationView.calloutOffset = CGPointMake(0, 0);
-    
+
     return annotationView;
 }
 
@@ -315,22 +309,6 @@
             [button setTitleColor:textColor forState:UIControlStateNormal];
         }
     }
-}
-
-@end
-
-@implementation K9Dog (K9DogAnnotation)
-
-- (CLLocationCoordinate2D)coordinate {
-    return self.lastKnownLocation.coordinate;
-}
-
-- (NSString *)title {
-    return self.name;
-}
-
-- (NSString *)subtitle {
-    return self.status;
 }
 
 @end

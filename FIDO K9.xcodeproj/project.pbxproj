@@ -76,6 +76,9 @@
 		34841B2F1900D72400FD9125 /* K9MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2E1900D72400FD9125 /* K9MapViewController.m */; };
 		34841B351900F00400FD9125 /* UIImage+CircularCenteredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */; };
 		34841B381900F55500FD9125 /* K9Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B371900F55500FD9125 /* K9Resource.m */; };
+		34841B3B1901BDDE00FD9125 /* K9NavigationReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B3A1901BDDE00FD9125 /* K9NavigationReplaceSegue.m */; };
+		34841B3E1901C25800FD9125 /* K9DogMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B3D1901C25800FD9125 /* K9DogMapViewController.m */; };
+		34841B411901C44600FD9125 /* K9Dog+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B401901C44600FD9125 /* K9Dog+Annotation.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -245,6 +248,12 @@
 		34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CircularCenteredImage.m"; sourceTree = "<group>"; };
 		34841B361900F55500FD9125 /* K9Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Resource.h; sourceTree = "<group>"; };
 		34841B371900F55500FD9125 /* K9Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Resource.m; sourceTree = "<group>"; };
+		34841B391901BDDE00FD9125 /* K9NavigationReplaceSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9NavigationReplaceSegue.h; sourceTree = "<group>"; };
+		34841B3A1901BDDE00FD9125 /* K9NavigationReplaceSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9NavigationReplaceSegue.m; sourceTree = "<group>"; };
+		34841B3C1901C25800FD9125 /* K9DogMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogMapViewController.h; sourceTree = "<group>"; };
+		34841B3D1901C25800FD9125 /* K9DogMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogMapViewController.m; sourceTree = "<group>"; };
+		34841B3F1901C44600FD9125 /* K9Dog+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "K9Dog+Annotation.h"; sourceTree = "<group>"; };
+		34841B401901C44600FD9125 /* K9Dog+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "K9Dog+Annotation.m"; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -568,6 +577,8 @@
 			children = (
 				34841B2D1900D72400FD9125 /* K9MapViewController.h */,
 				34841B2E1900D72400FD9125 /* K9MapViewController.m */,
+				34841B391901BDDE00FD9125 /* K9NavigationReplaceSegue.h */,
+				34841B3A1901BDDE00FD9125 /* K9NavigationReplaceSegue.m */,
 				34D820B618F071AE0098D7EC /* Event List + Details */,
 				34D820B518F0719C0098D7EC /* Dog List + Details */,
 				3437B41918FC65EA0098F6C8 /* Training */,
@@ -582,6 +593,8 @@
 				348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */,
 				348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */,
 				348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */,
+				34841B3C1901C25800FD9125 /* K9DogMapViewController.h */,
+				34841B3D1901C25800FD9125 /* K9DogMapViewController.m */,
 				348D9F3918EF35E80051C9C8 /* K9DogViewController.h */,
 				348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */,
 				34D820AF18F069830098D7EC /* K9DogDetailViewController.h */,
@@ -590,6 +603,8 @@
 				3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */,
 				347D24F618FF3F21004270FA /* K9CertificationAndTrainingListViewController.h */,
 				347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */,
+				34841B3F1901C44600FD9125 /* K9Dog+Annotation.h */,
+				34841B401901C44600FD9125 /* K9Dog+Annotation.m */,
 			);
 			name = "Dog List + Details";
 			sourceTree = "<group>";
@@ -767,12 +782,14 @@
 				3437B41818FB8FEE0098F6C8 /* K9CircularBorderImageView.m in Sources */,
 				345EE06318F1AFAC00BC8581 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				3437B40318F9EFCD0098F6C8 /* K9AttachmentListViewController.m in Sources */,
+				34841B3E1901C25800FD9125 /* K9DogMapViewController.m in Sources */,
 				345EE09D18F1C32400BC8581 /* PTPusherEvent.m in Sources */,
 				345EE09C18F1C32400BC8581 /* PTPusherConnection.m in Sources */,
 				345EE09318F1C32400BC8581 /* NSDictionary+QueryString.m in Sources */,
 				3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */,
 				345EE06218F1AFAC00BC8581 /* AFURLSessionManager.m in Sources */,
 				345EE0A018F1C32400BC8581 /* PTTargetActionEventListener.m in Sources */,
+				34841B411901C44600FD9125 /* K9Dog+Annotation.m in Sources */,
 				34DE106518F338F000FB21D8 /* K9PhotoViewController.m in Sources */,
 				3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */,
 				34841B381900F55500FD9125 /* K9Resource.m in Sources */,
@@ -817,6 +834,7 @@
 				34841B351900F00400FD9125 /* UIImage+CircularCenteredImage.m in Sources */,
 				345EE06A18F1AFAC00BC8581 /* UIWebView+AFNetworking.m in Sources */,
 				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
+				34841B3B1901BDDE00FD9125 /* K9NavigationReplaceSegue.m in Sources */,
 				345EE0A118F1C32400BC8581 /* PTURLRequestOperation.m in Sources */,
 				345EE09A18F1C32400BC8581 /* PTPusherChannel.m in Sources */,
 				345EE09718F1C32400BC8581 /* PTPusher+Testing.m in Sources */,

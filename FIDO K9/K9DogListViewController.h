@@ -10,6 +10,8 @@
 
 @interface K9DogListViewController : UITableViewController
 
+@property (copy, nonatomic) NSArray *dogs;
+
 @end
 
 @class K9CircularBorderImageView;

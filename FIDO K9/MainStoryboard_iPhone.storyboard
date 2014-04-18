@@ -80,11 +80,16 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="All K9s" id="Fke-Qs-W8v">
                         <barButtonItem key="backBarButtonItem" title="K9s" id="JdD-dC-uh2"/>
+                        <barButtonItem key="rightBarButtonItem" image="map" id="DcC-ca-P0h">
+                            <connections>
+                                <segue destination="JpH-hl-hdw" kind="custom" identifier="mapModeSegue" customClass="K9NavigationReplaceSegue" id="OJC-s7-Y0g"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jQs-Bs-57l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="712" y="27"/>
+            <point key="canvasLocation" x="694" y="145"/>
         </scene>
         <!--Dog View Controller - Dog Name-->
         <scene sceneID="k9y-QF-Ewr">
@@ -1586,6 +1591,57 @@
             </objects>
             <point key="canvasLocation" x="2214" y="-359"/>
         </scene>
+        <!--Dog Map View Controller - All K9s-->
+        <scene sceneID="jAB-cp-JRm">
+            <objects>
+                <viewController id="JpH-hl-hdw" customClass="K9DogMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LQh-7y-gqO"/>
+                        <viewControllerLayoutGuide type="bottom" id="RQt-7H-XnW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ePU-gP-DPC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1g8-nw-QUJ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="JpH-hl-hdw" id="QBk-XU-Fog"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1g8-nw-QUJ" secondAttribute="trailing" id="N0b-18-ZtB"/>
+                            <constraint firstItem="1g8-nw-QUJ" firstAttribute="top" secondItem="ePU-gP-DPC" secondAttribute="top" id="N20-ah-cme"/>
+                            <constraint firstAttribute="bottom" secondItem="1g8-nw-QUJ" secondAttribute="bottom" id="TUw-7g-0Y1"/>
+                            <constraint firstItem="1g8-nw-QUJ" firstAttribute="leading" secondItem="ePU-gP-DPC" secondAttribute="leading" id="ba2-9F-9j9"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="All K9s" id="08L-pC-e23">
+                        <barButtonItem key="backBarButtonItem" title="K9s" id="DL8-8i-ZM7"/>
+                        <barButtonItem key="rightBarButtonItem" image="content" id="H9K-MP-EMh">
+                            <connections>
+                                <segue destination="MBE-eR-S4U" kind="custom" identifier="listModeSegue" customClass="K9NavigationReplaceSegue" id="lKF-QY-EEA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="1g8-nw-QUJ" id="jvc-rj-rB4"/>
+                        <segue destination="B0L-R4-HZi" kind="push" identifier="selectDogSegue" id="nkx-bR-4lM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fIm-R3-GLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="done" id="m4m-RS-wPC"/>
+                <containerView opaque="NO" contentMode="scaleToFill" id="379-id-JIB">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </containerView>
+            </objects>
+            <point key="canvasLocation" x="694" y="-569"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add Template" width="18" height="18"/>
@@ -1594,6 +1650,8 @@
         <image name="Sample Dog Image" width="45" height="45"/>
         <image name="Whistle" width="34" height="26"/>
         <image name="bag" width="20" height="20"/>
+        <image name="content" width="25" height="25"/>
+        <image name="map" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1602,6 +1660,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Y7U-HP-cob"/>
+        <segue reference="nkx-bR-4lM"/>
+        <segue reference="lKF-QY-EEA"/>
         <segue reference="mz8-Ue-Uz5"/>
     </inferredMetricsTieBreakers>
 </document>
