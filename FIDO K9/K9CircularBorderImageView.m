@@ -41,16 +41,21 @@
     return [[self imageView] image];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage {
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage completion:(void(^)(void))completionHandler {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-
+    
     [[self imageView] setImageWithURLRequest:request placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [self setImage:[image circularCenteredImage]];
         [self setNeedsDisplay];
+        if(completionHandler) completionHandler();
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-
+        
     }];
+}
+
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage {
+    [self setImageWithURL:url placeholderImage:placeholderImage completion:nil];
 }
 
 - (void)drawRect:(CGRect)rect {

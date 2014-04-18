@@ -12,6 +12,7 @@
 
 @property (copy) UIImage *image;
 - (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage;
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage completion:(void(^)(void))completionHandler;
 
 
 @property (copy) UIColor *borderColor;

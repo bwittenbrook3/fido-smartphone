@@ -226,17 +226,18 @@
     annotationView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
     annotationView.canShowCallout = YES;
     
-    K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    __block K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     dogProfile.backgroundColor = [UIColor clearColor];
     dogProfile.opaque = NO;
-    [dogProfile setImageWithURL:self.dog.imageURL placeholderImage:[K9Dog defaultDogImage]];
+    
+    __weak typeof(dogProfile) weakDogProfile = dogProfile;
+    [dogProfile setImageWithURL:self.dog.imageURL placeholderImage:[K9Dog defaultDogImage] completion:^{
+        UIImage *dogProfileImage = [weakDogProfile screenshot];
+        annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
+    }];
     dogProfile.borderColor = self.dog.color;
     dogProfile.borderWidth = 1;
     
-    UIImage *dogProfileImage = [dogProfile screenshot];
-    
-    annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
-    [annotationView setTintColor:[UIColor redColor]];
     
     annotationView.calloutOffset = CGPointMake(0, 0);
     
