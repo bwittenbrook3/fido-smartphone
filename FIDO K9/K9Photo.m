@@ -11,27 +11,6 @@
 #define THUMBNAIL_SIZE CGSizeMake(100, 100)
 
 @implementation K9Photo
-@synthesize thumbnail = _thumbnail;
-
-- (void)setImage:(UIImage *)image {
-    if(_image != image) {
-        _image = image;
-    }
-}
-
-- (void)setThumbnail:(UIImage *)thumbnail {
-    if(_thumbnail != thumbnail) {
-        _thumbnail = thumbnail;
-    }
-}
-
-- (UIImage *)thumbnail {
-    if(!_thumbnail) {
-//        return _image;
-        [self setThumbnail:[K9Photo imageWithImage:_image scaledToFillSize:THUMBNAIL_SIZE]];
-    }
-    return _thumbnail;
-}
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToFillSize:(CGSize)size {
     CGFloat scale = MAX(size.width/image.size.width, size.height/image.size.height);

@@ -12,6 +12,7 @@
 #import "UIImage+ImageEffects.h"
 #import "K9PhotoViewController.h"
 #import "K9Photo.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface K9ResourcesCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -66,7 +67,7 @@
     
     if([resource isKindOfClass:[K9Photo class]]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-        [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:[(K9Photo *)resource thumbnail]];
+        [[((K9PhotoCollectionViewCell *)cell) imageView] setImageWithURL:[resource URL]];
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];        
     }
@@ -137,7 +138,7 @@
         toViewController.backgroundImageView.image = mergedImage;
 
         // TODO: This assumes that it's a photo resource
-        UIImage *image = [[self.resources objectAtIndex:toViewController.currentIndex] image];
+        NSURL *imageURL = [[self.resources objectAtIndex:toViewController.currentIndex] URL];
         CGRect cellFrame = [[[self collectionViewLayout] layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentIndex inSection:0]] frame];
         cellFrame = [[self collectionView] convertRect:cellFrame toView:containerView];
         
@@ -151,7 +152,7 @@
         UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cellFrame];
         [transitionImageView setContentMode:UIViewContentModeScaleAspectFill];
         [transitionImageView setClipsToBounds:YES];
-        [transitionImageView setImage:image];
+        [transitionImageView setImageWithURL:imageURL];
         [containerView addSubview:transitionImageView];
         
         [[toViewController backgroundImageView] setFrame:[[transitionContext containerView] bounds]];
@@ -179,7 +180,7 @@
         
         
         // TODO: This assumes that it's a photo resource
-        UIImage *image = [[self.resources objectAtIndex:fromViewController.currentIndex] image];
+        NSURL *imageURL = [[self.resources objectAtIndex:fromViewController.currentIndex] URL];
         
         K9PhotoViewController *photoVC = [[fromViewController viewControllers] firstObject];
         UIView *view = [[[photoVC scrollView] subviews] firstObject];
@@ -193,7 +194,7 @@
         [transitionImageView setClipsToBounds:YES];
         transitionImageView.layer.borderWidth = 0.5;
         transitionImageView.layer.borderColor = [UIColor grayColor].CGColor;
-        [transitionImageView setImage:image];
+        [transitionImageView setImageWithURL:imageURL];
         [containerView addSubview:transitionImageView];
 
         

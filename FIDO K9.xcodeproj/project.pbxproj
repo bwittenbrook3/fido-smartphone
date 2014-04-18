@@ -11,7 +11,6 @@
 		3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40518F9F5750098F6C8 /* K9Photo.m */; };
 		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
 		3437B40F18FB1C5D0098F6C8 /* K9DogAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */; };
-		3437B41118FB379B0098F6C8 /* TestDog.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3437B41018FB379B0098F6C8 /* TestDog.jpg */; };
 		3437B41418FB8BCB0098F6C8 /* K9TrainingNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B41318FB8BCB0098F6C8 /* K9TrainingNavigationViewController.m */; };
 		3437B41818FB8FEE0098F6C8 /* K9CircularBorderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B41718FB8FEE0098F6C8 /* K9CircularBorderImageView.m */; };
 		3441347518F249650050B30F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3441347418F249650050B30F /* MapKit.framework */; };
@@ -76,6 +75,7 @@
 		34841B2C1900D4FC00FD9125 /* UIColor+DefaultTintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */; };
 		34841B2F1900D72400FD9125 /* K9MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2E1900D72400FD9125 /* K9MapViewController.m */; };
 		34841B351900F00400FD9125 /* UIImage+CircularCenteredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */; };
+		34841B381900F55500FD9125 /* K9Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B371900F55500FD9125 /* K9Resource.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -115,7 +115,6 @@
 		3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9EventDetailViewController.m; sourceTree = "<group>"; };
 		3437B40D18FB1C5D0098F6C8 /* K9DogAvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogAvatarViewController.h; sourceTree = "<group>"; };
 		3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogAvatarViewController.m; sourceTree = "<group>"; };
-		3437B41018FB379B0098F6C8 /* TestDog.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TestDog.jpg; sourceTree = "<group>"; };
 		3437B41218FB8BCB0098F6C8 /* K9TrainingNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9TrainingNavigationViewController.h; sourceTree = "<group>"; };
 		3437B41318FB8BCB0098F6C8 /* K9TrainingNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9TrainingNavigationViewController.m; sourceTree = "<group>"; };
 		3437B41618FB8FEE0098F6C8 /* K9CircularBorderImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9CircularBorderImageView.h; sourceTree = "<group>"; };
@@ -244,6 +243,8 @@
 		34841B2E1900D72400FD9125 /* K9MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9MapViewController.m; sourceTree = "<group>"; };
 		34841B331900F00400FD9125 /* UIImage+CircularCenteredImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CircularCenteredImage.h"; sourceTree = "<group>"; };
 		34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CircularCenteredImage.m"; sourceTree = "<group>"; };
+		34841B361900F55500FD9125 /* K9Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Resource.h; sourceTree = "<group>"; };
+		34841B371900F55500FD9125 /* K9Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Resource.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -387,7 +388,6 @@
 				34D9094718FE120A0075C2D6 /* Utilities */,
 				34418AAA18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard */,
 				347D24F918FF4417004270FA /* Klaus.gpx */,
-				3437B41018FB379B0098F6C8 /* TestDog.jpg */,
 				34418A8D18EF214C00F1D2A1 /* Images.xcassets */,
 				34418A8218EF214C00F1D2A1 /* Supporting Files */,
 			);
@@ -436,6 +436,8 @@
 				345EE03218F1AC7F00BC8581 /* K9ObjectGraph.m */,
 				3437B40418F9F5750098F6C8 /* K9Photo.h */,
 				3437B40518F9F5750098F6C8 /* K9Photo.m */,
+				34841B361900F55500FD9125 /* K9Resource.h */,
+				34841B371900F55500FD9125 /* K9Resource.m */,
 				34D9095718FEEBD90075C2D6 /* K9Weather.h */,
 				34D9095818FEEBD90075C2D6 /* K9Weather.m */,
 				347D24ED18FEF698004270FA /* K9Training.h */,
@@ -731,7 +733,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3437B41118FB379B0098F6C8 /* TestDog.jpg in Resources */,
 				34418AAB18EF23CD00F1D2A1 /* MainStoryboard_iPhone.storyboard in Resources */,
 				34D9095318FE12B90075C2D6 /* ForecastrUnits.plist in Resources */,
 				34418A8618EF214C00F1D2A1 /* InfoPlist.strings in Resources */,
@@ -774,6 +775,7 @@
 				345EE0A018F1C32400BC8581 /* PTTargetActionEventListener.m in Sources */,
 				34DE106518F338F000FB21D8 /* K9PhotoViewController.m in Sources */,
 				3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */,
+				34841B381900F55500FD9125 /* K9Resource.m in Sources */,
 				345EE05C18F1AFAC00BC8581 /* AFHTTPSessionManager.m in Sources */,
 				34418A8C18EF214C00F1D2A1 /* K9AppDelegate.m in Sources */,
 				34DE106218F3382A00FB21D8 /* K9ResourceBrowserViewController.m in Sources */,

@@ -46,6 +46,7 @@
  */
 
 #import "ImageScrollView.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ImageScrollView () <UIScrollViewDelegate>
 
@@ -76,6 +77,17 @@
     return self;
 }
 
+
+- (void)setImageWithURL:(NSURL *)url {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+    
+    [self.zoomView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [self setImage:image];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        
+    }];
+}
 
 - (void)setImage:(UIImage *)image {
     _image = image;

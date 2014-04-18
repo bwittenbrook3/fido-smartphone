@@ -11,8 +11,11 @@
 
 
 
+static inline BOOL objectIsEmptyCheck(id object) {
+    return (!object || object == [NSNull null]);
+}
 static inline id objectWithEmptyCheck(id object, id defaultObject) {
-    if(!object || object == [NSNull null]) {
+    if(objectIsEmptyCheck(object)) {
         return defaultObject;
     } else {
         return object;

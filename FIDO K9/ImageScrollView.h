@@ -50,6 +50,7 @@
 
 @interface ImageScrollView : UIScrollView
 
+- (void)setImageWithURL:(NSURL *)url;
 @property (nonatomic, strong) UIImage *image;
 //@property (nonatomic) NSUInteger index;
 

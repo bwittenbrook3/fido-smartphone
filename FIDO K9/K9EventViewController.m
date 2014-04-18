@@ -292,8 +292,28 @@
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
     K9Photo *photo = [K9Photo new];
-    photo.image = image;
-    [self.event addResource:photo];
+    
+    NSURL *documents = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    
+    NSURL *userEventImages = [documents URLByAppendingPathComponent:@"userEventImages" isDirectory:YES];
+                            
+    if ([[NSFileManager defaultManager] createDirectoryAtURL:userEventImages withIntermediateDirectories:YES attributes:nil error:nil]) {
+        NSData *data = UIImageJPEGRepresentation(image, 0.75);
+        time_t timestamp = (time_t) [[NSDate date] timeIntervalSince1970];
+        NSURL *imageURL = [documents URLByAppendingPathComponent:[NSString stringWithFormat:@"%ld-%ld.jpg", self.event.eventID, (unsigned long)timestamp] isDirectory:NO];
+        
+        if ([data writeToURL:imageURL atomically:NO]) {
+            photo.URL = imageURL;
+            [self.event addResource:photo];
+            NSLog(@"the cachedImagedPath is %@",imageURL);
+        } else {
+            NSLog(@"Failed to cache image data to disk");
+        }
+
+    } else {
+        NSLog(@"Error creating images directory");
+    }
+
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

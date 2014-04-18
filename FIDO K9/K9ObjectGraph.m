@@ -12,6 +12,8 @@
 #import "K9Attachment.h"
 #import "K9Event.h"
 #import "K9Training.h"
+#import "K9Resource.h"
+#import "K9Photo.h"
 
 NSString *const K9EventWasAddedNotification = @"K9EventWasAddedNotification";
 NSString *const K9ModifiedEventKey = @"K9ModifiedEventKey";
@@ -38,6 +40,9 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
     if(self = [super init]) {
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:baseURLString]];
         [_sessionManager setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+        _sessionManager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+        _sessionManager.responseSerializer.acceptableContentTypes = [_sessionManager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+
         [_sessionManager.requestSerializer setAuthorizationHeaderFieldWithUsername:fidoUsername password:fidoPassword];
         _eventDictionary = [NSMutableDictionary dictionary];
         _dogDictionary = [NSMutableDictionary dictionary];
@@ -161,6 +166,49 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     }];
     
     return [self eventWithID:eventID];
+}
+
+- (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *))completionHandler {
+    NSString *getURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", eventID];
+    [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSMutableArray *resources = [NSMutableArray arrayWithCapacity:[responseObject count]];
+        for(NSDictionary *resourceDictionary in responseObject) {
+            K9Resource *resource = [K9Resource resourceWithPropertyList:resourceDictionary];
+            if(resource) {
+                [resources addObject:resource];
+            }
+        }
+        if(completionHandler) completionHandler(resources);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        if(completionHandler) completionHandler(nil);
+    }];
+}
+
+- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event {
+    NSString *postURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", event.eventID];
+    NSLog(@"sending resource");
+    
+    if([resource isKindOfClass:[K9Photo class]]) {
+        NSData *imageData = [NSData dataWithContentsOfURL:resource.URL];
+        NSDictionary *parameters = @{@"id": @(event.eventID), @"resource" : @{@"type": @"image",
+                                                                              @"data": @"."}};
+        [self.sessionManager POST:postURLPath parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            NSError *error = nil;
+            if(![formData appendPartWithFileURL:resource.URL name:@"resource[image]" fileName:[[resource.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]  mimeType:@"image/jpg" error:&error]) {
+                NSLog(@"error appending: %@", error);
+            }
+        } success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSLog(@"sent resource: %@", responseObject);
+
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"Failed to send resource (%@): %@", [[resource.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], error);
+        }];
+        
+        [self.sessionManager POST:postURLPath parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        }];
+    }
 }
 
 - (void)fetchImageURLForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSURL *))completionHandler {

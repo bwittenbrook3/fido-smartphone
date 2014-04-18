@@ -7,13 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "K9Resource.h"
 
-@interface K9Photo : NSObject
+@interface K9Photo : K9Resource
 
 @property (copy) NSURL *thumbnailURL;
-@property (copy) NSURL *imageURL;
-
-@property (nonatomic) UIImage *thumbnail;
-@property (nonatomic) UIImage *image;
 
 @end

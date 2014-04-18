@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class K9Event, K9Dog, K9Training;
+@class K9Event, K9Dog, K9Training, K9Resource;
 
 
 extern NSString *const K9EventWasAddedNotification;
@@ -28,7 +28,8 @@ extern NSString *const K9TrainingWasAddedNotification;
 
 - (K9Event *)eventWithID:(NSInteger)eventID;
 - (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
-
+- (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *resources))completionHandler;
+- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event;
 
 // Dogs
 @property (readonly, nonatomic) NSArray *allDogs;

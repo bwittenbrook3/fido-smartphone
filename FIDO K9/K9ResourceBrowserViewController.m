@@ -68,7 +68,7 @@
         
         if([resource isKindOfClass:[K9Photo class]]) {
             viewController = [[K9PhotoViewController alloc] initWithNibName:nil bundle:nil];
-            [(K9PhotoViewController *)viewController setImage:[resource image]];
+            [(K9PhotoViewController *)viewController setImageWithURL:[resource URL]];
         }
         [[self resourceIndexToViewControllerDictionary] setObject:viewController forKey:@(index)];
         [[self viewControllerToResourceIndexDictionary] setObject:@(index) forKey:[self keyForViewController:viewController]];

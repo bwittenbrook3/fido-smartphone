@@ -63,12 +63,11 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
         event.eventDescription = nil;
     }
     
-    // TODO: Get real resources when web API can give them.
-    K9Photo *photo = [K9Photo new];
-    photo.image = [UIImage imageNamed:@"SamplePhoto"];
-    K9Photo *photo2 = [K9Photo new];
-    photo2.image = [UIImage imageNamed:@"SamplePhoto"];
-    event.resources = @[photo, photo2];
+    [[K9ObjectGraph sharedObjectGraph] fetchResourcesForEventWithID:event.eventID completionHandler:^(NSArray *resources) {
+        NSLog(@"%ld: %@", event.eventID, resources);
+        event.resources = resources;
+    }];
+    
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
@@ -107,9 +106,10 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
 }
 
 - (void)addResource:(id)resource {
-    // TODO: Upload to server when web API supports it.
     self.resources = [self.resources arrayByAddingObject:resource];
     [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self];
+    
+    [[K9ObjectGraph sharedObjectGraph] uploadResource:resource forEvent:self];
 }
 
 @end

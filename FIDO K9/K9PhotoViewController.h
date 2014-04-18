@@ -11,6 +11,7 @@
 
 @interface K9PhotoViewController : UIViewController
 
+- (void)setImageWithURL:(NSURL *)url;
 @property (strong) UIImage *image;
 @property (weak) IBOutlet ImageScrollView *scrollView;
 
