@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "K9MapViewController.h"
 
 @class K9Dog;
-@interface K9DogViewController : UIViewController
+@interface K9DogViewController : K9MapViewController
 
 @property (strong, nonatomic) K9Dog *dog;
 

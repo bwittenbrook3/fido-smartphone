@@ -22,11 +22,8 @@
 
 @property (strong) IBOutlet UIView *detailContainerView;
 @property (weak) IBOutlet UINavigationBar *subheaderBar;
-@property (weak) IBOutlet MKMapView *mapView;
 
 @property (strong) K9EventDetailViewController *detailsViewController;
-@property (strong) UIMotionEffectGroup *mapEffects;
-
 
 @property (strong) UIActionSheet *directionsSheet;
 @property (strong) UIActionSheet *actionsSheet;
@@ -62,24 +59,6 @@
     self.detailsViewController = [[self childViewControllers] objectAtIndex:0];
     self.detailsViewController.delegate = self;
     self.detailsViewController.event = self.event;
-    
-    self.mapView.delegate = self;
-    self.mapView.tintColor = [UIColor defaultSystemTintColor];
-    
-    UIInterpolatingMotionEffect *verticalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
-                                                                                                        type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-    verticalMotionEffect.minimumRelativeValue = @(25);
-    verticalMotionEffect.maximumRelativeValue = @(-25);
-    UIInterpolatingMotionEffect *horizontalMotionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
-                                                                                                          type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-    horizontalMotionEffect.minimumRelativeValue = @(12);
-    horizontalMotionEffect.maximumRelativeValue = @(-12);
-    
-    UIMotionEffectGroup *group = [UIMotionEffectGroup new];
-    group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
-    self.mapEffects = group;
-    [self.mapView addMotionEffect:group];
-
 
     [[self subheaderBar] setTranslatesAutoresizingMaskIntoConstraints:NO];
     UIView *detailsView = [self detailContainerView];
@@ -88,10 +67,6 @@
     [[self subheaderBar] addSubview:detailsView];
     [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[detailsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
     [[self subheaderBar] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[detailsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(detailsView)]];
-    
-    if([K9Preferences locationPreference] == K9PreferencesLocationAbsoluteAccepted) {
-        [self.mapView setShowsUserLocation:YES];
-    }
     
     if(self.event) {
         [self updateEventViews];
@@ -170,43 +145,12 @@
     if (!pinView) {
         pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
     }
-
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    button.titleLabel.text = @"Route";
-    button.backgroundColor = [UIColor blueColor];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Police Car"]];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    UILabel *directionsLabel = [[UILabel alloc] init];
-    [directionsLabel setText:@"Route"];
-    [directionsLabel setFont:[UIFont boldSystemFontOfSize:11]];
-    [directionsLabel setTextColor:[UIColor whiteColor]];
-    [directionsLabel setTextAlignment:NSTextAlignmentCenter];
-    directionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [button addSubview:imageView];
-    [button addSubview:directionsLabel];
-    imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(2)-[imageView]-(-1)-[directionsLabel]-(7)-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(imageView, directionsLabel)]];
-    [button addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[directionsLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings( directionsLabel)]];
-
-    
-    [button addTarget:self action:@selector(updateButtonColor:) forControlEvents:UIControlEventTouchDown];
-    [button addTarget:self action:@selector(releaseButtonColor:) forControlEvents:UIControlEventTouchCancel|UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
-    [button addTarget:self action:@selector(getDirections:) forControlEvents:UIControlEventTouchUpInside];
-    
-    pinView.leftCalloutAccessoryView = button;
+    pinView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
     pinView.canShowCallout = YES;
     pinView.image = [UIImage imageNamed:@"Alert"];
     
     return pinView;
-}
-
-- (void)updateButtonColor:(id)sender {
-    [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0.6 alpha:1.0]];
-}
-
-- (void)releaseButtonColor:(id)sender {
-    [sender setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1.0 alpha:1.0]];
 }
 
 - (void)getDirections:(id)sender {
@@ -216,23 +160,8 @@
                                       destructiveButtonTitle:nil
                                            otherButtonTitles:@"Maps App", @"Google Glass", nil];
     [self.directionsSheet showInView:[[UIApplication sharedApplication] keyWindow]];
-    [self.mapView removeMotionEffect:self.mapEffects];
     
-}
-
-- (void)sendDirectionsToGlass {
-    // No op... for now.
-}
-
-- (void)getDirectionsInMaps {
-    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate:self.event.location.coordinate addressDictionary: nil];
-    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
-    destination.name = self.event.title;
-    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
-    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             MKLaunchOptionsDirectionsModeDriving,
-                             MKLaunchOptionsDirectionsModeKey, nil];
-    [MKMapItem openMapsWithItems: items launchOptions: options];
+    [self removeMapParallaxEffect];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
@@ -269,7 +198,7 @@
                           destructiveButtonTitle:nil
                                otherButtonTitles:@"Take Photo", @"Record Audio", @"Make Annotation", nil];
     [self.actionsSheet showFromBarButtonItem:sender animated:YES];
-    [self.mapView removeMotionEffect:self.mapEffects];
+    [self removeMapParallaxEffect];
 }
 
 - (void)recordAudio {
@@ -290,20 +219,14 @@
         }
         self.actionsSheet = nil;
     } else if(actionSheet == self.directionsSheet) {
-        switch (buttonIndex) {
-            case 0:
-                [self getDirectionsInMaps];
-                break;
-            case 1:
-                [self sendDirectionsToGlass];
-                break;
-            default:
-                break;
-        }
+        K9MapDirectionsMethod directionsMethod = (buttonIndex == 0 ? K9MapDirectionsMethodMapsApp : K9MapDirectionsMethodGoogleGlass);
+        
+        [self sendDirectionsTo:directionsMethod withLocation:self.event.location destinationName:self.event.title];
+
         self.directionsSheet = nil;
     }
 
-    [self.mapView addMotionEffect:self.mapEffects];
+    [self addMapParallaxEffect];
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
@@ -361,14 +284,6 @@
     }];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-}
-
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-}
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = nil;
     if([info objectForKey:UIImagePickerControllerEditedImage]) {
@@ -380,15 +295,12 @@
     photo.image = image;
     [self.event addResource:photo];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    [picker dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 

@@ -74,6 +74,7 @@
 		347D24F518FF330A004270FA /* K9Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F418FF330A004270FA /* K9Preferences.m */; };
 		347D24F818FF3F21004270FA /* K9CertificationAndTrainingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */; };
 		34841B2C1900D4FC00FD9125 /* UIColor+DefaultTintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */; };
+		34841B2F1900D72400FD9125 /* K9MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2E1900D72400FD9125 /* K9MapViewController.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -238,6 +239,8 @@
 		34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = K9ModelUtilities.h; sourceTree = "<group>"; };
 		34841B2A1900D4FC00FD9125 /* UIColor+DefaultTintColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+DefaultTintColor.h"; sourceTree = "<group>"; };
 		34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DefaultTintColor.m"; sourceTree = "<group>"; };
+		34841B2D1900D72400FD9125 /* K9MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9MapViewController.h; sourceTree = "<group>"; };
+		34841B2E1900D72400FD9125 /* K9MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9MapViewController.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				34841B2D1900D72400FD9125 /* K9MapViewController.h */,
+				34841B2E1900D72400FD9125 /* K9MapViewController.m */,
 				34D820B618F071AE0098D7EC /* Event List + Details */,
 				34D820B518F0719C0098D7EC /* Dog List + Details */,
 				3437B41918FC65EA0098F6C8 /* Training */,
@@ -782,6 +787,7 @@
 				345EE06118F1AFAC00BC8581 /* AFURLResponseSerialization.m in Sources */,
 				345EE09918F1C32400BC8581 /* PTPusherAPI.m in Sources */,
 				345EE06918F1AFAC00BC8581 /* UIRefreshControl+AFNetworking.m in Sources */,
+				34841B2F1900D72400FD9125 /* K9MapViewController.m in Sources */,
 				345EE06018F1AFAC00BC8581 /* AFURLRequestSerialization.m in Sources */,
 				345EE09E18F1C32400BC8581 /* PTPusherEventDispatcher.m in Sources */,
 				34D9095918FEEBD90075C2D6 /* K9Weather.m in Sources */,
