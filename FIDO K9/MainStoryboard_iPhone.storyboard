@@ -207,18 +207,29 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bag" translatesAutoresizingMaskIntoConstraints="NO" id="PQe-Kq-ghM">
+                                            <rect key="frame" x="10" y="11" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="PQe-Kq-ghM" secondAttribute="height" multiplier="1:1" id="4pY-oQ-LOb"/>
+                                                <constraint firstAttribute="width" constant="20" id="sHj-G2-7S1"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="5jv-GS-q48" firstAttribute="leading" secondItem="Bsx-I3-aKD" secondAttribute="leading" constant="38" id="5iX-Qo-mdE"/>
+                                        <constraint firstItem="5jv-GS-q48" firstAttribute="leading" secondItem="PQe-Kq-ghM" secondAttribute="trailing" constant="8" id="Ojq-dJ-Kbx"/>
                                         <constraint firstAttribute="trailing" secondItem="5jv-GS-q48" secondAttribute="trailing" id="Zdw-1G-Xxe"/>
                                         <constraint firstItem="5jv-GS-q48" firstAttribute="top" secondItem="Bsx-I3-aKD" secondAttribute="top" constant="4" id="baF-yf-yI8"/>
                                         <constraint firstItem="cee-xY-fJ0" firstAttribute="leading" secondItem="5jv-GS-q48" secondAttribute="leading" id="dTN-UU-gkm"/>
                                         <constraint firstItem="cee-xY-fJ0" firstAttribute="top" secondItem="5jv-GS-q48" secondAttribute="bottom" constant="1" id="dhl-rz-C6P"/>
                                         <constraint firstAttribute="bottom" secondItem="cee-xY-fJ0" secondAttribute="bottom" constant="4" id="nFf-YG-dbc"/>
+                                        <constraint firstAttribute="centerY" secondItem="PQe-Kq-ghM" secondAttribute="centerY" id="oi0-zD-DnW"/>
+                                        <constraint firstItem="PQe-Kq-ghM" firstAttribute="leading" secondItem="Bsx-I3-aKD" secondAttribute="leading" constant="10" id="wXh-dy-L0E"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="eventDescriptionView" destination="cee-xY-fJ0" id="ycR-Bd-2lA"/>
+                                    <outlet property="eventImageView" destination="PQe-Kq-ghM" id="tqs-z7-oB4"/>
                                     <outlet property="eventTitleView" destination="5jv-GS-q48" id="PuY-wO-Ls3"/>
                                     <segue destination="cxK-C6-StQ" kind="push" identifier="selectedEventSegue" id="qrH-AQ-OhH"/>
                                 </connections>
@@ -1582,6 +1593,7 @@
         <image name="Reveal" width="15" height="9"/>
         <image name="Sample Dog Image" width="45" height="45"/>
         <image name="Whistle" width="34" height="26"/>
+        <image name="bag" width="20" height="20"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

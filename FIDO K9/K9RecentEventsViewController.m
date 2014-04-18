@@ -95,6 +95,26 @@ static inline NSArray *sortEvents(NSArray *events) {
     }
     
     
+    // TODO: Events should have some notion of active vs inactive
+    if(days) {
+        cell.contentView.alpha = 0.5;
+    } else {
+        cell.contentView.alpha = 1.0;
+    }
+    
+    
+    switch (event.eventType) {
+        case K9EventTypeSuspiciousBag:
+            cell.eventImageView.image = [UIImage imageNamed:@"bag"];
+            break;
+        case K9EventTypeSuspiciousPerson:
+            cell.eventImageView.image = [UIImage imageNamed:@"person"];
+            break;
+        case K9EventTypeSuspiciousItem:
+            cell.eventImageView.image = [UIImage imageNamed:@"item"];
+            break;
+    }
+    
     [[cell eventDescriptionView] setText:timeIntervalText];
 
     return cell;

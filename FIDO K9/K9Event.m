@@ -33,7 +33,6 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
 @implementation K9Event
 
 + (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {    
-    NSLog(@"%@", propertyList);
 
     K9Event *event = [K9Event new];
     
@@ -59,12 +58,24 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
     event.eventID = [[propertyList valueForKeyPath:ID_KEY] integerValue];
     event.title = [propertyList objectForKey:TITLE_KEY];
     event.eventDescription = [propertyList objectForKey:DETAIL_KEY];
+    
+    // TODO: Get event type from web api when it supports it
+    event.eventType = K9EventTypeSuspiciousBag;
+    if ([[event.title lowercaseString] rangeOfString:@"item"].location != NSNotFound) {
+        event.eventType = K9EventTypeSuspiciousItem;
+    } else if ([[event.title lowercaseString] rangeOfString:@"person"].location != NSNotFound) {
+        event.eventType = K9EventTypeSuspiciousPerson;
+    } else if ([[event.title lowercaseString] rangeOfString:@"gun"].location != NSNotFound) {
+        event.eventType = K9EventTypeSuspiciousPerson;
+    } else if ([[event.title lowercaseString] rangeOfString:@"box"].location != NSNotFound) {
+        event.eventType = K9EventTypeSuspiciousItem;
+    }
+        
     if((id)event.eventDescription == [NSNull null]) {
         event.eventDescription = nil;
     }
     
     [[K9ObjectGraph sharedObjectGraph] fetchResourcesForEventWithID:event.eventID completionHandler:^(NSArray *resources) {
-        NSLog(@"%ld: %@", event.eventID, resources);
         event.resources = resources;
     }];
     
@@ -77,8 +88,8 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
     CGFloat latitude = [[propertyList objectForKey:LATITUDE_KEY] floatValue];
     CGFloat longitude = [[propertyList objectForKey:LONGITUDE_KEY] floatValue];
     
-    if(latitude == 0) latitude = 33.7721200;
-    if(longitude == 0) latitude = -84.392942;
+    if(abs(latitude) < 0.001) latitude = 33.7721200;
+    if(abs(longitude)  < 0.001) longitude = -84.392942;
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     // TODO: Get the real paths when web API can give them

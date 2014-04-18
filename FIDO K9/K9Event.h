@@ -13,6 +13,8 @@
 @class MKPolyline;
 typedef NS_ENUM(NSInteger, K9EventType) {
     K9EventTypeSuspiciousItem,
+    K9EventTypeSuspiciousPerson,
+    K9EventTypeSuspiciousBag
     
 };
 
