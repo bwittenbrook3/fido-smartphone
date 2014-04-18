@@ -13,6 +13,7 @@
 #import "K9CircularBorderImageView.h"
 #import <MapKit/MapKit.h>
 #import "UIView+Screenshot.h"
+#import "K9DogViewController.h"
 
 static inline NSArray *sortDogs(NSArray *dogs) {
     return [dogs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -64,6 +65,9 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     if ([segue.identifier isEqualToString:@"listModeSegue"]) {
         K9DogListViewController *destination = [segue destinationViewController];
         [destination setDogs:self.dogs];
+    } else if ([segue.identifier isEqualToString:@"selectDogSegue"]) {
+        K9DogViewController *destination = [segue destinationViewController];
+        [destination setDog:sender];
     }
 }
 
@@ -78,8 +82,9 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_ID];
     }
     
-    annotationView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
     annotationView.canShowCallout = YES;
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    annotationView.rightCalloutAccessoryView = rightButton;
     
     __block K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
     dogProfile.backgroundColor = [UIColor clearColor];
@@ -95,6 +100,11 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     }];
         
     return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    K9Dog *dog = view.annotation;
+    [self performSegueWithIdentifier:@"selectDogSegue" sender:dog];
 }
 
 @end
