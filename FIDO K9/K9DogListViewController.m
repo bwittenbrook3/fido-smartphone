@@ -59,7 +59,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     K9DogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DogCell" forIndexPath:indexPath];
     [[cell dogNameView] setText:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] name]];
-    [[cell dogProfileView] setImage:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] image]];
+    [[cell dogProfileView] setImageWithURL:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] imageURL] placeholderImage:[K9Dog defaultDogImage]];
     [[cell dogProfileView] setBorderColor:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] color]];
     [[cell dogProfileView] setBorderWidth:0.5];
 

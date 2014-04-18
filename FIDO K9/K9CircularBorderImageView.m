@@ -7,8 +7,51 @@
 //
 
 #import "K9CircularBorderImageView.h"
+#import "UIImageView+AFNetworking.h"
+#import "UIImage+CircularCenteredImage.m"
+
+@interface K9CircularBorderImageView ()
+
+@property (strong) UIImageView *imageView;
+
+@end
 
 @implementation K9CircularBorderImageView
+
+- (id)initWithFrame:(CGRect)frame {
+    if(self = [super initWithFrame:frame]) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.frame];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder]) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.frame];
+    }
+    return self;
+}
+
+
+- (void)setImage:(UIImage *)image {
+    [[self imageView] setImage:[image circularCenteredImage]];
+}
+
+- (UIImage *)image {
+    return [[self imageView] image];
+}
+
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+
+    [[self imageView] setImageWithURLRequest:request placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [self setImage:[image circularCenteredImage]];
+        [self setNeedsDisplay];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+
+    }];
+}
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
@@ -19,7 +62,7 @@
     CGContextSetLineWidth(context, strokeWidth);
     CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
     
-    UIImage *image = self.image;
+    UIImage *image = [self image];
     CGRect imageRect = [self bounds];
     
     // calculate resize ratio, and apply to rect

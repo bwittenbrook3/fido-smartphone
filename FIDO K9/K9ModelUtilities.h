@@ -11,8 +11,8 @@
 
 
 
-static inline id objectWithNullCheck(id object, id defaultObject) {
-    if(object == [NSNull null]) {
+static inline id objectWithEmptyCheck(id object, id defaultObject) {
+    if(!object || object == [NSNull null]) {
         return defaultObject;
     } else {
         return object;

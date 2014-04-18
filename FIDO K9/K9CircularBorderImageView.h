@@ -11,6 +11,9 @@
 @interface K9CircularBorderImageView : UIView
 
 @property (copy) UIImage *image;
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage;
+
+
 @property (copy) UIColor *borderColor;
 @property CGFloat borderWidth;
 

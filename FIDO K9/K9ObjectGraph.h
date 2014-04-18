@@ -36,6 +36,8 @@ extern NSString *const K9TrainingWasAddedNotification;
 - (K9Dog *)dogWithID:(NSInteger)eventID;
 - (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler;
 
+- (void)fetchImageURLForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSURL *url))completionHandler;
+
 - (NSArray *)eventsForDogWithID:(NSInteger)dogID;
 - (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;
 

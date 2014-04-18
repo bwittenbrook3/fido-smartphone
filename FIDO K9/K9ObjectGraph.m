@@ -57,19 +57,27 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 
 - (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler {
     [self.sessionManager GET:@"vests.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSMutableArray *dogs = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
+        __block NSInteger numberOfCompletedDogs = 0;
+        __block NSInteger numberOfDogsToComplete = [responseObject count];
         for(NSDictionary *dogDictionary in responseObject) {
-            // TODO: Don't create the dog if we already have it.. update it?
-            K9Dog *dog = [K9Dog dogWithPropertyList:dogDictionary];
-            if(dog) {
-                [dogs addObject:dog];
-                if(![[self dogDictionary] objectForKey:@([dog dogID])]) {
+            NSMutableDictionary *mutableDogDictionary = [dogDictionary mutableCopy];
+            // Make the URL fetching process seamless, make it seem like the url was always there.
+            [self fetchImageURLForDogWithID:[[mutableDogDictionary objectForKey:@"id"] integerValue] completionHandler:^(NSURL *url) {
+                if(url) [mutableDogDictionary setObject:url forKey:@"url"];
+                
+                K9Dog *dog = [K9Dog dogWithPropertyList:mutableDogDictionary];
+                if(dog && ![[self dogDictionary] objectForKey:@([dog dogID])]) {
                     [[self dogDictionary] setObject:dog forKey:@([dog dogID])];
                 }
-            }
+                
+                // Because we're asynchronously completing each dog, we need to find out when we've finished updating every dog, and send the final completionHandler then. Note that the URL fetching completion handlers could be in a different order than the order of dogs, so just keep count
+                numberOfCompletedDogs += 1;
+                if(numberOfCompletedDogs == numberOfDogsToComplete) {
+                    if(completionHandler) completionHandler([self allDogs]);
+                }
+            }];
         }
         // TODO: Remove cached dogs that aren't reported?
-        if(completionHandler) completionHandler([self allDogs]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
@@ -145,17 +153,34 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     return [self eventWithID:eventID];
 }
 
+- (void)fetchImageURLForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSURL *))completionHandler {
+    NSString *getURLPath = [NSString stringWithFormat:@"vests/%ld/image_path.json", dogID];
+    [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSURL *url = [NSURL URLWithString:[[responseObject objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        if(completionHandler) completionHandler(url);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        if(completionHandler) completionHandler(nil);
+    }];
+}
+
 - (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler {
     NSString *getURLPath = [NSString stringWithFormat:@"vests/%ld.json", dogID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if([responseObject isKindOfClass:[NSArray class]]) {
             responseObject = [responseObject objectAtIndex:0];
         }
-        K9Dog *dog = [K9Dog dogWithPropertyList:responseObject];
-        if(dog) {
-            [[self dogDictionary] setObject:dog forKey:@([dog dogID])];
-        }
-        if(completionHandler) completionHandler(dog);
+        NSMutableDictionary *mutableDogDictionary = [responseObject mutableCopy];
+        // Make the URL fetching process seamless, make it seem like the url was always there.
+        [self fetchImageURLForDogWithID:[[mutableDogDictionary objectForKey:@"id"] integerValue] completionHandler:^(NSURL *url) {
+            if(url) [mutableDogDictionary setObject:url forKey:@"url"];
+            
+            K9Dog *dog = [K9Dog dogWithPropertyList:mutableDogDictionary];
+            if(dog) {
+                [[self dogDictionary] setObject:dog forKey:@([dog dogID])];
+            }
+            if(completionHandler) completionHandler(dog);
+        }];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);

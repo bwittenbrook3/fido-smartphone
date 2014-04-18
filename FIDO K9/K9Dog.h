@@ -16,7 +16,9 @@
 
 @property (nonatomic) NSInteger dogID;
 @property (copy, nonatomic) NSString *name;
-@property (strong, nonatomic) UIImage *image;
+@property (copy, nonatomic) NSURL *imageURL;
++ (UIImage *)defaultDogImage;
+
 @property (copy, nonatomic) UIColor *color;
 @property (copy, nonatomic) NSString *status;
 

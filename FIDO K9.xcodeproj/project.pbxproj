@@ -75,6 +75,7 @@
 		347D24F818FF3F21004270FA /* K9CertificationAndTrainingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D24F718FF3F21004270FA /* K9CertificationAndTrainingListViewController.m */; };
 		34841B2C1900D4FC00FD9125 /* UIColor+DefaultTintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */; };
 		34841B2F1900D72400FD9125 /* K9MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B2E1900D72400FD9125 /* K9MapViewController.m */; };
+		34841B351900F00400FD9125 /* UIImage+CircularCenteredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -241,6 +242,8 @@
 		34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DefaultTintColor.m"; sourceTree = "<group>"; };
 		34841B2D1900D72400FD9125 /* K9MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9MapViewController.h; sourceTree = "<group>"; };
 		34841B2E1900D72400FD9125 /* K9MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9MapViewController.m; sourceTree = "<group>"; };
+		34841B331900F00400FD9125 /* UIImage+CircularCenteredImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CircularCenteredImage.h"; sourceTree = "<group>"; };
+		34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CircularCenteredImage.m"; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -617,6 +620,8 @@
 				34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */,
 				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
 				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
+				34841B331900F00400FD9125 /* UIImage+CircularCenteredImage.h */,
+				34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */,
 				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
 				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
 				34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */,
@@ -807,6 +812,7 @@
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
 				3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */,
 				34D9095018FE12B90075C2D6 /* Forecastr+CLLocation.m in Sources */,
+				34841B351900F00400FD9125 /* UIImage+CircularCenteredImage.m in Sources */,
 				345EE06A18F1AFAC00BC8581 /* UIWebView+AFNetworking.m in Sources */,
 				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
 				345EE0A118F1C32400BC8581 /* PTURLRequestOperation.m in Sources */,

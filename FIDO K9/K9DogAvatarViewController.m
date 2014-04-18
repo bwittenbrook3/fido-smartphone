@@ -46,7 +46,7 @@
 
 - (void)reloadDogViews {
     self.nameLabel.text = self.dog.name;
-    self.avatarImageView.image = self.dog.image;
+    [self.avatarImageView setImageWithURL:[self.dog imageURL] placeholderImage:[K9Dog defaultDogImage]];
     self.avatarImageView.borderColor = self.dog.color;
     self.avatarImageView.borderWidth = 1.0;
 }
