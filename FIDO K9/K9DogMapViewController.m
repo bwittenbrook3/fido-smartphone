@@ -21,8 +21,19 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     }];
 }
 
+@interface K9DogMapViewController()
+
+@property (strong) NSMutableDictionary *precachedDogImages;
+
+@end
+
 @implementation K9DogMapViewController
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder]) {
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,9 +50,31 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (void)setDogs:(NSArray *)dogs {
     if(_dogs != dogs) {
         _dogs = dogs;
+        
+        // Let's generate the dog images now, rather than on request (which could be when we're trying to animate our map view)
+        [self precacheDogImages];
+        
         if(self.isViewLoaded) {
             [self reloadDogViews];
         }
+    }
+}
+
+- (void)precacheDogImages {
+    self.precachedDogImages = [NSMutableDictionary dictionaryWithCapacity:self.dogs.count];
+    for(K9Dog *dog in self.dogs) {
+        __block K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+        dogProfile.backgroundColor = [UIColor clearColor];
+        dogProfile.opaque = NO;
+        
+        __weak typeof(dogProfile) weakDogProfile = dogProfile;
+        [dogProfile setImageWithURL:dog.imageURL placeholderImage:[K9Dog defaultDogImage] completion:^{
+            weakDogProfile.borderColor = dog.color;
+            weakDogProfile.borderWidth = 1;
+            
+            UIImage *dogProfileImage = [weakDogProfile screenshot];
+            [self.precachedDogImages setObject:dogProfileImage forKey:@(dog.dogID)];
+        }];
     }
 }
 
@@ -86,19 +119,8 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     annotationView.rightCalloutAccessoryView = rightButton;
     
-    __block K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
-    dogProfile.backgroundColor = [UIColor clearColor];
-    dogProfile.opaque = NO;
+    annotationView.image = [self.precachedDogImages objectForKey:@(dog.dogID)]; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
     
-    __weak typeof(dogProfile) weakDogProfile = dogProfile;
-    [dogProfile setImageWithURL:dog.imageURL placeholderImage:[K9Dog defaultDogImage] completion:^{
-        weakDogProfile.borderColor = dog.color;
-        weakDogProfile.borderWidth = 1;
-        
-        UIImage *dogProfileImage = [weakDogProfile screenshot];
-        annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
-    }];
-        
     return annotationView;
 }
 

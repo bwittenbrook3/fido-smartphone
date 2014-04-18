@@ -46,7 +46,7 @@
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
     
     [[self imageView] setImageWithURLRequest:request placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        [self setImage:[image circularCenteredImage]];
+        [self setImage:image];
         [self setNeedsDisplay];
         if(completionHandler) completionHandler();
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
