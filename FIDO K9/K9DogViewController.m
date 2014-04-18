@@ -214,6 +214,8 @@
 
 #define ANNOTATION_VIEW_ID (@"MKPinAnnotationView")
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if([annotation isKindOfClass:[MKUserLocation class]]) return nil;
+    
     MKPinAnnotationView *annotationView = (MKPinAnnotationView*) [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_ID];
     if (annotationView == nil) {
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_ID];
