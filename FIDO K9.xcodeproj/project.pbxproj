@@ -79,6 +79,10 @@
 		34841B3B1901BDDE00FD9125 /* K9NavigationReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B3A1901BDDE00FD9125 /* K9NavigationReplaceSegue.m */; };
 		34841B3E1901C25800FD9125 /* K9DogMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B3D1901C25800FD9125 /* K9DogMapViewController.m */; };
 		34841B411901C44600FD9125 /* K9Dog+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B401901C44600FD9125 /* K9Dog+Annotation.m */; };
+		34841B441901E9D000FD9125 /* K9WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B431901E9D000FD9125 /* K9WeatherViewController.m */; };
+		34841B4C190216D000FD9125 /* WLHorizontalSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B47190216D000FD9125 /* WLHorizontalSegmentedControl.m */; };
+		34841B4D190216D000FD9125 /* WLSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B49190216D000FD9125 /* WLSegment.m */; };
+		34841B4E190216D000FD9125 /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B4B190216D000FD9125 /* WLSegmentedControl.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -254,6 +258,14 @@
 		34841B3D1901C25800FD9125 /* K9DogMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogMapViewController.m; sourceTree = "<group>"; };
 		34841B3F1901C44600FD9125 /* K9Dog+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "K9Dog+Annotation.h"; sourceTree = "<group>"; };
 		34841B401901C44600FD9125 /* K9Dog+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "K9Dog+Annotation.m"; sourceTree = "<group>"; };
+		34841B421901E9D000FD9125 /* K9WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9WeatherViewController.h; sourceTree = "<group>"; };
+		34841B431901E9D000FD9125 /* K9WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9WeatherViewController.m; sourceTree = "<group>"; };
+		34841B46190216D000FD9125 /* WLHorizontalSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLHorizontalSegmentedControl.h; sourceTree = "<group>"; };
+		34841B47190216D000FD9125 /* WLHorizontalSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLHorizontalSegmentedControl.m; sourceTree = "<group>"; };
+		34841B48190216D000FD9125 /* WLSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSegment.h; sourceTree = "<group>"; };
+		34841B49190216D000FD9125 /* WLSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSegment.m; sourceTree = "<group>"; };
+		34841B4A190216D000FD9125 /* WLSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSegmentedControl.h; sourceTree = "<group>"; };
+		34841B4B190216D000FD9125 /* WLSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSegmentedControl.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -322,6 +334,7 @@
 		3437B41518FB8FBD0098F6C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				34841B45190216D000FD9125 /* WLSegmentedControls */,
 				34DE105D18F3340700FB21D8 /* ImageScrollView.h */,
 				34DE105E18F3340700FB21D8 /* ImageScrollView.m */,
 				3437B41618FB8FEE0098F6C8 /* K9CircularBorderImageView.h */,
@@ -341,6 +354,8 @@
 				347D24F118FEF7D4004270FA /* K9TrainingDetailViewController.m */,
 				34D9095418FE29EF0075C2D6 /* K9NewTrainingViewController.h */,
 				34D9095518FE29EF0075C2D6 /* K9NewTrainingViewController.m */,
+				34841B421901E9D000FD9125 /* K9WeatherViewController.h */,
+				34841B431901E9D000FD9125 /* K9WeatherViewController.m */,
 			);
 			name = Training;
 			sourceTree = "<group>";
@@ -572,6 +587,19 @@
 			path = SocketRocket/SocketRocket;
 			sourceTree = "<group>";
 		};
+		34841B45190216D000FD9125 /* WLSegmentedControls */ = {
+			isa = PBXGroup;
+			children = (
+				34841B46190216D000FD9125 /* WLHorizontalSegmentedControl.h */,
+				34841B47190216D000FD9125 /* WLHorizontalSegmentedControl.m */,
+				34841B48190216D000FD9125 /* WLSegment.h */,
+				34841B49190216D000FD9125 /* WLSegment.m */,
+				34841B4A190216D000FD9125 /* WLSegmentedControl.h */,
+				34841B4B190216D000FD9125 /* WLSegmentedControl.m */,
+			);
+			path = WLSegmentedControls;
+			sourceTree = "<group>";
+		};
 		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -772,6 +800,7 @@
 			files = (
 				345EE09F18F1C32400BC8581 /* PTPusherMockConnection.m in Sources */,
 				345EE09518F1C32400BC8581 /* PTBlockEventListener.m in Sources */,
+				34841B4D190216D000FD9125 /* WLSegment.m in Sources */,
 				345EE09618F1C32400BC8581 /* PTJSON.m in Sources */,
 				345EE05A18F1AFAC00BC8581 /* AFHTTPRequestOperation.m in Sources */,
 				345EE02D18F1AB5F00BC8581 /* K9Dog.m in Sources */,
@@ -785,6 +814,7 @@
 				34841B3E1901C25800FD9125 /* K9DogMapViewController.m in Sources */,
 				345EE09D18F1C32400BC8581 /* PTPusherEvent.m in Sources */,
 				345EE09C18F1C32400BC8581 /* PTPusherConnection.m in Sources */,
+				34841B4C190216D000FD9125 /* WLHorizontalSegmentedControl.m in Sources */,
 				345EE09318F1C32400BC8581 /* NSDictionary+QueryString.m in Sources */,
 				3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */,
 				345EE06218F1AFAC00BC8581 /* AFURLSessionManager.m in Sources */,
@@ -815,6 +845,7 @@
 				345EE06018F1AFAC00BC8581 /* AFURLRequestSerialization.m in Sources */,
 				345EE09E18F1C32400BC8581 /* PTPusherEventDispatcher.m in Sources */,
 				34D9095918FEEBD90075C2D6 /* K9Weather.m in Sources */,
+				34841B4E190216D000FD9125 /* WLSegmentedControl.m in Sources */,
 				347D24EF18FEF698004270FA /* K9Training.m in Sources */,
 				345EE05F18F1AFAC00BC8581 /* AFURLConnectionOperation.m in Sources */,
 				345EE06618F1AFAC00BC8581 /* UIButton+AFNetworking.m in Sources */,
@@ -828,6 +859,7 @@
 				348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */,
 				345EE05E18F1AFAC00BC8581 /* AFSecurityPolicy.m in Sources */,
 				345EE09418F1C32400BC8581 /* NSString+Hashing.m in Sources */,
+				34841B441901E9D000FD9125 /* K9WeatherViewController.m in Sources */,
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
 				3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */,
 				34D9095018FE12B90075C2D6 /* Forecastr+CLLocation.m in Sources */,

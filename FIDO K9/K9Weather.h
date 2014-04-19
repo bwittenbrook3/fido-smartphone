@@ -19,20 +19,28 @@ typedef NS_ENUM(NSUInteger, K9WeatherPrecipitation) {
     K9WeatherPrecipitationHail,
 };
 
+typedef NS_OPTIONS(NSUInteger, K9WeatherWindBearing) {
+    K9WeatherWindBearingNorth = 1 << 0,
+    K9WeatherWindBearingSouth = 1 << 1,
+    K9WeatherWindBearingWest = 1 << 2,
+    K9WeatherWindBearingEast = 1 << 3,
+};
+
 @interface K9Weather : NSObject
 
-@property CGFloat temperatureInCelsius;
-@property CGFloat temperatureInFahrenheit;
+//@property (nonatomic) CGFloat temperatureInCelsius;
+@property (nonatomic) CGFloat temperatureInFahrenheit;
 
-@property CGFloat humidity;
+@property (nonatomic) CGFloat humidity;
 
-@property CGFloat cloudCoverage;
+@property (nonatomic) CGFloat cloudCoverage;
 
-@property K9WeatherPrecipitation precipitation;
-@property CGFloat precipitationIntensity;
+@property (nonatomic) K9WeatherPrecipitation precipitation;
+@property (nonatomic) CGFloat precipitationIntensity;
 
-@property CGFloat windSpeedInMilesPerHour;
-@property CGFloat windBearingInDegrees;
+@property (nonatomic) CGFloat windSpeedInMilesPerHour;
+@property (nonatomic) CGFloat windBearingInDegrees;
+@property (nonatomic) K9WeatherWindBearing windBearing;
 
 @property (readonly) NSString *formattedDescription;
 

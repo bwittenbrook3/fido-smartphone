@@ -27,6 +27,48 @@ static inline K9WeatherPrecipitation precipitationFromString(NSString *stringVal
     return precipitation;
 };
 
+static inline CGFloat windBearingDegreesForWindBearing(K9WeatherWindBearing windBearing) {
+    if(windBearing == K9WeatherWindBearingNorth) {
+        return 0;
+    } else if (windBearing == (K9WeatherWindBearingNorth |K9WeatherWindBearingEast)) {
+        return 45;
+    } else if (windBearing == K9WeatherWindBearingEast) {
+        return 90;
+    } else if (windBearing == (K9WeatherWindBearingSouth | K9WeatherWindBearingEast)) {
+        return 135;
+    } else if (windBearing == K9WeatherWindBearingSouth) {
+        return 180;
+    } else if (windBearing == (K9WeatherWindBearingSouth | K9WeatherWindBearingWest)) {
+        return 225;
+    } else if (windBearing == K9WeatherWindBearingWest) {
+        return 270;
+    } else if (windBearing == (K9WeatherWindBearingNorth | K9WeatherWindBearingWest)) {
+        return 315;
+    } else {
+        return -1;
+    }
+};
+
+static inline K9WeatherWindBearing windBearingForWindBearingDegrees(CGFloat windBearingDegrees) {
+    if (windBearingDegrees < 0 + 22.5 || windBearingDegrees > 315 + 22.5) {
+        return K9WeatherWindBearingNorth;
+    } else if (windBearingDegrees < 45 + 22.5) {
+        return (K9WeatherWindBearingNorth | K9WeatherWindBearingEast);
+    } else if (windBearingDegrees < 90 + 22.5) {
+        return K9WeatherWindBearingEast;
+    } else if (windBearingDegrees < 135 + 22.5) {
+        return (K9WeatherWindBearingSouth | K9WeatherWindBearingEast);
+    } else if (windBearingDegrees < 180 + 22.5) {
+        return K9WeatherWindBearingSouth;
+    } else if (windBearingDegrees < 225 + 22.5) {
+        return (K9WeatherWindBearingSouth | K9WeatherWindBearingWest);
+    } else if (windBearingDegrees < 270 + 22.5) {
+        return K9WeatherWindBearingWest;
+    } else {
+        return (K9WeatherWindBearingNorth | K9WeatherWindBearingWest);
+    }
+};
+
 
 @implementation K9Weather
 
@@ -59,6 +101,20 @@ static inline K9WeatherPrecipitation precipitationFromString(NSString *stringVal
     }
 
     return [NSString stringWithFormat:@"%.1f° & %@", self.temperatureInFahrenheit, overcast];
+}
+
+- (void)setWindBearing:(K9WeatherWindBearing)windBearing {
+    [self setWindBearingInDegrees:windBearingDegreesForWindBearing(windBearing)];
+}
+
+- (K9WeatherWindBearing)windBearing {
+    return windBearingForWindBearingDegrees(_windBearingInDegrees);
+}
+
+- (void)setWindBearingInDegrees:(CGFloat)windBearingInDegrees {
+    if(_windBearingInDegrees != windBearingInDegrees) {
+        _windBearingInDegrees = windBearingInDegrees;
+    }
 }
 
 + (void)fetchWeatherForLocation:(CLLocation *)location completionHandler:(void (^)(K9Weather *weather))completionHandler {

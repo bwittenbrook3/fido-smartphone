@@ -464,6 +464,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="v2h-1G-DF6" kind="push" identifier="weatherSegue" id="rxe-C6-q4c"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="aidTableCell" textLabel="sIL-U9-GZF" detailTextLabel="eqz-fk-pqb" style="IBUITableViewCellStyleValue1" id="esf-H7-aIt">
                                 <rect key="frame" x="0.0" y="262" width="320" height="44"/>
@@ -526,6 +529,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Training" id="2o1-qY-fDs">
+                        <barButtonItem key="backBarButtonItem" title="Training" id="QQr-xf-NO6"/>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="e1a-Hj-fBP">
                             <connections>
                                 <action selector="submitTraining:" destination="j2r-Dx-Ddz" id="LRq-Vx-9jh"/>
@@ -564,6 +568,185 @@
                 </tableViewCell>
             </objects>
             <point key="canvasLocation" x="1278" y="1464"/>
+        </scene>
+        <!--Weather View Controller - Weather-->
+        <scene sceneID="2IM-Up-I3v">
+            <objects>
+                <tableViewController id="v2h-1G-DF6" customClass="K9WeatherViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9LB-te-BNr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="temperatureViewCell" textLabel="DSW-B2-qbe" detailTextLabel="cwj-37-GTW" style="IBUITableViewCellStyleValue1" id="aQh-HT-C3L">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aQh-HT-C3L" id="5X6-zb-47G">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DSW-B2-qbe">
+                                            <rect key="frame" x="15" y="12" width="91" height="20"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="73 dF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cwj-37-GTW">
+                                            <rect key="frame" x="268" y="14" width="37" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="humidityViewCell" textLabel="XUK-3a-Ika" detailTextLabel="FvT-BU-McH" style="IBUITableViewCellStyleValue1" id="pDu-V8-zF0">
+                                <rect key="frame" x="0.0" y="130" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pDu-V8-zF0" id="Lot-3h-kbj">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Humidity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XUK-3a-Ika">
+                                            <rect key="frame" x="15" y="12" width="65" height="20"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="73%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FvT-BU-McH">
+                                            <rect key="frame" x="274" y="14" width="31" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="overcastViewCell" textLabel="wpM-7m-omP" detailTextLabel="8N2-oU-6Y1" style="IBUITableViewCellStyleValue1" id="PoY-cx-bV4">
+                                <rect key="frame" x="0.0" y="174" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PoY-cx-bV4" id="tSd-WD-ZVH">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Overcast" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wpM-7m-omP">
+                                            <rect key="frame" x="15" y="12" width="65" height="20"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="30%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8N2-oU-6Y1">
+                                            <rect key="frame" x="274" y="14" width="31" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="precipitationViewCell" textLabel="89v-VN-aiN" detailTextLabel="kdQ-Kw-RZK" style="IBUITableViewCellStyleValue1" id="ADr-gv-U3Q">
+                                <rect key="frame" x="0.0" y="218" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ADr-gv-U3Q" id="T0v-bO-XNj">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Precipitation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="89v-VN-aiN">
+                                            <rect key="frame" x="15" y="12" width="91" height="20"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="None" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kdQ-Kw-RZK">
+                                            <rect key="frame" x="270" y="14" width="35" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="windViewCell" textLabel="b82-2N-jCh" detailTextLabel="u8G-4b-yme" style="IBUITableViewCellStyleValue1" id="ebr-Rc-XeB">
+                                <rect key="frame" x="0.0" y="262" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ebr-Rc-XeB" id="xyH-py-o9H">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Wind" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b82-2N-jCh">
+                                            <rect key="frame" x="15" y="12" width="38" height="20"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="4 mph, NE" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u8G-4b-yme">
+                                            <rect key="frame" x="237" y="14" width="68" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="v2h-1G-DF6" id="V66-R9-EZH"/>
+                            <outlet property="delegate" destination="v2h-1G-DF6" id="leu-BA-Btd"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Weather" id="g3y-Ti-M9r"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="doneButton" destination="Owg-dp-97E" id="xAQ-7U-f6V"/>
+                        <outlet property="editButton" destination="o5V-ed-oio" id="9P5-WW-HcS"/>
+                        <outlet property="precipitationWeatherControl" destination="AiT-8T-LeP" id="NFW-Vs-gEW"/>
+                        <outlet property="useLocationBarButton" destination="EO9-hc-lSp" id="DNd-Qn-MJn"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ln-Bb-DeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="AiT-8T-LeP">
+                    <rect key="frame" x="0.0" y="0.0" width="152" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <segments>
+                        <segment title="None"/>
+                        <segment title="Rain"/>
+                        <segment title="Snow"/>
+                    </segments>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="changePrecipitation:" destination="v2h-1G-DF6" eventType="valueChanged" id="WVG-RR-RY0"/>
+                    </connections>
+                </segmentedControl>
+                <barButtonItem image="Use Location" id="EO9-hc-lSp">
+                    <connections>
+                        <action selector="updateWeatherUsingLocation:" destination="v2h-1G-DF6" id="q8g-NM-j79"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="edit" id="o5V-ed-oio">
+                    <connections>
+                        <action selector="enterEditMode:" destination="v2h-1G-DF6" id="l28-E8-ehV"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="done" id="Owg-dp-97E">
+                    <connections>
+                        <action selector="exitEditMode:" destination="v2h-1G-DF6" id="R4u-19-67C"/>
+                    </connections>
+                </barButtonItem>
+            </objects>
+            <point key="canvasLocation" x="1743" y="1463"/>
         </scene>
         <!--Training Navigation View Controller - Training-->
         <scene sceneID="9od-gc-GG9">
@@ -1438,6 +1621,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="v2h-1G-DF6" kind="push" identifier="weatherSegue" id="gi0-Hm-1dD"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="aidTableCell" textLabel="nI9-Ig-Gbh" detailTextLabel="d7i-aY-Dhk" style="IBUITableViewCellStyleValue1" id="dBY-lS-CF0">
                                 <rect key="frame" x="0.0" y="198" width="320" height="44"/>
@@ -1648,6 +1834,7 @@
         <image name="K9s Tab Bar Unselected Template" width="30" height="29"/>
         <image name="Reveal" width="15" height="9"/>
         <image name="Sample Dog Image" width="45" height="45"/>
+        <image name="Use Location" width="25" height="25"/>
         <image name="Whistle" width="34" height="26"/>
         <image name="bag" width="20" height="20"/>
         <image name="content" width="25" height="25"/>
@@ -1663,5 +1850,6 @@
         <segue reference="nkx-bR-4lM"/>
         <segue reference="lKF-QY-EEA"/>
         <segue reference="mz8-Ue-Uz5"/>
+        <segue reference="gi0-Hm-1dD"/>
     </inferredMetricsTieBreakers>
 </document>

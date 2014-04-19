@@ -13,8 +13,9 @@
 #import "K9Training.h"
 #import "K9Preferences.h"
 #import <MapKit/MapKit.h>
+#import "K9WeatherViewController.h"
 
-@interface K9NewTrainingViewController () <UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
+@interface K9NewTrainingViewController () <UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate, K9WeatherViewControllerDelegate>
 
 @property NSArray *cachedDogs;
 @property IBOutlet UITableViewCell *k9PickerTableViewCell;
@@ -24,6 +25,7 @@
 @property (strong) CLLocationManager *locationManager;
 @property (strong) CLGeocoder *geocoder;
 @property BOOL loadingLocation;
+@property BOOL permissionAlertIsUp;
 @end
 
 
@@ -115,27 +117,62 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView beginUpdates];
-    
-    BOOL shouldDeselect = YES;
     
     BOOL wasShowingK9Picker = [self isShowingK9Picker];
     
+    if(indexPath.section == 0 && indexPath.row == (wasShowingK9Picker ? 2 : 1)) {
+        [self didSelectLocationCell];
+    } else if(indexPath.section == 0 && indexPath.row == (wasShowingK9Picker ? 4 : 3)) {
+        [self didSelectWeatherCell];
+    }
+    
+    [self.tableView endUpdates];
+    
+    return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BOOL wasShowingK9Picker = [self isShowingK9Picker];
+
     if ([self isShowingK9Picker]){
         [self hideK9Picker];
     }
     
     if(indexPath.section == 0 && indexPath.row == 0 && !wasShowingK9Picker){
         [self showK9Picker];
-    } else if(indexPath.section == 0 && indexPath.row == (wasShowingK9Picker ? 2 : 1)) {
-        shouldDeselect = [self didSelectLocationCell];
-    } else if(indexPath.section == 0 && indexPath.row == (wasShowingK9Picker ? 4 : 3)) {
-        shouldDeselect = [self didSelectWeatherCell];
     }
-    if(shouldDeselect) [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if([identifier isEqualToString:@"weatherSegue"]) {
+        if(self.permissionAlertIsUp || self.loadingLocation) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:@"weatherSegue"]) {
+        K9WeatherViewController *destination = segue.destinationViewController;
+        destination.delegate = self;
+        if(!self.training.weather) {
+            self.training.weather = [K9Weather new];
+        }
+        [destination setWeather:self.training.weather];
+        [destination setEditable:YES];
+    }
     
-    [self.tableView endUpdates];
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
+- (void)weatherViewController:(K9WeatherViewController *)weatherViewController didUpdateWeather:(K9Weather *)weather {
+    self.training.weather = weather;
+    NSIndexPath *weatherIndexPath = [NSIndexPath indexPathForRow:(self.isShowingK9Picker ? 4 : 3) inSection:0];
+    [self updateCell:[self.tableView cellForRowAtIndexPath:weatherIndexPath] withWeather:self.training.weather];
 }
 
 - (BOOL)didSelectLocationCell {
@@ -147,6 +184,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Use Current Location?" message:@"FIDO will automatically fill out location and weather information" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
             [alert show];
             shouldDeselectCell = NO;
+            self.permissionAlertIsUp = YES;
         } else if([K9Preferences locationPreference] == K9PreferencesLocationAbsoluteAccepted) {
             // If we've asked before and they've accepted everything, we're free to go.
             [self getCurrentLocationAndUpdateTable];
@@ -166,6 +204,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Use Current Location?" message:@"FIDO will automatically fill out location and weather information" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
             [alert show];
             shouldDeselectCell = NO;
+            self.permissionAlertIsUp = YES;
         } else if([K9Preferences locationPreference] == K9PreferencesLocationAbsoluteAccepted) {
             // If we've asked before and they've accepted everything, we're free to go.
             [self getCurrentLocationAndUpdateTable];
@@ -181,10 +220,19 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         // YES Button
         [self getCurrentLocationAndUpdateTable];
     } else {
-        [K9Preferences setLocationPreference:K9PreferencesLocationLocalDenied];
         // NO Button -- show alternate UI.
+        
+        [K9Preferences setLocationPreference:K9PreferencesLocationLocalDenied];
+        
+        BOOL selectedWeatherCell = self.tableView.indexPathForSelectedRow.row == (self.isShowingK9Picker ? 4 : 3);
+        
+        if(selectedWeatherCell) {
+            [self performSegueWithIdentifier:@"weatherSegue" sender:nil];
+        }
+        
     }
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    self.permissionAlertIsUp = NO;
 }
 
 - (void)getCurrentLocationAndUpdateTable {

@@ -11,6 +11,7 @@
 #import "K9Training.h"
 #import "K9Dog.h"
 #import "K9Weather.h"
+#import "K9WeatherViewController.h"
 
 #import <CoreLocation/CLGeocoder.h>
 
@@ -122,6 +123,15 @@
     weatherCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     weatherCell.selectionStyle = UITableViewCellSelectionStyleDefault;
     weatherCell.detailTextLabel.text = [weather formattedDescription];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:@"weatherSegue"]) {
+        K9WeatherViewController *destination = segue.destinationViewController;
+        [destination setWeather:self.training.weather];
+    }
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 @end
