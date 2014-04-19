@@ -118,7 +118,6 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView beginUpdates];
     
     BOOL wasShowingK9Picker = [self isShowingK9Picker];
     
@@ -128,7 +127,6 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         [self didSelectWeatherCell];
     }
     
-    [self.tableView endUpdates];
     
     return indexPath;
 }
@@ -282,6 +280,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 - (void)hideK9Picker {
     if([self isShowingK9Picker]) {
         self.showingK9Picker = NO;
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]]
                               withRowAnimation:UITableViewRowAnimationFade];
     }
