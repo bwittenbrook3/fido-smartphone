@@ -14,9 +14,16 @@
 #import "K9Preferences.h"
 #import "K9Photo.h"
 #import "UIColor+DefaultTintColor.h"
+#import "K9PolylineBuilder.h"
+#import "K9MapAnnotation.h"
 
 #import <objc/runtime.h>
 #import <MapKit/MapKit.h>
+
+
+@interface K9MapPanGestureRecognizer : UIPanGestureRecognizer
+
+@end
 
 @interface K9EventViewController () <K9EventDetailViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -30,7 +37,17 @@
 
 
 @property (strong) CLGeocoder *geocoder;
+
+@property (strong) K9PolylineBuilder *currentPolylineBuilder;
+@property (weak) K9MapPanGestureRecognizer *mapPanGestureRecognizer;
+@property (strong) K9MapAnnotation *mapAnnotation;
+
+@property (strong) IBOutlet UIBarButtonItem *actionsBarButtonItem;
+@property (strong) IBOutlet UIBarButtonItem *saveAnnotationBarButtonItem;
+
 @end
+
+
 
 @interface UIButton (ColorForState)
 
@@ -170,6 +187,9 @@
     if([overlay isKindOfClass:[K9DogPath class]]) {
         MKPolylineRenderer *renderer = [(K9DogPath *)overlay renderer];
         return renderer;
+    } else if([overlay isKindOfClass:[K9PolylineBuilder class]]) {
+        MKOverlayRenderer *renderer = [(K9PolylineBuilder *)overlay renderer];
+        return renderer;
     } else {
         return nil;
     }
@@ -215,6 +235,9 @@
                 break;
             case 1:
                 [self recordAudio];
+                break;
+            case 2:
+                [self enterAnnotationMode];
                 break;
             default:
                 break;
@@ -284,6 +307,75 @@
     [self presentViewController:picker animated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }];
+}
+
+
+- (void)enterAnnotationMode {
+    K9MapPanGestureRecognizer *panGesture = [[K9MapPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+    panGesture.cancelsTouchesInView = YES;
+    panGesture.maximumNumberOfTouches = 1;
+    self.mapPanGestureRecognizer = panGesture;
+    [self.mapView addGestureRecognizer:panGesture];
+    
+    self.mapAnnotation = [K9MapAnnotation new];
+    
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+    [self.navigationItem setRightBarButtonItem:self.saveAnnotationBarButtonItem animated:YES];
+}
+
+- (IBAction)exitAnnotationMode:(id)sender {
+    NSMutableArray *overlaysToRemove = [NSMutableArray array];
+    for(id<MKOverlay> overlay in self.mapView.overlays) {
+        if([overlay isKindOfClass:[K9PolylineBuilder class]]) {
+            [overlaysToRemove addObject:overlay];
+        }
+    }
+    [self.mapView removeOverlays:overlaysToRemove];
+    
+    if(self.mapAnnotation.polylines.count) {
+        // TODO: Save and upload map annotation
+    }
+    
+    [self.mapView removeGestureRecognizer:self.mapPanGestureRecognizer];
+    self.mapPanGestureRecognizer = nil;
+    
+    [self.navigationItem setHidesBackButton:NO animated:YES];
+    [self.navigationItem setRightBarButtonItem:self.actionsBarButtonItem animated:YES];
+}
+
+- (void)didPan:(UIPanGestureRecognizer *)recognizer {
+    CGPoint point = [recognizer locationInView:self.mapView];
+    CLLocationCoordinate2D coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    MKMapRect updateMapRect = MKMapRectNull;
+    
+    switch(recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            self.currentPolylineBuilder = [[K9PolylineBuilder alloc] initWithCoordinate:coordinate];
+            [self.mapView addOverlay:self.currentPolylineBuilder];
+            break;
+        case UIGestureRecognizerStateChanged:
+            updateMapRect = [self.currentPolylineBuilder addCoordinate:coordinate];
+            break;
+        case UIGestureRecognizerStateEnded:
+            updateMapRect = [self.currentPolylineBuilder addCoordinate:coordinate];
+            [self.mapAnnotation addPolyline:[self.currentPolylineBuilder polyline]];
+            break;
+        default:
+            break;
+    }
+    
+    if (!MKMapRectIsNull(updateMapRect)) {
+        // There is a non null update rect.
+        // Compute the currently visible map zoom scale
+        MKZoomScale currentZoomScale = (CGFloat)(self.mapView.bounds.size.width / self.mapView.visibleMapRect.size.width);
+        // Find out the line width at this zoom scale and outset the updateRect by that amount
+        CGFloat lineWidth = MKRoadWidthAtZoomScale(currentZoomScale);
+        updateMapRect = MKMapRectInset(updateMapRect, -lineWidth, -lineWidth);
+        // Ask the overlay view to update just the changed area.
+        [self.currentPolylineBuilder.renderer invalidatePath];
+        [self.currentPolylineBuilder.renderer setNeedsDisplayInMapRect:updateMapRect];
+    }
+
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -360,6 +452,18 @@
     UIGraphicsEndImageContext();
     
     [self setBackgroundImage:colorImage forState:state];
+}
+
+@end
+
+@implementation K9MapPanGestureRecognizer
+
+- (BOOL)canBePreventedByGestureRecognizer:(UIGestureRecognizer *)preventingGestureRecognizer {
+    return NO;
+}
+
+- (BOOL)canPreventGestureRecognizer:(UIGestureRecognizer *)preventedGestureRecognizer {
+    return YES;
 }
 
 @end

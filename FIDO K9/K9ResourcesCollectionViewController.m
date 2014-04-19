@@ -62,7 +62,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    K9Resource *resource = [self.resources objectAtIndex:indexPath.row];
+    id resource = [self.resources objectAtIndex:indexPath.row];
     
     UICollectionViewCell *cell = nil;
     

@@ -11,6 +11,6 @@
 
 @interface K9Photo : K9Resource
 
-@property (copy) NSURL *thumbnailURL;
+@property (copy, nonatomic) NSURL *URL;
 
 @end

@@ -1133,12 +1133,19 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="actionsBarButtonItem" destination="jR6-2p-8FC" id="HxG-Af-akX"/>
                         <outlet property="detailContainerView" destination="rOx-le-DXB" id="qEi-gc-ttc"/>
                         <outlet property="mapView" destination="cgX-xc-Pdi" id="FDD-1z-VYG"/>
+                        <outlet property="saveAnnotationBarButtonItem" destination="ITx-hc-OZ4" id="Mut-Ue-JRL"/>
                         <outlet property="subheaderBar" destination="Ws0-vw-NFr" id="1qT-v3-9VG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qFJ-Dl-WDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="save" id="ITx-hc-OZ4">
+                    <connections>
+                        <action selector="exitAnnotationMode:" destination="cxK-C6-StQ" id="wnV-JS-sbg"/>
+                    </connections>
+                </barButtonItem>
                 <containerView contentMode="scaleToFill" id="rOx-le-DXB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

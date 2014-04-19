@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3401A7901902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */; };
+		3401A79319030AF100878E56 /* K9PolylineBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A79219030AF100878E56 /* K9PolylineBuilder.m */; };
+		3401A796190314BE00878E56 /* K9MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A795190314BE00878E56 /* K9MapAnnotation.m */; };
 		3437B40318F9EFCD0098F6C8 /* K9AttachmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */; };
 		3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40518F9F5750098F6C8 /* K9Photo.m */; };
 		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
@@ -118,6 +120,10 @@
 /* Begin PBXFileReference section */
 		3401A78E1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking+ObjectGraph.h"; sourceTree = "<group>"; };
 		3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking+ObjectGraph.m"; sourceTree = "<group>"; };
+		3401A79119030AF100878E56 /* K9PolylineBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9PolylineBuilder.h; sourceTree = "<group>"; };
+		3401A79219030AF100878E56 /* K9PolylineBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9PolylineBuilder.m; sourceTree = "<group>"; };
+		3401A794190314BE00878E56 /* K9MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9MapAnnotation.h; sourceTree = "<group>"; };
+		3401A795190314BE00878E56 /* K9MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9MapAnnotation.m; sourceTree = "<group>"; };
 		3437B40118F9EFCD0098F6C8 /* K9AttachmentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9AttachmentListViewController.h; sourceTree = "<group>"; };
 		3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9AttachmentListViewController.m; sourceTree = "<group>"; };
 		3437B40418F9F5750098F6C8 /* K9Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Photo.h; sourceTree = "<group>"; };
@@ -465,10 +471,12 @@
 				34E4CBFB18F9E85B00CE61CF /* K9Attachment.m */,
 				345EE03118F1AC7F00BC8581 /* K9ObjectGraph.h */,
 				345EE03218F1AC7F00BC8581 /* K9ObjectGraph.m */,
-				3437B40418F9F5750098F6C8 /* K9Photo.h */,
-				3437B40518F9F5750098F6C8 /* K9Photo.m */,
 				34841B361900F55500FD9125 /* K9Resource.h */,
 				34841B371900F55500FD9125 /* K9Resource.m */,
+				3437B40418F9F5750098F6C8 /* K9Photo.h */,
+				3437B40518F9F5750098F6C8 /* K9Photo.m */,
+				3401A794190314BE00878E56 /* K9MapAnnotation.h */,
+				3401A795190314BE00878E56 /* K9MapAnnotation.m */,
 				34D9095718FEEBD90075C2D6 /* K9Weather.h */,
 				34D9095818FEEBD90075C2D6 /* K9Weather.m */,
 				347D24ED18FEF698004270FA /* K9Training.h */,
@@ -670,6 +678,8 @@
 				34DE106418F338F000FB21D8 /* K9PhotoViewController.m */,
 				3437B40D18FB1C5D0098F6C8 /* K9DogAvatarViewController.h */,
 				3437B40E18FB1C5D0098F6C8 /* K9DogAvatarViewController.m */,
+				3401A79119030AF100878E56 /* K9PolylineBuilder.h */,
+				3401A79219030AF100878E56 /* K9PolylineBuilder.m */,
 			);
 			name = "Event List + Details";
 			sourceTree = "<group>";
@@ -859,6 +869,7 @@
 				345EE06818F1AFAC00BC8581 /* UIProgressView+AFNetworking.m in Sources */,
 				345EE06118F1AFAC00BC8581 /* AFURLResponseSerialization.m in Sources */,
 				345EE09918F1C32400BC8581 /* PTPusherAPI.m in Sources */,
+				3401A79319030AF100878E56 /* K9PolylineBuilder.m in Sources */,
 				345EE06918F1AFAC00BC8581 /* UIRefreshControl+AFNetworking.m in Sources */,
 				34841B2F1900D72400FD9125 /* K9MapViewController.m in Sources */,
 				345EE06018F1AFAC00BC8581 /* AFURLRequestSerialization.m in Sources */,
@@ -886,6 +897,7 @@
 				34841B351900F00400FD9125 /* UIImage+CircularCenteredImage.m in Sources */,
 				345EE06A18F1AFAC00BC8581 /* UIWebView+AFNetworking.m in Sources */,
 				348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */,
+				3401A796190314BE00878E56 /* K9MapAnnotation.m in Sources */,
 				34841B3B1901BDDE00FD9125 /* K9NavigationReplaceSegue.m in Sources */,
 				345EE0A118F1C32400BC8581 /* PTURLRequestOperation.m in Sources */,
 				345EE09A18F1C32400BC8581 /* PTPusherChannel.m in Sources */,

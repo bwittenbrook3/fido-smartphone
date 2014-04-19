@@ -224,6 +224,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     NSLog(@"sending resource");
     
     if([resource isKindOfClass:[K9Photo class]]) {
+        K9Photo *photo = (K9Photo *)resource;
         NSDictionary *parameters = @{@"id": @(event.eventID), @"resource" : @{@"type": @"image",
                                                                               @"data": @"."}};
         
@@ -237,7 +238,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                             URLString:absoluteURL
                                                                                                            parameters:parameters
                                                                                             constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileURL:resource.URL name:@"resource[image]" fileName:[[resource.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]  mimeType:@"image/jpg" error:nil];
+            [formData appendPartWithFileURL:photo.URL name:@"resource[image]" fileName:[[photo.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]  mimeType:@"image/jpg" error:nil];
         } error:nil];
         
         [[AFHTTPRequestSerializer serializer] requestWithMultipartFormRequest:multipartRequest
