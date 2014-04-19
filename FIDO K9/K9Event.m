@@ -116,11 +116,19 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
     return event;
 }
 
-- (void)addResource:(id)resource {
+- (void)addResource:(K9Resource *)resource progressHandler:(void (^)(CGFloat progress))progressHandler{
     self.resources = [self.resources arrayByAddingObject:resource];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self];
     
-    [[K9ObjectGraph sharedObjectGraph] uploadResource:resource forEvent:self];
+    resource.uploaded = NO;
+    [[K9ObjectGraph sharedObjectGraph] uploadResource:resource forEvent:self progressHandler:^(CGFloat progress) {
+        NSDictionary *progressInfo = @{@"progress": @(progress)};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"progress" object:resource userInfo:progressInfo];
+        if(progress > 0.99) {
+            resource.uploaded = YES;
+        }
+    }];
 }
 
 @end

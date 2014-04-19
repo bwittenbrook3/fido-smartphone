@@ -83,6 +83,7 @@
 		34841B4C190216D000FD9125 /* WLHorizontalSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B47190216D000FD9125 /* WLHorizontalSegmentedControl.m */; };
 		34841B4D190216D000FD9125 /* WLSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B49190216D000FD9125 /* WLSegment.m */; };
 		34841B4E190216D000FD9125 /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B4B190216D000FD9125 /* WLSegmentedControl.m */; };
+		34841B5219023F2900FD9125 /* DAProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B5119023F2900FD9125 /* DAProgressOverlayView.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -129,7 +130,7 @@
 		3441347418F249650050B30F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3441347618F24B5F0050B30F /* K9ResourcesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9ResourcesCollectionViewController.h; sourceTree = "<group>"; };
 		3441347718F24B600050B30F /* K9ResourcesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9ResourcesCollectionViewController.m; sourceTree = "<group>"; };
-		34418A7818EF214C00F1D2A1 /* FIDO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIDO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34418A7818EF214C00F1D2A1 /* FIDO K9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FIDO K9.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34418A7B18EF214C00F1D2A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34418A7D18EF214C00F1D2A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		34418A7F18EF214C00F1D2A1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -266,6 +267,8 @@
 		34841B49190216D000FD9125 /* WLSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSegment.m; sourceTree = "<group>"; };
 		34841B4A190216D000FD9125 /* WLSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSegmentedControl.h; sourceTree = "<group>"; };
 		34841B4B190216D000FD9125 /* WLSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSegmentedControl.m; sourceTree = "<group>"; };
+		34841B5019023F2900FD9125 /* DAProgressOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAProgressOverlayView.h; sourceTree = "<group>"; };
+		34841B5119023F2900FD9125 /* DAProgressOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAProgressOverlayView.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -334,6 +337,7 @@
 		3437B41518FB8FBD0098F6C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				34841B4F19023F2900FD9125 /* DAProgressOverlayView */,
 				34841B45190216D000FD9125 /* WLSegmentedControls */,
 				34DE105D18F3340700FB21D8 /* ImageScrollView.h */,
 				34DE105E18F3340700FB21D8 /* ImageScrollView.m */,
@@ -378,7 +382,7 @@
 		34418A7918EF214C00F1D2A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				34418A7818EF214C00F1D2A1 /* FIDO.app */,
+				34418A7818EF214C00F1D2A1 /* FIDO K9.app */,
 				34418A9318EF214C00F1D2A1 /* FIDO K9Tests.xctest */,
 			);
 			name = Products;
@@ -600,6 +604,15 @@
 			path = WLSegmentedControls;
 			sourceTree = "<group>";
 		};
+		34841B4F19023F2900FD9125 /* DAProgressOverlayView */ = {
+			isa = PBXGroup;
+			children = (
+				34841B5019023F2900FD9125 /* DAProgressOverlayView.h */,
+				34841B5119023F2900FD9125 /* DAProgressOverlayView.m */,
+			);
+			path = DAProgressOverlayView;
+			sourceTree = "<group>";
+		};
 		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,7 +719,7 @@
 			);
 			name = "FIDO K9";
 			productName = "FIDO K9";
-			productReference = 34418A7818EF214C00F1D2A1 /* FIDO.app */;
+			productReference = 34418A7818EF214C00F1D2A1 /* FIDO K9.app */;
 			productType = "com.apple.product-type.application";
 		};
 		34418A9218EF214C00F1D2A1 /* FIDO K9Tests */ = {
@@ -837,6 +850,7 @@
 				345EE06718F1AFAC00BC8581 /* UIImageView+AFNetworking.m in Sources */,
 				34D9095618FE29EF0075C2D6 /* K9NewTrainingViewController.m in Sources */,
 				347D24F518FF330A004270FA /* K9Preferences.m in Sources */,
+				34841B5219023F2900FD9125 /* DAProgressOverlayView.m in Sources */,
 				345EE06818F1AFAC00BC8581 /* UIProgressView+AFNetworking.m in Sources */,
 				345EE06118F1AFAC00BC8581 /* AFURLResponseSerialization.m in Sources */,
 				345EE09918F1C32400BC8581 /* PTPusherAPI.m in Sources */,

@@ -23,7 +23,7 @@ static NSString * const baseURLString = @"http://fido-api-bucket.s3.amazonaws.co
     } else {
         K9Photo *photo = [K9Photo new];
         photo.URL = [NSURL URLWithString:[propertyList objectForKey:URL_PATH_KEY] relativeToURL:[NSURL URLWithString:baseURLString]];
-        
+        photo.uploaded = YES;
         
         return (photo.URL ? photo : nil);
     }

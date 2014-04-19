@@ -29,7 +29,7 @@ extern NSString *const K9TrainingWasAddedNotification;
 - (K9Event *)eventWithID:(NSInteger)eventID;
 - (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
 - (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *resources))completionHandler;
-- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event;
+- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat progress))progressHandler;
 
 // Dogs
 @property (readonly, nonatomic) NSArray *allDogs;

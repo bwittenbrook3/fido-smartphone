@@ -13,5 +13,6 @@
 + (K9Resource *)resourceWithPropertyList:(id)propertyList;
 
 @property (copy, nonatomic) NSURL *URL;
+@property (getter=isUploaded, nonatomic) BOOL uploaded;
 
 @end

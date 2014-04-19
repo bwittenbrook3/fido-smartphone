@@ -185,30 +185,75 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     }];
 }
 
-- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event {
+- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat))progressHandler {
     NSString *postURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", event.eventID];
+    NSString *absoluteURL = [baseURLString stringByAppendingPathComponent:postURLPath];
     NSLog(@"sending resource");
     
     if([resource isKindOfClass:[K9Photo class]]) {
-        NSData *imageData = [NSData dataWithContentsOfURL:resource.URL];
         NSDictionary *parameters = @{@"id": @(event.eventID), @"resource" : @{@"type": @"image",
                                                                               @"data": @"."}};
-        [self.sessionManager POST:postURLPath parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            NSError *error = nil;
-            if(![formData appendPartWithFileURL:resource.URL name:@"resource[image]" fileName:[[resource.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]  mimeType:@"image/jpg" error:&error]) {
-                NSLog(@"error appending: %@", error);
-            }
-        } success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSLog(@"sent resource: %@", responseObject);
-
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"Failed to send resource (%@): %@", [[resource.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], error);
-        }];
         
-        [self.sessionManager POST:postURLPath parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        }];
+        // Prepare a temporary file to store the multipart request prior to sending it to the server due to an alleged
+        // bug in NSURLSessionTask.
+        NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
+        NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
+
+        
+        NSMutableURLRequest *multipartRequest = [self.sessionManager.requestSerializer multipartFormRequestWithMethod:@"POST"
+                                                                                                            URLString:absoluteURL
+                                                                                                           parameters:parameters
+                                                                                            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileURL:resource.URL name:@"resource[image]" fileName:[[resource.URL lastPathComponent] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]  mimeType:@"image/jpg" error:nil];
+        } error:nil];
+        
+        [[AFHTTPRequestSerializer serializer] requestWithMultipartFormRequest:multipartRequest
+                                                  writingStreamContentsToFile:tmpFileUrl
+                                                            completionHandler:^(NSError *error) {
+                                                                // Once the multipart form is serialized into a temporary file, we can initialize
+                                                                // the actual HTTP request using session manager.
+                                                                
+                                                                // Create default session manager.
+                                                                AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                                                
+                                                                // Show progress.
+                                                                NSProgress *progress = nil;
+                                                                // Here note that we are submitting the initial multipart request. We are, however,
+                                                                // forcing the body stream to be read from the temporary file.
+                                                                NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithRequest:multipartRequest
+                                                                                                                           fromFile:tmpFileUrl
+                                                                                                                           progress:&progress
+                                                                                                                  completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
+                                                                                                      {
+                                                                                                          // Cleanup: remove temporary file.
+                                                                                                          [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
+                                                                                                          if(progressHandler) {
+                                                                                                          [progress removeObserver:self forKeyPath:@"fractionCompleted"];
+                                                                                                          }
+                                                                                                          // Do something with the result.
+                                                                                                          if (error) {
+                                                                                                              NSLog(@"Error: %@", error);
+                                                                                                          } else {
+                                                                                                              NSLog(@"Success: %@", responseObject);
+                                                                                                          }
+                                                                                                      }];
+                                                                if(progressHandler) {
+                                                                    // Add the observer monitoring the upload progress.
+                                                                    [progress addObserver:self
+                                                                               forKeyPath:@"fractionCompleted"
+                                                                                  options:NSKeyValueObservingOptionNew
+                                                                                  context:(__bridge void *)(progressHandler)];
+                                                                }
+                                                                // Start the file upload.
+                                                                [uploadTask resume];
+                                                            }];
     }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    CGFloat progress = (CGFloat)[object fractionCompleted];
+    void (^progressHandler)(CGFloat) = (__bridge void (^)(CGFloat))(context);
+    progressHandler(progress);
 }
 
 - (void)fetchImageURLForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSURL *))completionHandler {

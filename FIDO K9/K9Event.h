@@ -38,7 +38,7 @@ extern NSString *const K9EventDidModifyResourcesNotification;
 @property (copy, nonatomic) NSArray *dogPaths;
 
 @property (copy, nonatomic) NSArray *resources;
-- (void)addResource:(id)resource;
+- (void)addResource:(id)resource progressHandler:(void (^)(CGFloat progress))progressHandler;
 
 @property (copy, nonatomic) CLLocation *location;
 

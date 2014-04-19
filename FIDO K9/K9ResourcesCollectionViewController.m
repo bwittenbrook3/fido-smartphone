@@ -13,6 +13,7 @@
 #import "K9PhotoViewController.h"
 #import "K9Photo.h"
 #import "UIImageView+AFNetworking.h"
+#import "DAProgressOverlayView.h"
 
 @interface K9ResourcesCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -61,7 +62,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    id resource = [self.resources objectAtIndex:indexPath.row];
+    K9Resource *resource = [self.resources objectAtIndex:indexPath.row];
     
     UICollectionViewCell *cell = nil;
     
@@ -76,6 +77,21 @@
     cell.layer.borderWidth = 0.5;
     cell.layer.borderColor = [UIColor grayColor].CGColor;
 
+    if(![resource isUploaded] ) {
+        DAProgressOverlayView *progressOverlay = [[DAProgressOverlayView alloc] initWithFrame:cell.contentView.bounds];
+        [progressOverlay setTriggersDownloadDidFinishAnimationAutomatically:YES];
+        [cell.contentView addSubview:progressOverlay];
+        
+        // TODO: Put this somewhere better?
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"progress" object:resource queue:nil usingBlock:^(NSNotification *note) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [progressOverlay setProgress:[[[note userInfo] objectForKey:@"progress"] floatValue]];
+                if(progressOverlay.progress ) {
+                    [progressOverlay performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.5];
+                }
+            });
+        }];
+    }
     
     return cell;
 }

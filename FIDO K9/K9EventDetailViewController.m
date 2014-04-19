@@ -75,6 +75,7 @@
 
 - (void)eventDidModifyResources:(NSNotification *)notification {
     self.resourcesViewController.resources = [[notification object] resources];
+
     if(self.revealButton.hidden && self.event.resources) {
         self.revealButton.alpha = 0;
         self.revealButton.hidden = NO;

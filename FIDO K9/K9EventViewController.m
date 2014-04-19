@@ -306,7 +306,7 @@
         
         if ([data writeToURL:imageURL atomically:NO]) {
             photo.URL = imageURL;
-            [self.event addResource:photo];
+            [self.event addResource:photo progressHandler:nil];
             NSLog(@"the cachedImagedPath is %@",imageURL);
         } else {
             NSLog(@"Failed to cache image data to disk");
