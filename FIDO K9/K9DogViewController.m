@@ -105,6 +105,12 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    if(_showingDetails) {
+        [self showTabBar:self.tabBarController shrinkViews:NO];
+    }
+}
+
 - (void)setDog:(K9Dog *)dog {
     if(_dog != dog) {
         if(_dog) [self.mapView removeAnnotation:_dog];
@@ -149,7 +155,7 @@
 
     [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:0 animations:^{
         [[self heightConstraint] setConstant:finalHeight];
-        [self showTabBar:self.tabBarController];
+        [self showTabBar:self.tabBarController shrinkViews:YES];
         [[self view] layoutIfNeeded];
     } completion:^(BOOL finished) {
     }];
@@ -199,12 +205,12 @@
     [UIView commitAnimations];
 }
 
-- (void)showTabBar:(UITabBarController *) tabbarcontroller {
+- (void)showTabBar:(UITabBarController *) tabbarcontroller shrinkViews:(BOOL)shrinkViews {
     [UIView beginAnimations:nil context:NULL];
     for(UIView *view in tabbarcontroller.view.subviews) {
         if([view isKindOfClass:[UITabBar class]]) {
             [view setFrame:CGRectMake(view.frame.origin.x, tabbarcontroller.view.frame.size.height - view.frame.size.height, view.frame.size.width, view.frame.size.height)];
-        } else {
+        } else if(shrinkViews) {
             [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, tabbarcontroller.view.frame.size.height - tabbarcontroller.tabBar.frame.size.height)];
         }
     }
