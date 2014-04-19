@@ -412,6 +412,14 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+}
+
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [picker dismissViewControllerAnimated:YES completion:nil];
