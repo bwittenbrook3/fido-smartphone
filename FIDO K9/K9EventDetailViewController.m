@@ -60,13 +60,16 @@
 
     if(self.event) {
         [self reloadEventViews];
+        [[NSNotificationCenter defaultCenter] addObserver:self.resourcesViewController selector:@selector(eventDidModifyResources:) name:K9EventDidModifyResourcesNotification object:_event];
     }
 }
 
 - (void)setEvent:(K9Event *)event {
     if(_event != event) {
+        if(self.resourcesViewController) [[NSNotificationCenter defaultCenter] removeObserver:self.resourcesViewController name:K9EventDidModifyResourcesNotification object:_event];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:K9EventDidModifyResourcesNotification object:_event];
         _event = event;
+        if(self.resourcesViewController) [[NSNotificationCenter defaultCenter] addObserver:self.resourcesViewController selector:@selector(eventDidModifyResources:) name:K9EventDidModifyResourcesNotification object:_event];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventDidModifyResources:) name:K9EventDidModifyResourcesNotification object:_event];
         
         if(self.isViewLoaded) [self reloadEventViews];
@@ -74,8 +77,6 @@
 }
 
 - (void)eventDidModifyResources:(NSNotification *)notification {
-    self.resourcesViewController.resources = [[notification object] resources];
-
     if(self.revealButton.hidden && self.event.resources) {
         self.revealButton.alpha = 0;
         self.revealButton.hidden = NO;
@@ -96,7 +97,6 @@
 
 - (void)reloadEventViews {
     self.resourcesViewController.resources = [self.event resources];
-
     
     for(UIView *subview in [self.dogAvatarStackView subviews]) {
         [subview removeFromSuperview];

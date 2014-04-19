@@ -11,6 +11,7 @@
 @interface K9ResourcesCollectionViewController : UICollectionViewController
 
 @property NSArray *resources;
+- (void)eventDidModifyResources:(NSNotification *)notification;
 
 @end
 

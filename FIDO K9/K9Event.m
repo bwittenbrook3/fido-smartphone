@@ -29,6 +29,7 @@
 #define RAND ((((float)rand() / RAND_MAX)-0.5)*0.0002)
 
 NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResourcesNotification";
+NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNotificationKey";
 
 @implementation K9Event
 
@@ -119,7 +120,8 @@ NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResour
 - (void)addResource:(K9Resource *)resource progressHandler:(void (^)(CGFloat progress))progressHandler{
     self.resources = [self.resources arrayByAddingObject:resource];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self];
+    NSDictionary *userInfo = @{K9EventAddedResourcesNotificationKey : @[resource]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self userInfo:userInfo];
     
     resource.uploaded = NO;
     [[K9ObjectGraph sharedObjectGraph] uploadResource:resource forEvent:self progressHandler:^(CGFloat progress) {

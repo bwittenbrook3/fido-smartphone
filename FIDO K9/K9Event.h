@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, K9EventType) {
 
 
 extern NSString *const K9EventDidModifyResourcesNotification;
+extern NSString *const K9EventAddedResourcesNotificationKey;
 
 @class K9Dog;
 @interface K9Event : NSObject

@@ -14,6 +14,7 @@
 #import "K9Photo.h"
 #import "UIImageView+AFNetworking+ObjectGraph.h"
 #import "DAProgressOverlayView.h"
+#import "K9Event.h"
 
 @interface K9ResourcesCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -56,6 +57,22 @@
         [[self collectionView] reloadData];
     }
 }
+
+- (void)eventDidModifyResources:(NSNotification *)notification {
+    NSArray *resources = [[notification userInfo] objectForKey:K9EventAddedResourcesNotificationKey];
+    
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:resources.count];
+    
+    [resources enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [indexPaths addObject:[NSIndexPath indexPathForItem:_resources.count + idx inSection:0]];
+    }];
+    _resources = [_resources arrayByAddingObjectsFromArray:resources];
+    
+    [self.collectionView insertItemsAtIndexPaths:indexPaths];
+    
+    [self.collectionView scrollToItemAtIndexPath:[indexPaths lastObject] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+}
+
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.resources.count;
