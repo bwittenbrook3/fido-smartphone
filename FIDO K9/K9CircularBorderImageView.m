@@ -7,7 +7,7 @@
 //
 
 #import "K9CircularBorderImageView.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworking+ObjectGraph.h"
 #import "UIImage+CircularCenteredImage.m"
 
 @interface K9CircularBorderImageView ()
@@ -42,16 +42,11 @@
 }
 
 - (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage completion:(void(^)(void))completionHandler {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-    
-    [[self imageView] setImageWithURLRequest:request placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [[self imageView] setImageWithURL:url placeholderImage:placeholderImage success:^(UIImage *image) {
         [self setImage:image];
         [self setNeedsDisplay];
         if(completionHandler) completionHandler();
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        
-    }];
+    } failure:nil];
 }
 
 - (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage {

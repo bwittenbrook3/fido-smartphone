@@ -36,6 +36,21 @@ static NSString * const fidoPassword = @"b40eb04e7874876cc72f0475b6b6efc3";
 // TODO: Use CoreData instead for persistence.
 @implementation K9ObjectGraph
 
+
+static int networkActivityCount = 0;
++ (void)startDoingNetworkingActivity {
+    networkActivityCount += 1;
+    if(networkActivityCount == 1) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    }
+}
++ (void)stopDoingNetworkingActivity {
+    networkActivityCount -= 1;
+    if(networkActivityCount == 0) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+}
+
 - (id)init {
     if(self = [super init]) {
         _sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:baseURLString]];
@@ -61,7 +76,9 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     [self.sessionManager GET:@"vests.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         __block NSInteger numberOfCompletedDogs = 0;
         __block NSInteger numberOfDogsToComplete = [responseObject count];
         for(NSDictionary *dogDictionary in responseObject) {
@@ -84,6 +101,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         }
         // TODO: Remove cached dogs that aren't reported?
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
@@ -92,17 +110,22 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (void)fetchEventPusherChannelWithCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     [self.sessionManager GET:@"events/new_channel.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         NSString *channel = [responseObject objectForKey:@"channel"];
         if(completionHandler) completionHandler(channel);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
 }
 
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     [self.sessionManager GET:@"events.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         for(NSDictionary *eventDictionary in responseObject) {
             if(![[self eventDictionary] objectForKey:[eventDictionary objectForKey:@"id"]]) {
                 // TODO: Don't create the event if we already have it.. update it?
@@ -117,6 +140,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         // TODO: Remove cached events that aren't reported?
         if(completionHandler) completionHandler([self allEvents]);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
@@ -125,7 +149,9 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (NSArray *)fetchAllAttachmentsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     [self.sessionManager GET:@"attachments.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         NSMutableArray *attachments = [[NSMutableArray alloc] initWithCapacity:[responseObject count]];
         for(NSDictionary *attachmentDictionary in responseObject) {
             K9Attachment *attachment = [K9Attachment attachmentWithPropertyList:attachmentDictionary];
@@ -139,6 +165,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         // TODO: Remove cached events that aren't reported?
         if(completionHandler) completionHandler(attachments);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
@@ -147,8 +174,10 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     NSString *getURLPath = [NSString stringWithFormat:@"events/%ld.json", eventID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         if([responseObject isKindOfClass:[NSArray class]]) {
             responseObject = [responseObject objectAtIndex:0];
         }
@@ -161,6 +190,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         }
         if(completionHandler) completionHandler(event);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
@@ -169,8 +199,10 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     NSString *getURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", eventID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         NSMutableArray *resources = [NSMutableArray arrayWithCapacity:[responseObject count]];
         for(NSDictionary *resourceDictionary in responseObject) {
             K9Resource *resource = [K9Resource resourceWithPropertyList:resourceDictionary];
@@ -180,6 +212,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         }
         if(completionHandler) completionHandler(resources);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
@@ -199,7 +232,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
         NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
 
-        
+        [[self class] startDoingNetworkingActivity];
         NSMutableURLRequest *multipartRequest = [self.sessionManager.requestSerializer multipartFormRequestWithMethod:@"POST"
                                                                                                             URLString:absoluteURL
                                                                                                            parameters:parameters
@@ -225,6 +258,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                                            progress:&progress
                                                                                                                   completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
                                                                                                       {
+                                                                                                          [[self class] stopDoingNetworkingActivity];
                                                                                                           // Cleanup: remove temporary file.
                                                                                                           [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
                                                                                                           if(progressHandler) {
@@ -257,19 +291,24 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 }
 
 - (void)fetchImageURLForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSURL *))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     NSString *getURLPath = [NSString stringWithFormat:@"vests/%ld/image_path.json", dogID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         NSURL *url = [NSURL URLWithString:[[responseObject objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         if(completionHandler) completionHandler(url);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];
 }
 
 - (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler {
+    [[self class] startDoingNetworkingActivity];
     NSString *getURLPath = [NSString stringWithFormat:@"vests/%ld.json", dogID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self class] stopDoingNetworkingActivity];
         if([responseObject isKindOfClass:[NSArray class]]) {
             responseObject = [responseObject objectAtIndex:0];
         }
@@ -285,6 +324,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
             if(completionHandler) completionHandler(dog);
         }];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [[self class] stopDoingNetworkingActivity];
         NSLog(@"error: %@", error);
         if(completionHandler) completionHandler(nil);
     }];

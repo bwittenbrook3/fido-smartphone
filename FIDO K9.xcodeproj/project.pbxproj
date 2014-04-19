@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3401A7901902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */; };
 		3437B40318F9EFCD0098F6C8 /* K9AttachmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */; };
 		3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40518F9F5750098F6C8 /* K9Photo.m */; };
 		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
@@ -115,6 +116,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3401A78E1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking+ObjectGraph.h"; sourceTree = "<group>"; };
+		3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking+ObjectGraph.m"; sourceTree = "<group>"; };
 		3437B40118F9EFCD0098F6C8 /* K9AttachmentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9AttachmentListViewController.h; sourceTree = "<group>"; };
 		3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9AttachmentListViewController.m; sourceTree = "<group>"; };
 		3437B40418F9F5750098F6C8 /* K9Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Photo.h; sourceTree = "<group>"; };
@@ -683,6 +686,8 @@
 				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
 				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
 				34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */,
+				3401A78E1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.h */,
+				3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -874,6 +879,7 @@
 				345EE05E18F1AFAC00BC8581 /* AFSecurityPolicy.m in Sources */,
 				345EE09418F1C32400BC8581 /* NSString+Hashing.m in Sources */,
 				34841B441901E9D000FD9125 /* K9WeatherViewController.m in Sources */,
+				3401A7901902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m in Sources */,
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
 				3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */,
 				34D9095018FE12B90075C2D6 /* Forecastr+CLLocation.m in Sources */,

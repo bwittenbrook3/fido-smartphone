@@ -12,7 +12,7 @@
 #import "UIImage+ImageEffects.h"
 #import "K9PhotoViewController.h"
 #import "K9Photo.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworking+ObjectGraph.h"
 #import "DAProgressOverlayView.h"
 
 @interface K9ResourcesCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
@@ -68,7 +68,9 @@
     
     if([resource isKindOfClass:[K9Photo class]]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-        [[((K9PhotoCollectionViewCell *)cell) imageView] setImageWithURL:[resource URL]];
+        [[((K9PhotoCollectionViewCell *)cell) imageView] setImageWithURL:[resource URL] placeholderImage:nil success:^(UIImage *image) {
+            [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:image];
+        } failure:nil];
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];        
     }
@@ -168,7 +170,10 @@
         UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cellFrame];
         [transitionImageView setContentMode:UIViewContentModeScaleAspectFill];
         [transitionImageView setClipsToBounds:YES];
-        [transitionImageView setImageWithURL:imageURL];
+        __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
+        [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
+            [weakTransitionImageView setImage:image];
+        } failure:nil];
         [containerView addSubview:transitionImageView];
         
         [[toViewController backgroundImageView] setFrame:[[transitionContext containerView] bounds]];
@@ -210,7 +215,10 @@
         [transitionImageView setClipsToBounds:YES];
         transitionImageView.layer.borderWidth = 0.5;
         transitionImageView.layer.borderColor = [UIColor grayColor].CGColor;
-        [transitionImageView setImageWithURL:imageURL];
+        __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
+        [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
+            [weakTransitionImageView setImage:image];
+        } failure:nil];
         [containerView addSubview:transitionImageView];
 
         

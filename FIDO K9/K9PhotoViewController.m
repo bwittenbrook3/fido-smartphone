@@ -8,7 +8,7 @@
 
 #import "K9PhotoViewController.h"
 #import "ImageScrollView.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworking+ObjectGraph.h"
 
 @interface K9PhotoViewController ()
 
@@ -49,16 +49,10 @@
 
 - (void)setImageWithURL:(NSURL *)url {
     if(!self.isViewLoaded) {
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-
         UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [image setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [image setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
             self.image = image;
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-            
-        }];
-
+        } failure:nil];
     } else {
         [self.scrollView setImageWithURL:url];
     }
