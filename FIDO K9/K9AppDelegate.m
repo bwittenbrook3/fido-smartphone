@@ -26,6 +26,11 @@
     [self registerForPusher];
     
     [[Forecastr sharedManager] setApiKey:FORECAST_API_KEY];
+    
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                         diskCapacity:60 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
 
     return YES;
 }

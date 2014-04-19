@@ -104,6 +104,7 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     
     if([resource isKindOfClass:[K9Photo class]]) {
+        [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:nil];
         [[((K9PhotoCollectionViewCell *)cell) imageView] setImageWithURL:[resource URL] placeholderImage:nil success:^(UIImage *image) {
             [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:image];
         } failure:nil];
