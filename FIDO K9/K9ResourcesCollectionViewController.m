@@ -15,6 +15,10 @@
 #import "UIImageView+AFNetworking+ObjectGraph.h"
 #import "DAProgressOverlayView.h"
 #import "K9Event.h"
+#import "K9OverlayViewController.h"
+#import "K9MapAnnotation.h"
+#import "K9MapAnnotation+AnnotationSnapshot.h"
+
 
 @interface K9ResourcesCollectionViewController () <UINavigationControllerDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -64,9 +68,25 @@
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:resources.count];
     
     [resources enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [indexPaths addObject:[NSIndexPath indexPathForItem:_resources.count + idx inSection:0]];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_resources.count + idx inSection:0];
+        [indexPaths addObject:indexPath];
+        
+        if([obj isKindOfClass:[K9MapAnnotation class]]) {
+            K9OverlayViewController *overlayVC = [[K9OverlayViewController alloc] init];
+            [overlayVC.view setFrame:self.view.window.frame];
+            [overlayVC setMapAnnotation:obj];
+            [overlayVC snapshotOverlayView:^(UIImage *snapshot) {
+                [obj setMapAnnotationSnapshot:snapshot];
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }];
+        }
     }];
-    _resources = [_resources arrayByAddingObjectsFromArray:resources];
+    
+    if(!_resources) {
+        _resources = [resources copy];
+    } else {
+        _resources = [_resources arrayByAddingObjectsFromArray:resources];
+    }
     
     [self.collectionView insertItemsAtIndexPaths:indexPaths];
     
@@ -81,15 +101,18 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     id resource = [self.resources objectAtIndex:indexPath.row];
     
-    UICollectionViewCell *cell = nil;
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     
     if([resource isKindOfClass:[K9Photo class]]) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
         [[((K9PhotoCollectionViewCell *)cell) imageView] setImageWithURL:[resource URL] placeholderImage:nil success:^(UIImage *image) {
             [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:image];
         } failure:nil];
-    } else {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];        
+    } else if([resource isKindOfClass:[K9MapAnnotation class]]) {
+        if(![resource mapAnnotationSnapshot]) {
+            [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:nil];
+        } else {
+            [[((K9PhotoCollectionViewCell *)cell) imageView] setImage:[resource mapAnnotationSnapshot]];
+        }
     }
     
     cell.clipsToBounds = YES;
@@ -173,24 +196,38 @@
         toViewController.backgroundImageView.image = mergedImage;
 
         // TODO: This assumes that it's a photo resource
-        NSURL *imageURL = [[self.resources objectAtIndex:toViewController.currentIndex] URL];
+        NSURL *imageURL = nil;
+        if([[self.resources objectAtIndex:toViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
+            imageURL = [[self.resources objectAtIndex:toViewController.currentIndex] URL];
+        }
+        
         CGRect cellFrame = [[[self collectionViewLayout] layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentIndex inSection:0]] frame];
         cellFrame = [[self collectionView] convertRect:cellFrame toView:containerView];
         
-        
-        K9PhotoViewController *photoVC = [[toViewController childViewControllers] firstObject];
-        UIView *view = [[[photoVC scrollView] subviews] firstObject];
-        // Make sure it's actually laid out before getting its frame
-        [[toViewController view] layoutIfNeeded];
-        CGRect finalFrame = [view convertRect:[view bounds] toView:containerView];
+        CGRect finalFrame = CGRectZero;
+        if([[self.resources objectAtIndex:toViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
+            K9PhotoViewController *photoVC = [[toViewController viewControllers] firstObject];
+            UIView *view = [[[photoVC scrollView] subviews] firstObject];
+            // Make sure it's actually laid out before getting its frame
+            [[toViewController view] layoutIfNeeded];
+            finalFrame = [view convertRect:[view bounds] toView:containerView];
+        } else {
+            K9OverlayViewController *overlayVC = [[toViewController viewControllers] firstObject];
+            UIView *view = [overlayVC view];
+            finalFrame = [view convertRect:[view bounds] toView:containerView];
+        }
         
         UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:cellFrame];
         [transitionImageView setContentMode:UIViewContentModeScaleAspectFill];
         [transitionImageView setClipsToBounds:YES];
-        __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
-        [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
-            [weakTransitionImageView setImage:image];
-        } failure:nil];
+        if([[self.resources objectAtIndex:toViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
+            __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
+            [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
+                [weakTransitionImageView setImage:image];
+            } failure:nil];
+        } else {
+            [transitionImageView setImage:[[self.resources objectAtIndex:toViewController.currentIndex] mapAnnotationSnapshot]];
+        }
         [containerView addSubview:transitionImageView];
         
         [[toViewController backgroundImageView] setFrame:[[transitionContext containerView] bounds]];
@@ -216,13 +253,20 @@
         toViewController.view.frame = frame;
         toViewController.view.alpha = 0;
         
-        
-        // TODO: This assumes that it's a photo resource
-        NSURL *imageURL = [[self.resources objectAtIndex:fromViewController.currentIndex] URL];
-        
-        K9PhotoViewController *photoVC = [[fromViewController viewControllers] firstObject];
-        UIView *view = [[[photoVC scrollView] subviews] firstObject];
-        CGRect firstFrame = [view convertRect:[view bounds] toView:containerView];
+        CGRect firstFrame = CGRectZero;
+
+        NSURL *imageURL = nil;
+        if([[self.resources objectAtIndex:fromViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
+            imageURL = [[self.resources objectAtIndex:fromViewController.currentIndex] URL];
+            
+            K9PhotoViewController *photoVC = [[fromViewController viewControllers] firstObject];
+            UIView *view = [[[photoVC scrollView] subviews] firstObject];
+            firstFrame = [view convertRect:[view bounds] toView:containerView];
+        } else {
+            K9OverlayViewController *overlayVC = [[fromViewController viewControllers] firstObject];
+            UIView *view = [overlayVC view];
+            firstFrame = [view convertRect:[view bounds] toView:containerView];
+        }
         
         CGRect finalFrame = [[[self collectionViewLayout] layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:fromViewController.currentIndex inSection:0]] frame];
         finalFrame = [[self collectionView] convertRect:finalFrame toView:containerView];
@@ -232,10 +276,16 @@
         [transitionImageView setClipsToBounds:YES];
         transitionImageView.layer.borderWidth = 0.5;
         transitionImageView.layer.borderColor = [UIColor grayColor].CGColor;
-        __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
-        [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
-            [weakTransitionImageView setImage:image];
-        } failure:nil];
+        
+        if([[self.resources objectAtIndex:fromViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
+            __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
+            [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
+                [weakTransitionImageView setImage:image];
+            } failure:nil];
+        } else {
+            [transitionImageView setImage:[[self.resources objectAtIndex:fromViewController.currentIndex] mapAnnotationSnapshot]];
+        }
+        
         [containerView addSubview:transitionImageView];
 
         
@@ -290,3 +340,5 @@
 @implementation K9PhotoCollectionViewCell
 
 @end
+
+

@@ -10,9 +10,17 @@
 
 @implementation UIView (Screenshot)
 
+//- (UIImage *)screenshot {
+//    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
+//    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return image;
+//}
+
 - (UIImage *)screenshot {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
-    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;

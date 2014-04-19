@@ -333,7 +333,7 @@
     [self.mapView removeOverlays:overlaysToRemove];
     
     if(self.mapAnnotation.polylines.count) {
-        // TODO: Save and upload map annotation
+        [self.event addResource:self.mapAnnotation progressHandler:nil];
     }
     
     [self.mapView removeGestureRecognizer:self.mapPanGestureRecognizer];

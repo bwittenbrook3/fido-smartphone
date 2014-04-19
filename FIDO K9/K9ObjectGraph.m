@@ -14,6 +14,8 @@
 #import "K9Training.h"
 #import "K9Resource.h"
 #import "K9Photo.h"
+#import "K9MapAnnotation.h"
+#import "AFHTTPRequestOperationManager.h"
 
 NSString *const K9EventWasAddedNotification = @"K9EventWasAddedNotification";
 NSString *const K9ModifiedEventKey = @"K9ModifiedEventKey";
@@ -264,6 +266,61 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                           [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
                                                                                                           if(progressHandler) {
                                                                                                           [progress removeObserver:self forKeyPath:@"fractionCompleted"];
+                                                                                                          }
+                                                                                                          // Do something with the result.
+                                                                                                          if (error) {
+                                                                                                              NSLog(@"Error: %@", error);
+                                                                                                          } else {
+                                                                                                              NSLog(@"Success: %@", responseObject);
+                                                                                                          }
+                                                                                                      }];
+                                                                if(progressHandler) {
+                                                                    // Add the observer monitoring the upload progress.
+                                                                    [progress addObserver:self
+                                                                               forKeyPath:@"fractionCompleted"
+                                                                                  options:NSKeyValueObservingOptionNew
+                                                                                  context:(__bridge void *)(progressHandler)];
+                                                                }
+                                                                // Start the file upload.
+                                                                [uploadTask resume];
+                                                            }];
+    } else if ([resource isKindOfClass:[K9MapAnnotation class]]) {
+        K9MapAnnotation *mapAnnotation = (K9MapAnnotation *)resource;
+        NSDictionary *parameters = @{@"id": @(event.eventID), @"resource" : @{@"type": @"annotation",
+                                                                              @"data": [mapAnnotation serializedAnnotation]}};
+        NSLog(@"%@", [mapAnnotation serializedAnnotation]);
+        [[self class] startDoingNetworkingActivity];
+        NSMutableURLRequest *multipartRequest = [self.sessionManager.requestSerializer multipartFormRequestWithMethod:@"POST"
+                                                                                                            URLString:absoluteURL
+                                                                                                           parameters:parameters
+                                                                                            constructingBodyWithBlock:nil error:nil];
+        
+        NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
+        NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
+
+        [[AFHTTPRequestSerializer serializer] requestWithMultipartFormRequest:multipartRequest
+                                                  writingStreamContentsToFile:tmpFileUrl
+                                                            completionHandler:^(NSError *error) {
+                                                                // Once the multipart form is serialized into a temporary file, we can initialize
+                                                                // the actual HTTP request using session manager.
+                                                                
+                                                                // Create default session manager.
+                                                                AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                                                
+                                                                // Show progress.
+                                                                NSProgress *progress = nil;
+                                                                // Here note that we are submitting the initial multipart request. We are, however,
+                                                                // forcing the body stream to be read from the temporary file.
+                                                                NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithRequest:multipartRequest
+                                                                                                                           fromFile:tmpFileUrl
+                                                                                                                           progress:&progress
+                                                                                                                  completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
+                                                                                                      {
+                                                                                                          [[self class] stopDoingNetworkingActivity];
+                                                                                                          // Cleanup: remove temporary file.
+                                                                                                          [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
+                                                                                                          if(progressHandler) {
+                                                                                                              [progress removeObserver:self forKeyPath:@"fractionCompleted"];
                                                                                                           }
                                                                                                           // Do something with the result.
                                                                                                           if (error) {

@@ -11,6 +11,8 @@
 #import "UIImage+ImageEffects.h"
 #import "UIView+Screenshot.h"
 #import "K9Photo.h"
+#import "K9MapAnnotation.h"
+#import "K9OverlayViewController.h"
 
 @interface K9ResourceBrowserViewController ()
 
@@ -69,6 +71,9 @@
         if([resource isKindOfClass:[K9Photo class]]) {
             viewController = [[K9PhotoViewController alloc] initWithNibName:nil bundle:nil];
             [(K9PhotoViewController *)viewController setImageWithURL:[resource URL]];
+        } else if([resource isKindOfClass:[K9MapAnnotation class]]) {
+            viewController = [[K9OverlayViewController alloc] initWithNibName:nil bundle:nil];
+            [(K9OverlayViewController *)viewController setMapAnnotation:resource];
         }
         [[self resourceIndexToViewControllerDictionary] setObject:viewController forKey:@(index)];
         [[self viewControllerToResourceIndexDictionary] setObject:@(index) forKey:[self keyForViewController:viewController]];

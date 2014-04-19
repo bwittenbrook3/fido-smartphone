@@ -7,6 +7,8 @@
 //
 
 #import "K9MapAnnotation.h"
+#import <Foundation/NSJSONSerialization.h>
+#import <MapKit/MKPolyline.h>
 
 @interface K9MapAnnotation()
 
@@ -33,4 +35,26 @@
 - (NSArray *)polylines {
     return [self.mutablePolylines copy];
 }
+
+- (NSString *)serializedAnnotation {
+    NSMutableArray *jsonArray = [NSMutableArray arrayWithCapacity:self.mutablePolylines.count];
+    
+    for(MKPolyline *polyline in self.mutablePolylines) {
+        NSMutableArray *polylineArray = [NSMutableArray arrayWithCapacity:polyline.pointCount];
+        
+        for(int i = 0 ; i < polyline.pointCount; i++) {
+            CLLocationCoordinate2D coordinate;
+            [polyline getCoordinates:&coordinate range:NSMakeRange(i, 1)];
+            [polylineArray addObject:@[@(coordinate.latitude), @(coordinate.longitude)]];
+        }
+        
+        [jsonArray addObject:polylineArray];
+    }
+
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray options:0 error:nil];
+    
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
 @end
