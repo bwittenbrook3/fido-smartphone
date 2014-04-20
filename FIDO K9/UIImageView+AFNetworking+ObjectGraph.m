@@ -17,25 +17,13 @@
        placeholderImage:(UIImage *)placeholderImage
                 success:(void (^)(UIImage *image))success
                 failure:(void (^)(NSError *error))failure {
-    
-    NSLog(@"set");
     if(url) {
-        [K9ObjectGraph startDoingNetworkingActivity];
-        
         NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
         [urlRequest addValue:@"image/*" forHTTPHeaderField:@"Accept"];
         
         [self setImageWithURLRequest:urlRequest placeholderImage:placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-            NSLog(@"success");
-
-            [K9ObjectGraph stopDoingNetworkingActivity];
-            
             if(success) success(image);
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-            NSLog(@"fail");
-
-            [K9ObjectGraph stopDoingNetworkingActivity];
-
             if(failure) failure(error);
         }];
     } else {

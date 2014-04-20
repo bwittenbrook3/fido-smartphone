@@ -57,11 +57,4 @@ extern NSString *const K9TrainingWasAddedNotification;
 @property (readonly, nonatomic) NSArray *allTraining;
 - (void)addTraining:(K9Training *)training;
 
-
-
-// General networking
-
-+ (void)startDoingNetworkingActivity;
-+ (void)stopDoingNetworkingActivity;
-
 @end

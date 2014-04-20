@@ -12,6 +12,7 @@
 #import "PTPusherEvent.h"
 #import "K9Event.h"
 #import "Forecastr.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 #define PUSHER_API_KEY @"e7b137a34da31bed01d9"
 #define FORECAST_API_KEY @"2dfce017e2dab289bc77cdabd3e77c44"
@@ -21,16 +22,19 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:6 * 1024 * 1024
+                                                         diskCapacity:60 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
+
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window setTintColor:[UIColor colorWithRed:238.0/255.0 green:230.0/255.0 blue:104.0/255.0 alpha:1.0]];
     [self registerForPusher];
     
     [[Forecastr sharedManager] setApiKey:FORECAST_API_KEY];
     
-    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-                                                         diskCapacity:60 * 1024 * 1024
-                                                             diskPath:nil];
-    [NSURLCache setSharedURLCache:URLCache];
 
     return YES;
 }
