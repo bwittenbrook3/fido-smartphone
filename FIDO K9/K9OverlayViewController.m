@@ -111,7 +111,7 @@
                       for (MKPolyline *polyline in self.mapAnnotation.polylines) {
                           [[UIColor redColor] set];
                           CGContextRef context = UIGraphicsGetCurrentContext();
-                          CGContextSetLineWidth(context,2.0f);
+                          CGContextSetLineWidth(context,DEFAULT_MAP_ANNOTATION_WIDTH);
                           CGContextBeginPath(context);
                           
                           CLLocationCoordinate2D coordinates[[polyline pointCount]];
@@ -148,7 +148,7 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
-    renderer.lineWidth = 2.0;
+    renderer.lineWidth = DEFAULT_MAP_ANNOTATION_WIDTH;
     renderer.strokeColor = [UIColor redColor];
     return renderer;
 }

@@ -12,6 +12,7 @@
 
 @interface K9PhotoViewController ()
 
+@property (strong) NSURL *url;
 @end
 
 @implementation K9PhotoViewController
@@ -30,6 +31,9 @@
     self.scrollView = scrollView;
     if(self.image) {
         self.scrollView.image = self.image;
+    } else if (self.url) {
+        NSLog(@"setting from URL");
+        [self.scrollView setImageWithURL:self.url];
     }
     self.view = scrollView;
 }
@@ -49,6 +53,7 @@
 
 - (void)setImageWithURL:(NSURL *)url {
     if(!self.isViewLoaded) {
+        self.url = url;
         UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectZero];
         [image setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
             self.image = image;

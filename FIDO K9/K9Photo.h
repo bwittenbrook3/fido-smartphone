@@ -12,5 +12,6 @@
 @interface K9Photo : K9Resource
 
 @property (copy, nonatomic) NSURL *URL;
+@property (weak, nonatomic) UIImage *weakImage;
 
 @end

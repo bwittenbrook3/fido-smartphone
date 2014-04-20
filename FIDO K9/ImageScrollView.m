@@ -81,6 +81,9 @@
 - (void)setImageWithURL:(NSURL *)url {
     
     __weak typeof(self) weakSelf = self;
+    if(!self.zoomView) {
+        self.zoomView = [[UIImageView alloc] initWithFrame:self.bounds];
+    }
     [self.zoomView setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
         [weakSelf setImage:image];
     } failure:nil];

@@ -8,6 +8,9 @@
 
 #import "K9Resource.h"
 
+
+#define DEFAULT_MAP_ANNOTATION_WIDTH (3.0)
+
 @class MKPolyline;
 @interface K9MapAnnotation : K9Resource
 

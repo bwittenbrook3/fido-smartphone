@@ -202,7 +202,8 @@
             imageURL = [[self.resources objectAtIndex:toViewController.currentIndex] URL];
         }
         
-        CGRect cellFrame = [[[self collectionViewLayout] layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentIndex inSection:0]] frame];
+        K9PhotoCollectionViewCell *selectedCell = (K9PhotoCollectionViewCell *)[[self collectionView] cellForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentIndex inSection:0]];
+        CGRect cellFrame = [selectedCell frame];
         cellFrame = [[self collectionView] convertRect:cellFrame toView:containerView];
         
         CGRect finalFrame = CGRectZero;
@@ -222,10 +223,11 @@
         [transitionImageView setContentMode:UIViewContentModeScaleAspectFill];
         [transitionImageView setClipsToBounds:YES];
         if([[self.resources objectAtIndex:toViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
-            __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
-            [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
-                [weakTransitionImageView setImage:image];
-            } failure:nil];
+            [transitionImageView setImage:[[selectedCell imageView] image]];
+//            __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
+//            [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
+//                [weakTransitionImageView setImage:image];
+//            } failure:nil];
         } else {
             [transitionImageView setImage:[[self.resources objectAtIndex:toViewController.currentIndex] mapAnnotationSnapshot]];
         }
@@ -269,7 +271,9 @@
             firstFrame = [view convertRect:[view bounds] toView:containerView];
         }
         
-        CGRect finalFrame = [[[self collectionViewLayout] layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:fromViewController.currentIndex inSection:0]] frame];
+        K9PhotoCollectionViewCell *selectedCell = (K9PhotoCollectionViewCell *)[[self collectionView] cellForItemAtIndexPath:[NSIndexPath indexPathForRow:fromViewController.currentIndex inSection:0]];
+
+        CGRect finalFrame = [selectedCell frame];
         finalFrame = [[self collectionView] convertRect:finalFrame toView:containerView];
 
         UIImageView *transitionImageView = [[UIImageView alloc] initWithFrame:firstFrame];
@@ -279,10 +283,12 @@
         transitionImageView.layer.borderColor = [UIColor grayColor].CGColor;
         
         if([[self.resources objectAtIndex:fromViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
-            __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
-            [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
-                [weakTransitionImageView setImage:image];
-            } failure:nil];
+            [transitionImageView setImage:[[selectedCell imageView] image]];
+
+//            __weak typeof(transitionImageView) weakTransitionImageView = transitionImageView;
+//            [transitionImageView setImageWithURL:imageURL placeholderImage:nil success:^(UIImage *image) {
+//                [weakTransitionImageView setImage:image];
+//            } failure:nil];
         } else {
             [transitionImageView setImage:[[self.resources objectAtIndex:fromViewController.currentIndex] mapAnnotationSnapshot]];
         }
