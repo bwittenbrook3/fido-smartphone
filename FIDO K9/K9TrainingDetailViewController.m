@@ -88,6 +88,8 @@
         }
     } else if (indexPath.section == 1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"aidTableCell" forIndexPath:indexPath];
+        cell.textLabel.text = [NSString stringWithFormat:@"Aid %ld", (indexPath.row+1)];
+        cell.detailTextLabel.text = [[self.training.trainingAidList objectAtIndex:indexPath.row] status];
     }
     
     return cell;

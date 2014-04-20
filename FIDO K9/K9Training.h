@@ -37,4 +37,6 @@ typedef NS_ENUM(NSUInteger, K9TrainingType) {
 
 @interface K9TrainingAid : NSObject
 
+@property (copy, nonatomic) NSString *status;
+
 @end

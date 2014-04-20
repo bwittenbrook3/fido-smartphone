@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PTPusher.h"
 
+#define PRESENTING 0
+
 @interface K9AppDelegate : UIResponder <UIApplicationDelegate, PTPusherDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

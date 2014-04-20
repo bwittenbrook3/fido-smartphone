@@ -81,6 +81,12 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                 numberOfCompletedDogs += 1;
                 if(numberOfCompletedDogs == numberOfDogsToComplete) {
                     if(completionHandler) completionHandler([self allDogs]);
+                    
+                    // TODO: Remove once the web API supports training
+                    for(int i = 0; i < 4; i++) {
+                        K9Training *training = [K9Training sampleTraining];
+                        [self addTraining:training];
+                    }
                 }
             }];
         }

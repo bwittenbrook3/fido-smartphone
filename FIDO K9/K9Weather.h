@@ -45,5 +45,6 @@ typedef NS_OPTIONS(NSUInteger, K9WeatherWindBearing) {
 @property (readonly) NSString *formattedDescription;
 
 + (void)fetchWeatherForLocation:(CLLocation *)location completionHandler:(void (^)(K9Weather *weather))completionHandler;
++ (void)fetchWeatherForLocation:(CLLocation *)location atTime:(NSDate *)dateTime completionHandler:(void (^)(K9Weather *weather))completionHandler;
 
 @end

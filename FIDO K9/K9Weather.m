@@ -117,9 +117,14 @@ static inline K9WeatherWindBearing windBearingForWindBearingDegrees(CGFloat wind
     }
 }
 
-+ (void)fetchWeatherForLocation:(CLLocation *)location completionHandler:(void (^)(K9Weather *weather))completionHandler {
++ (void)fetchWeatherForLocation:(CLLocation *)location atTime:(NSDate *)dateTime completionHandler:(void (^)(K9Weather *weather))completionHandler {
+    NSNumber *time = nil;
+    if(dateTime) {
+        time = @((time_t)[dateTime timeIntervalSince1970]);
+    }
+    
     NSArray *exclusions = @[kFCAlerts, kFCFlags, kFCMinutelyForecast, kFCHourlyForecast, kFCDailyForecast];
-    [[Forecastr sharedManager] getForecastForLocation:location time:nil exclusions:exclusions extend:nil success:^(id JSON) {
+    [[Forecastr sharedManager] getForecastForLocation:location time:time exclusions:exclusions extend:nil success:^(id JSON) {
         K9Weather *weather = [K9Weather new];
         
         id currentWeather = [JSON objectForKey:kFCCurrentlyForecast];
@@ -136,5 +141,9 @@ static inline K9WeatherWindBearing windBearingForWindBearingDegrees(CGFloat wind
     } failure:^(NSError *error, id response) {
         completionHandler(nil);
     }];
+}
+
++ (void)fetchWeatherForLocation:(CLLocation *)location completionHandler:(void (^)(K9Weather *weather))completionHandler {
+    [self fetchWeatherForLocation:location atTime:nil completionHandler:completionHandler];
 }
 @end
