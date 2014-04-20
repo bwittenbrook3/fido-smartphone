@@ -190,7 +190,6 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 - (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat))progressHandler {
     NSString *postURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", event.eventID];
     NSString *absoluteURL = [baseURLString stringByAppendingPathComponent:postURLPath];
-    NSLog(@"sending resource");
     
     if([resource isKindOfClass:[K9Photo class]]) {
         K9Photo *photo = (K9Photo *)resource;
@@ -247,7 +246,6 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         K9MapAnnotation *mapAnnotation = (K9MapAnnotation *)resource;
         NSDictionary *parameters = @{@"id": @(event.eventID), @"resource" : @{@"type": @"annotation",
                                                                               @"data": [mapAnnotation serializedAnnotation]}};
-        NSLog(@"%@", [mapAnnotation serializedAnnotation]);
         NSMutableURLRequest *multipartRequest = [self.sessionManager.requestSerializer multipartFormRequestWithMethod:@"POST"
                                                                                                             URLString:absoluteURL
                                                                                                            parameters:parameters

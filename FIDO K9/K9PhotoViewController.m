@@ -32,7 +32,6 @@
     if(self.image) {
         self.scrollView.image = self.image;
     } else if (self.url) {
-        NSLog(@"setting from URL");
         [self.scrollView setImageWithURL:self.url];
     }
     self.view = scrollView;

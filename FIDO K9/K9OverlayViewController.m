@@ -140,7 +140,6 @@
                       
                       UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
                       completionHandler(image);
-                      NSLog(@"updated cached snapshot");
                   }
                   UIGraphicsEndImageContext();
               }];

@@ -38,9 +38,7 @@ static UIImage *_defaultSharedImage;
     return _defaultSharedImage;
 }
 
-+ (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList {
-    NSLog(@"%@", propertyList);
-    
++ (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList {    
     K9Dog *dog = [K9Dog new];
 
     dog.dogID = [[propertyList objectForKey:ID_KEY] integerValue];
