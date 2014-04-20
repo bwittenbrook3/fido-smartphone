@@ -73,6 +73,12 @@ static inline NSArray *sortDogs(NSArray *dogs) {
             weakDogProfile.borderWidth = 1;
             
             UIImage *dogProfileImage = [weakDogProfile screenshot];
+            
+            if([self.mapView viewForAnnotation:dog]) {
+                MKAnnotationView* aView = [self.mapView viewForAnnotation:dog];
+                aView.image = dogProfileImage;
+            }
+
             [self.precachedDogImages setObject:dogProfileImage forKey:@(dog.dogID)];
         }];
     }
