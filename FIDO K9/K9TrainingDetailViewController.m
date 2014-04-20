@@ -25,6 +25,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     if(self.training.trainedDog) {
         [self.navigationItem setTitle:[NSString stringWithFormat:@"%@ Training", self.training.trainedDog.name]];
     }

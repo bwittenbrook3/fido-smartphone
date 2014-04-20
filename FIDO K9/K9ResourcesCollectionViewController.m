@@ -40,13 +40,12 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     NSArray *viewControllers = self.navigationController.viewControllers;
     if([viewControllers indexOfObject:(self.parentViewController.parentViewController)] == NSNotFound) {
         self.navigationController.delegate = nil;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
 }
 
 - (void)didReceiveMemoryWarning

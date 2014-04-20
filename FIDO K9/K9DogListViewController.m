@@ -53,9 +53,6 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

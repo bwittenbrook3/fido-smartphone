@@ -66,6 +66,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     MKMapRect zoomRect = MKMapRectNull;
     for (MKPolyline *polyline in self.mapAnnotation.polylines) {
         MKMapRect mapRect = [polyline boundingMapRect];

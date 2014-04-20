@@ -92,6 +92,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     if(!_showingDetails) {
         UIView *detailsView = [[self detailsViewController] view];
         UIView *statusLabel = [[self detailsViewController] statusLabel];
@@ -106,6 +108,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     if(_showingDetails) {
         [self showTabBar:self.tabBarController shrinkViews:NO];
     }

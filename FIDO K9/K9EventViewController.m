@@ -99,6 +99,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     BOOL disappearingForGood = ![self.navigationController.viewControllers containsObject:self];
     
     for(K9DogPath *path in self.event.dogPaths) {
@@ -108,6 +110,8 @@
     
 }
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     for(K9DogPath *path in self.event.dogPaths) {
         if(![[self.mapView overlays] containsObject:path]) {
             [self.mapView addOverlay:path];

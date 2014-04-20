@@ -24,7 +24,7 @@ static NSInteger globalTrainingID = 0;
 }
 
 - (NSString *)formattedTrainingType {
-    return @"XYZ";
+    return @"Explosive Detection";
 }
 
 
