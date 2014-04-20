@@ -230,13 +230,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                           // Cleanup: remove temporary file.
                                                                                                           [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
                                                                                                           if(progressHandler) {
-                                                                                                          [progress removeObserver:self forKeyPath:@"fractionCompleted"];
-                                                                                                          }
-                                                                                                          // Do something with the result.
-                                                                                                          if (error) {
-                                                                                                              NSLog(@"Error: %@", error);
-                                                                                                          } else {
-                                                                                                              NSLog(@"Success: %@", responseObject);
+                                                                                                              [progress removeObserver:self forKeyPath:@"fractionCompleted"];
                                                                                                           }
                                                                                                       }];
                                                                 if(progressHandler) {
@@ -284,12 +278,6 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                           [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
                                                                                                           if(progressHandler) {
                                                                                                               [progress removeObserver:self forKeyPath:@"fractionCompleted"];
-                                                                                                          }
-                                                                                                          // Do something with the result.
-                                                                                                          if (error) {
-                                                                                                              NSLog(@"Error: %@", error);
-                                                                                                          } else {
-                                                                                                              NSLog(@"Success: %@", responseObject);
                                                                                                           }
                                                                                                       }];
                                                                 if(progressHandler) {

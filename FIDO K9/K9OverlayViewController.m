@@ -111,9 +111,9 @@
                       
 //                      CGRect rect = CGRectMake(0.0f, 0.0f, image.size.width, image.size.height);
                       for (MKPolyline *polyline in self.mapAnnotation.polylines) {
-                          [[UIColor redColor] set];
+                          [[self.mapAnnotation colorForPolyline:polyline] set];
                           CGContextRef context = UIGraphicsGetCurrentContext();
-                          CGContextSetLineWidth(context,DEFAULT_MAP_ANNOTATION_WIDTH);
+                          CGContextSetLineWidth(context, [self.mapAnnotation lineWidthForPolyline:polyline]);
                           CGContextBeginPath(context);
                           
                           CLLocationCoordinate2D coordinates[[polyline pointCount]];
@@ -150,8 +150,8 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
-    renderer.lineWidth = DEFAULT_MAP_ANNOTATION_WIDTH;
-    renderer.strokeColor = [UIColor redColor];
+    renderer.lineWidth = [self.mapAnnotation lineWidthForPolyline:overlay];
+    renderer.strokeColor = [self.mapAnnotation colorForPolyline:overlay];
     return renderer;
 }
 

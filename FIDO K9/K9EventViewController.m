@@ -192,7 +192,9 @@
         MKPolylineRenderer *renderer = [(K9DogPath *)overlay renderer];
         return renderer;
     } else if([overlay isKindOfClass:[K9PolylineBuilder class]]) {
-        MKOverlayRenderer *renderer = [(K9PolylineBuilder *)overlay renderer];
+        MKOverlayPathRenderer *renderer = [(K9PolylineBuilder *)overlay renderer];
+        renderer.lineWidth = DEFAULT_MAP_ANNOTATION_WIDTH;
+        renderer.strokeColor = [UIColor redColor];
         return renderer;
     } else {
         return nil;

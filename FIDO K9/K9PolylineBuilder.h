@@ -15,6 +15,7 @@
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 
 - (MKMapRect)addCoordinate:(CLLocationCoordinate2D)coordinate;
+
 - (MKOverlayPathRenderer *)renderer;
 
 @property (readonly) MKPolyline *polyline;

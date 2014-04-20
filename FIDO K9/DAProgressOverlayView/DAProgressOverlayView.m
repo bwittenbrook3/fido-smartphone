@@ -78,9 +78,7 @@ CGFloat const DAUpdateUIFrequency = 1. / 25.;
 
 #pragma mark * Overwritten methods
 
-- (void)drawRect:(CGRect)rect
-{
-    NSLog(@"in %f", _progress);
+- (void)drawRect:(CGRect)rect {
     CGFloat width = CGRectGetWidth(rect);
     CGFloat height = CGRectGetHeight(rect);
     

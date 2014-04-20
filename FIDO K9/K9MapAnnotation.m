@@ -115,6 +115,24 @@
     return [self.mutablePolylines copy];
 }
 
+- (UIColor *)colorForPolyline:(MKPolyline *)polyline {
+    NSInteger index = [self.mutablePolylines indexOfObject:polyline];
+    UIColor *color = nil;
+    if(index != NSNotFound) {
+        color = [self.mutableColors objectAtIndex:index];
+    }
+    return color;
+}
+- (CGFloat)lineWidthForPolyline:(MKPolyline *)polyline {
+    NSInteger index = [self.mutablePolylines indexOfObject:polyline];
+    NSNumber *lineWidth = nil;
+    if(index != NSNotFound) {
+        lineWidth = [self.mutableLineWidths objectAtIndex:index];
+    }
+    return [lineWidth floatValue];
+}
+
+
 - (NSString *)serializedAnnotation {
     NSMutableArray *jsonArray = [NSMutableArray arrayWithCapacity:self.mutablePolylines.count];
     
@@ -133,8 +151,6 @@
     }];
 
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray options:0 error:nil];
-    
-    
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 

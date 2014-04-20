@@ -104,8 +104,6 @@
 - (MKOverlayPathRenderer *)renderer {
     if(!self.dynamicRenderer) {
         self.dynamicRenderer = [[K9DynamicPolylineRenderer alloc] initWithOverlay:self];
-        self.dynamicRenderer.lineWidth = DEFAULT_MAP_ANNOTATION_WIDTH;
-        self.dynamicRenderer.strokeColor = [UIColor redColor];
     }
     return self.dynamicRenderer;
 }

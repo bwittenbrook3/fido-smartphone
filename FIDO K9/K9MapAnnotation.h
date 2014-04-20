@@ -17,6 +17,10 @@
 + (K9MapAnnotation *)mapAnnotationWithData:(NSString *)serializedData;
 
 @property (readonly) NSArray *polylines;
+- (UIColor *)colorForPolyline:(MKPolyline *)polyline;
+- (CGFloat)lineWidthForPolyline:(MKPolyline *)polyline;
+
+
 - (void)addPolyline:(MKPolyline *)polyline withColor:(UIColor *)color lineWidth:(CGFloat)lineWidth;
 
 @property (readonly) NSString *serializedAnnotation;
