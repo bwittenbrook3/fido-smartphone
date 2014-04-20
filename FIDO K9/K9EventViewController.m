@@ -362,7 +362,7 @@
             break;
         case UIGestureRecognizerStateEnded:
             updateMapRect = [self.currentPolylineBuilder addCoordinate:coordinate];
-            [self.mapAnnotation addPolyline:[self.currentPolylineBuilder polyline]];
+            [self.mapAnnotation addPolyline:[self.currentPolylineBuilder polyline] withColor:[UIColor redColor] lineWidth:DEFAULT_MAP_ANNOTATION_WIDTH];
             break;
         default:
             break;

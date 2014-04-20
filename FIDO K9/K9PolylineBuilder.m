@@ -53,6 +53,10 @@
     return self;
 }
 
+- (void)dealloc {
+    free(_points);
+}
+
 - (MKMapRect)addCoordinate:(CLLocationCoordinate2D)coordinate {
     // Acquire the write lock because we are going to be changing the list of points
     

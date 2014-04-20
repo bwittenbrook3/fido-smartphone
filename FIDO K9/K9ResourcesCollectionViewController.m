@@ -57,7 +57,21 @@
 - (void)setResources:(NSArray *)resources {
     if(_resources != resources && ![_resources isEqualToArray:resources]) {
         _resources = resources;
+        
         [[self collectionView] reloadData];
+        
+        [resources enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if([obj isKindOfClass:[K9MapAnnotation class]] && ![obj mapAnnotationSnapshot]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx inSection:0];
+                K9OverlayViewController *overlayVC = [[K9OverlayViewController alloc] init];
+                [overlayVC.view setFrame:[[[UIApplication sharedApplication] keyWindow] frame]];
+                [overlayVC setMapAnnotation:obj];
+                [overlayVC snapshotOverlayView:^(UIImage *snapshot) {
+                    [obj setMapAnnotationSnapshot:snapshot];
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }];
+            }
+        }];
     }
 }
 
@@ -70,7 +84,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_resources.count + idx inSection:0];
         [indexPaths addObject:indexPath];
         
-        if([obj isKindOfClass:[K9MapAnnotation class]]) {
+        if([obj isKindOfClass:[K9MapAnnotation class]] && ![obj mapAnnotationSnapshot]) {
             K9OverlayViewController *overlayVC = [[K9OverlayViewController alloc] init];
             [overlayVC.view setFrame:self.view.window.frame];
             [overlayVC setMapAnnotation:obj];

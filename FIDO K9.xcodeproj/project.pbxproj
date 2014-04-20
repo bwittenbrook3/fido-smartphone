@@ -13,6 +13,7 @@
 		3401A79B190326D600878E56 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3401A79A190326D600878E56 /* libz.dylib */; };
 		3401A79E19032D0F00878E56 /* K9OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A79D19032D0F00878E56 /* K9OverlayViewController.m */; };
 		3401A7A119033D3D00878E56 /* K9MapAnnotation+AnnotationSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A7A019033D3D00878E56 /* K9MapAnnotation+AnnotationSnapshot.m */; };
+		3401A7A4190432FA00878E56 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3401A7A3190432FA00878E56 /* UIColor+Hex.m */; };
 		3437B40318F9EFCD0098F6C8 /* K9AttachmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */; };
 		3437B40618F9F5750098F6C8 /* K9Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40518F9F5750098F6C8 /* K9Photo.m */; };
 		3437B40918F9FA3A0098F6C8 /* K9EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3437B40818F9FA3A0098F6C8 /* K9EventDetailViewController.m */; };
@@ -132,6 +133,8 @@
 		3401A79D19032D0F00878E56 /* K9OverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9OverlayViewController.m; sourceTree = "<group>"; };
 		3401A79F19033D3D00878E56 /* K9MapAnnotation+AnnotationSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "K9MapAnnotation+AnnotationSnapshot.h"; sourceTree = "<group>"; };
 		3401A7A019033D3D00878E56 /* K9MapAnnotation+AnnotationSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "K9MapAnnotation+AnnotationSnapshot.m"; sourceTree = "<group>"; };
+		3401A7A2190432FA00878E56 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		3401A7A3190432FA00878E56 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		3437B40118F9EFCD0098F6C8 /* K9AttachmentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9AttachmentListViewController.h; sourceTree = "<group>"; };
 		3437B40218F9EFCD0098F6C8 /* K9AttachmentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9AttachmentListViewController.m; sourceTree = "<group>"; };
 		3437B40418F9F5750098F6C8 /* K9Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Photo.h; sourceTree = "<group>"; };
@@ -712,6 +715,8 @@
 				34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */,
 				3401A78E1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.h */,
 				3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */,
+				3401A7A2190432FA00878E56 /* UIColor+Hex.h */,
+				3401A7A3190432FA00878E56 /* UIColor+Hex.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -841,6 +846,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				345EE09F18F1C32400BC8581 /* PTPusherMockConnection.m in Sources */,
+				3401A7A4190432FA00878E56 /* UIColor+Hex.m in Sources */,
 				345EE09518F1C32400BC8581 /* PTBlockEventListener.m in Sources */,
 				34841B4D190216D000FD9125 /* WLSegment.m in Sources */,
 				345EE09618F1C32400BC8581 /* PTJSON.m in Sources */,

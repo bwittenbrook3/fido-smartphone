@@ -138,16 +138,6 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
 @implementation K9DogPath {
     __strong MKPolyline *polyline;
 }
-/*
-MKMapPoint *points = self.points;
-NSData *pointData = [NSData dataWithBytes:points length:self.pointCount * sizeof(MKMapPoint)];
-[aCoder encodeObject:pointData forKey:@"points"];
-
-NSData *pointData = [aCode decodeObjectForKey:@"points"];
-MKMapPoint *points = malloc(pointData.length);
-memcpy([pointData bytes], points);
-self.points = points;
- */
 
 - (void)setCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count {
     polyline = [MKPolyline polylineWithCoordinates:coordinates count:count];
