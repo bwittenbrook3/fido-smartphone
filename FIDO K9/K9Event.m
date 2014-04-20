@@ -76,8 +76,10 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         event.eventDescription = nil;
     }
     
+    event.resources = @[];
+    
     [[K9ObjectGraph sharedObjectGraph] fetchResourcesForEventWithID:event.eventID completionHandler:^(NSArray *resources) {
-        event.resources = resources;
+        [event addResources:resources];
     }];
     
     
@@ -115,6 +117,13 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
 
     
     return event;
+}
+
+- (void)addResources:(NSArray *)resources {
+    self.resources = [self.resources arrayByAddingObjectsFromArray:resources];
+    
+    NSDictionary *userInfo = @{K9EventAddedResourcesNotificationKey : resources};
+    [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self userInfo:userInfo];
 }
 
 - (void)addResource:(K9Resource *)resource progressHandler:(void (^)(CGFloat progress))progressHandler{
