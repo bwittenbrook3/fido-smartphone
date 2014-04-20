@@ -223,6 +223,10 @@
         if([[self.resources objectAtIndex:toViewController.currentIndex] isKindOfClass:[K9Photo class]]) {
             K9PhotoViewController *photoVC = [[toViewController viewControllers] firstObject];
             UIView *view = [[[photoVC scrollView] subviews] firstObject];
+            if(!view) {
+               [[photoVC scrollView] setImage:[[selectedCell imageView] image]];
+                view = [[[photoVC scrollView] subviews] firstObject];
+            }
             // Make sure it's actually laid out before getting its frame
             [[toViewController view] layoutIfNeeded];
             finalFrame = [view convertRect:[view bounds] toView:containerView];
