@@ -142,6 +142,12 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     if(indexPath.section == 0 && indexPath.row == 0 && !wasShowingK9Picker){
         [self showK9Picker];
     }
+    if(indexPath.section == 1 && indexPath.row == self.training.trainingAidList.count) {
+        if(!self.training.trainingAidList) self.training.trainingAidList = @[];
+        self.training.trainingAidList = [self.training.trainingAidList arrayByAddingObject:[K9TrainingAid new]];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(self.training.trainingAidList.count-1) inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -389,7 +395,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 @implementation K9Training (TrainingValidation)
 
 - (BOOL)isValidTraining {
-    return self.trainedDog && self.location && self.weather;//(self.trainingType != K9TrainingTypeNone)
+    return self.trainedDog && self.location && self.weather && self.trainingAidList.count;//(self.trainingType != K9TrainingTypeNone)
 }
 
 @end
