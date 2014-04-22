@@ -102,18 +102,7 @@ static inline NSArray *sortEvents(NSArray *events) {
         cell.contentView.alpha = 1.0;
     }
     
-    
-    switch (event.eventType) {
-        case K9EventTypeSuspiciousBag:
-            cell.eventImageView.image = [UIImage imageNamed:@"bag"];
-            break;
-        case K9EventTypeSuspiciousPerson:
-            cell.eventImageView.image = [UIImage imageNamed:@"person"];
-            break;
-        case K9EventTypeSuspiciousItem:
-            cell.eventImageView.image = [UIImage imageNamed:@"item"];
-            break;
-    }
+    cell.eventImageView.image = event.stable ? [UIImage imageNamed:@"Stable Alert"] : [UIImage imageNamed:@"Unstable Alert"];
     
     [[cell eventDescriptionView] setText:timeIntervalText];
 

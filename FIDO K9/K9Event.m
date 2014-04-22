@@ -31,6 +31,8 @@
 
 #define RECENT_LOCATIONS_KEY @"recent_locations"
 
+#define STABLE_KEY @"event_type"
+
 #define RAND ((((float)rand() / RAND_MAX)-0.5)*0.0002)
 
 NSString *const K9EventDidModifyResourcesNotification = @"K9EventDidModifyResourcesNotification";
@@ -74,6 +76,13 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     }];
     
     
+    NSString *stableString =  objectWithEmptyCheck([propertyList valueForKeyPath:STABLE_KEY], nil);
+    if([[stableString lowercaseString] isEqualToString:@"unstable"]) {
+        event.stable = NO;
+    } else {
+        event.stable = YES;
+    }
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     event.creationDate = [formatter dateFromString:[propertyList objectForKey:CREATION_DATE]];
@@ -82,8 +91,8 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     CGFloat latitude = [[propertyList objectForKey:LATITUDE_KEY] floatValue];
     CGFloat longitude = [[propertyList objectForKey:LONGITUDE_KEY] floatValue];
     
-    if(abs(latitude) < 0.001) latitude = 33.773451;
-    if(abs(longitude)  < 0.001) longitude = -84.392783;
+    if(abs(latitude) < 1.1) latitude = 33.773451;
+    if(abs(longitude)  < 1.1) longitude = -84.392783;
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     K9Dog *dog = [[K9ObjectGraph sharedObjectGraph] dogWithID:dogID];
@@ -178,11 +187,22 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     NSUInteger numCoordinates = locations.count;
     CLLocationCoordinate2D coordinates[numCoordinates];
     
+    CLLocationCoordinate2D lastGoodLocation = event.location.coordinate;
+    
     for(int i = 0; i < numCoordinates; i++) {
         NSDictionary *point = [locations objectAtIndex:i];
         CGFloat latitude = [[point objectForKey:@"latitude"] floatValue];
         CGFloat longitude = [[point objectForKey:@"longitude"] floatValue];
+        
+        if(abs(latitude) < 1.1) latitude = lastGoodLocation.latitude;
+        if(abs(longitude)  < 1.1) {
+            longitude = lastGoodLocation.longitude;
+        }
+        
+        NSLog(@"%f %f", latitude, longitude);
+
         coordinates[i] = CLLocationCoordinate2DMake(latitude, longitude);
+        lastGoodLocation = coordinates[i];
     }
 
     

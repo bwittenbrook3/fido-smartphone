@@ -18,7 +18,6 @@ typedef NS_ENUM(NSInteger, K9EventType) {
     
 };
 
-
 extern NSString *const K9EventDidModifyResourcesNotification;
 extern NSString *const K9EventAddedResourcesNotificationKey;
 
@@ -35,6 +34,8 @@ extern NSString *const K9EventAddedResourcesNotificationKey;
 @property (copy) NSDate *creationDate;
 @property (copy) NSDate *updateDate;
 @property (copy, nonatomic) NSArray *associatedDogs;
+
+@property (getter = isStable) BOOL stable;
 
 @property (copy, nonatomic) NSArray *dogPaths;
 
