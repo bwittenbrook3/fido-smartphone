@@ -52,6 +52,9 @@
         UIViewController *recentEvents = [eventNavigationController topViewController];
         [recentEvents performSegueWithIdentifier:@"selectedEventSegue" sender:eventID];
     }
+    
+    // Make sure the banner doesn't stick around
+    [application cancelLocalNotification:notification];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -82,11 +85,17 @@
 - (void)registerForPusher {
     __block UIBackgroundTaskIdentifier bgTask;
     bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"Pusher Background Task" expirationHandler:^{
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        localNotif.fireDate = [NSDate date];
+        localNotif.timeZone = [NSTimeZone defaultTimeZone];
+        localNotif.alertBody = @"I'm going to sleep";
+        localNotif.alertAction = @"Wake Me Up";
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+
         [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+        NSLog(@"sleeping");
         bgTask = UIBackgroundTaskInvalid;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self registerForPusher];
-        });
     }];
     if(bgTask == UIBackgroundTaskInvalid) {
         NSLog(@"Failed to start background task");
