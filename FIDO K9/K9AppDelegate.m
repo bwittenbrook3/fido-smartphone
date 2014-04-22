@@ -19,6 +19,7 @@
 
 @implementation K9AppDelegate {
     __strong PTPusher *_client;
+    UIBackgroundTaskIdentifier bgTask;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -31,7 +32,6 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.window setTintColor:[UIColor colorWithRed:238.0/255.0 green:230.0/255.0 blue:104.0/255.0 alpha:1.0]];
-    [self registerForPusher];
     
     [[Forecastr sharedManager] setApiKey:FORECAST_API_KEY];
     
@@ -71,8 +71,8 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [self registerForPusher];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -83,24 +83,25 @@
 
 
 - (void)registerForPusher {
-    __block UIBackgroundTaskIdentifier bgTask;
-    bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"Pusher Background Task" expirationHandler:^{
-        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-        localNotif.fireDate = [NSDate date];
-        localNotif.timeZone = [NSTimeZone defaultTimeZone];
-        localNotif.alertBody = @"I'm going to sleep";
-        localNotif.alertAction = @"Wake Me Up";
-        localNotif.soundName = UILocalNotificationDefaultSoundName;
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-
-        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-        NSLog(@"sleeping");
-        bgTask = UIBackgroundTaskInvalid;
-    }];
     if(bgTask == UIBackgroundTaskInvalid) {
-        NSLog(@"Failed to start background task");
-    } else {
-        NSLog(@"Started background task: %ld", bgTask);
+        bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"Pusher Background Task" expirationHandler:^{
+            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+            localNotif.fireDate = [NSDate date];
+            localNotif.timeZone = [NSTimeZone defaultTimeZone];
+            localNotif.alertBody = @"I'm going to sleep";
+            localNotif.alertAction = @"Wake Me Up";
+            localNotif.soundName = UILocalNotificationDefaultSoundName;
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+
+            [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+            NSLog(@"sleeping");
+            bgTask = UIBackgroundTaskInvalid;
+        }];
+        if(bgTask == UIBackgroundTaskInvalid) {
+            NSLog(@"Failed to start background task");
+        } else {
+            NSLog(@"Started background task: %ld", bgTask);
+        }
     }
     
     if(!_client) {
