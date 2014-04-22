@@ -195,33 +195,33 @@
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventTableCell" id="yPu-aZ-tie" customClass="K9EventTableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yPu-aZ-tie" id="Bsx-I3-aKD">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" tableViewCell="yPu-aZ-tie" id="Bsx-I3-aKD">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Event Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jv-GS-q48">
-                                            <rect key="frame" x="38" y="4" width="249" height="20"/>
+                                            <rect key="frame" x="47" y="4" width="240" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="3 min ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cee-xY-fJ0">
-                                            <rect key="frame" x="38" y="25" width="51" height="14"/>
+                                            <rect key="frame" x="47" y="25" width="51" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bag" translatesAutoresizingMaskIntoConstraints="NO" id="PQe-Kq-ghM">
-                                            <rect key="frame" x="10" y="11" width="20" height="20"/>
+                                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stable Alert" translatesAutoresizingMaskIntoConstraints="NO" id="PQe-Kq-ghM">
+                                            <rect key="frame" x="10" y="7" width="29" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="PQe-Kq-ghM" secondAttribute="height" multiplier="1:1" id="4pY-oQ-LOb"/>
-                                                <constraint firstAttribute="width" constant="20" id="sHj-G2-7S1"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="PQe-Kq-ghM" firstAttribute="top" secondItem="Bsx-I3-aKD" secondAttribute="top" constant="7" id="7Ci-Wm-v2z"/>
                                         <constraint firstItem="5jv-GS-q48" firstAttribute="leading" secondItem="PQe-Kq-ghM" secondAttribute="trailing" constant="8" id="Ojq-dJ-Kbx"/>
                                         <constraint firstAttribute="trailing" secondItem="5jv-GS-q48" secondAttribute="trailing" id="Zdw-1G-Xxe"/>
                                         <constraint firstItem="5jv-GS-q48" firstAttribute="top" secondItem="Bsx-I3-aKD" secondAttribute="top" constant="4" id="baF-yf-yI8"/>
@@ -1840,9 +1840,9 @@
         <image name="K9s Tab Bar Unselected Template" width="30" height="29"/>
         <image name="Reveal" width="15" height="9"/>
         <image name="Sample Dog Image" width="45" height="45"/>
+        <image name="Stable Alert" width="33" height="32"/>
         <image name="Use Location" width="25" height="25"/>
         <image name="Whistle" width="34" height="26"/>
-        <image name="bag" width="20" height="20"/>
         <image name="content" width="25" height="25"/>
         <image name="map" width="25" height="25"/>
     </resources>

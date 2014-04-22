@@ -198,8 +198,6 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         if(abs(longitude)  < 1.1) {
             longitude = lastGoodLocation.longitude;
         }
-        
-        NSLog(@"%f %f", latitude, longitude);
 
         coordinates[i] = CLLocationCoordinate2DMake(latitude, longitude);
         lastGoodLocation = coordinates[i];
