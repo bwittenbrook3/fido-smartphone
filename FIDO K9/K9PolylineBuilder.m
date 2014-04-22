@@ -28,7 +28,7 @@
 @end
 
 #define INITIAL_POINT_SPACE 1000
-#define MINIMUM_DELTA_METERS 10.0
+#define MINIMUM_DELTA_METERS 0
 
 @implementation K9PolylineBuilder
 

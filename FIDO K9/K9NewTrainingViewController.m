@@ -147,6 +147,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         self.training.trainingAidList = [self.training.trainingAidList arrayByAddingObject:[K9TrainingAid new]];
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(self.training.trainingAidList.count-1) inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+        [self checkForValidTraining];
     }
 }
 

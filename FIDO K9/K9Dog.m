@@ -54,14 +54,14 @@ static UIImage *_defaultSharedImage;
     [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];
     
     // TODO: Use real dog color when web api supports it
-    dog.color = [UIColor colorWithHue:(dog.dogID/8.0) saturation:0.9 brightness:1.0 alpha:1.0];
+    dog.color = [UIColor colorWithHue:(dog.dogID/5.0) saturation:0.9 brightness:1.0 alpha:1.0];
     
     dog.certifications = @[@"Explosive Detection"];
     
     
     // TODO: Get last known location when web API supports it.
-    CGFloat latitude = 33.7721200 + RAND;
-    CGFloat longitude = -84.392942 + RAND;
+    CGFloat latitude = 33.774708 + RAND;
+    CGFloat longitude = -84.394912 + RAND;
     dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     return dog;
