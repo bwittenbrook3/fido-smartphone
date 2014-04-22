@@ -21,5 +21,10 @@ static inline id objectWithEmptyCheck(id object, id defaultObject) {
         return object;
     }
 }
+static inline NSArray *locationsArrayFromBizarreLocationsString(NSString *locationsString) {
+    locationsString = [[locationsString stringByReplacingOccurrencesOfString:@":longitude=>" withString:@"\"longitude\": "] stringByReplacingOccurrencesOfString:@":latitude=>" withString:@"\"latitude\": "];
+    NSData *jsonLocationData = [locationsString dataUsingEncoding:NSUTF8StringEncoding];
+    return jsonLocationData ? [NSJSONSerialization JSONObjectWithData:jsonLocationData options:0 error:nil] : nil;
+}
 
 #endif

@@ -20,6 +20,9 @@
 #define URL_KEY @"url"
 
 
+#define RECENT_LOCATIONS_KEY @"recent_locations"
+
+
 #define RAND ((((float)rand() / RAND_MAX)-0.5)*0.008)
 
 
@@ -58,11 +61,18 @@ static UIImage *_defaultSharedImage;
     
     dog.certifications = @[@"Explosive Detection"];
     
+    NSArray *locations = locationsArrayFromBizarreLocationsString(objectWithEmptyCheck([propertyList objectForKey:RECENT_LOCATIONS_KEY], nil));
+    if(locations) {
+        NSDictionary *location = [locations lastObject];
+        CGFloat latitude = [[location objectForKey:@"latitude"] floatValue];
+        CGFloat longitude = [[location objectForKey:@"longitude"] floatValue];
+        dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    } else {
+        CGFloat latitude = 33.774708 + RAND;
+        CGFloat longitude = -84.394912 + RAND;
+        dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    }
     
-    // TODO: Get last known location when web API supports it.
-    CGFloat latitude = 33.774708 + RAND;
-    CGFloat longitude = -84.394912 + RAND;
-    dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     return dog;
 }

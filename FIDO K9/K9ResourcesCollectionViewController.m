@@ -77,33 +77,34 @@
 
 - (void)eventDidModifyResources:(NSNotification *)notification {
     NSArray *resources = [[notification userInfo] objectForKey:K9EventAddedResourcesNotificationKey];
-    
-    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:resources.count];
-    
-    [resources enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_resources.count + idx inSection:0];
-        [indexPaths addObject:indexPath];
+    if(resources.count) {    
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:resources.count];
         
-        if([obj isKindOfClass:[K9MapAnnotation class]] && ![obj mapAnnotationSnapshot]) {
-            K9OverlayViewController *overlayVC = [[K9OverlayViewController alloc] init];
-            [overlayVC.view setFrame:self.view.window.frame];
-            [overlayVC setMapAnnotation:obj];
-            [overlayVC snapshotOverlayView:^(UIImage *snapshot) {
-                [obj setMapAnnotationSnapshot:snapshot];
-                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-            }];
+        [resources enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_resources.count + idx inSection:0];
+            [indexPaths addObject:indexPath];
+            
+            if([obj isKindOfClass:[K9MapAnnotation class]] && ![obj mapAnnotationSnapshot]) {
+                K9OverlayViewController *overlayVC = [[K9OverlayViewController alloc] init];
+                [overlayVC.view setFrame:self.view.window.frame];
+                [overlayVC setMapAnnotation:obj];
+                [overlayVC snapshotOverlayView:^(UIImage *snapshot) {
+                    [obj setMapAnnotationSnapshot:snapshot];
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }];
+            }
+        }];
+        
+        if(!_resources) {
+            _resources = [resources copy];
+        } else {
+            _resources = [_resources arrayByAddingObjectsFromArray:resources];
         }
-    }];
-    
-    if(!_resources) {
-        _resources = [resources copy];
-    } else {
-        _resources = [_resources arrayByAddingObjectsFromArray:resources];
+        
+        [self.collectionView insertItemsAtIndexPaths:indexPaths];
+        
+        [self.collectionView scrollToItemAtIndexPath:[indexPaths lastObject] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
-    
-    [self.collectionView insertItemsAtIndexPaths:indexPaths];
-    
-    [self.collectionView scrollToItemAtIndexPath:[indexPaths lastObject] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
 
 
