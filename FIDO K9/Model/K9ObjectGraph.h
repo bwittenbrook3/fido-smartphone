@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CLLocation.h>
+
 
 @class K9Event, K9Dog, K9Training, K9Resource;
 
@@ -33,13 +35,18 @@ extern NSString *const K9TrainingWasAddedNotification;
 - (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat progress))progressHandler completionHandler:(void (^)(NSInteger resourceID))completionHandler;
 
 // Dogs
+- (void)fetchDogLocationChangeChannelForDogWithID:(NSInteger)eventID withCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler;
+
 @property (readonly, nonatomic) NSArray *allDogs;
 - (NSArray *)fetchAllDogsWithCompletionHandler:(void (^)(NSArray *dogs))completionHandler;
+
 
 - (K9Dog *)dogWithID:(NSInteger)eventID;
 - (K9Dog *)fetchDogWithID:(NSInteger)dogID completionHandler:(void (^)(K9Dog *dog))completionHandler;
 
 - (void)fetchImageURLForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSURL *url))completionHandler;
+- (void)fetchLocationForDogWithID:(NSInteger)dogID withCompletionHandler:(void (^)(CLLocationCoordinate2D coordinate))completionHandler;
+
 
 - (NSArray *)eventsForDogWithID:(NSInteger)dogID;
 - (NSArray *)fetchEventsForDogWithID:(NSInteger)dogID completionHandler:(void (^)(NSArray *events))completionHandler;

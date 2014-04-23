@@ -48,11 +48,9 @@ static NSInteger globalTrainingID = 0;
     
     training.location =  training.trainedDog.lastKnownLocation;
     training.weather = [K9Weather new];
-#if PRESENTING
     [K9Weather fetchWeatherForLocation:training.location atTime:training.startTime completionHandler:^(K9Weather *weather) {
         training.weather = weather;
     }];
-#endif
 
     
     NSMutableArray *trainingAidList = [NSMutableArray array];

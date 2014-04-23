@@ -13,6 +13,11 @@
 
 #import "K9ModelUtilities.h"
 
+#import "PTPusherChannel.h"
+#import "PTPusherEvent.h"
+#import "PTPusher.h"
+#import "K9ObjectGraph.h"
+
 #define NAME_KEY @"K9"
 #define ID_KEY @"id"
 #define OFFICER_NAME_KEY @"officer"
@@ -28,11 +33,15 @@
 #define RAND ((((float)rand() / RAND_MAX)-0.5)*0.008)
 
 
-@interface K9Dog()
+NSString *const K9DogDidChangeLocationNotificationKey = @"K9DogDidChangeLocationNotificationKey";
 
+
+@interface K9Dog() <PTPusherDelegate>
 @end
 
-@implementation K9Dog
+@implementation K9Dog {
+    __strong PTPusher *_client;
+}
 
 
 static UIImage *_defaultSharedImage;
@@ -44,10 +53,12 @@ static UIImage *_defaultSharedImage;
 }
 
 + (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList {
-    NSLog(@"%@", propertyList);
     K9Dog *dog = [K9Dog new];
 
     dog.dogID = [[propertyList objectForKey:ID_KEY] integerValue];
+    
+    NSLog(@"created dog with id: %ld", dog.dogID);
+    
     dog.name = objectWithEmptyCheck([propertyList objectForKey:NAME_KEY], @"Scout");
     dog.officerName = objectWithEmptyCheck([propertyList objectForKey:OFFICER_NAME_KEY], @"Officer Chad Michaels");
     dog.imageURL = [propertyList objectForKey:URL_KEY];
@@ -75,21 +86,34 @@ static UIImage *_defaultSharedImage;
         }
         if(abs(longitude)  < 1.1) {
             longitude = -84.394912 + RAND;
-#if !PRESENTING
-            dog.name = [dog.name stringByAppendingString:@"+"];
-#endif
         }
         
         dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     } else {
-#if !PRESENTING
-        dog.name = [dog.name stringByAppendingString:@"*"];
-#endif
         CGFloat latitude = 33.774708 + RAND;
         CGFloat longitude = -84.394912 + RAND;
         dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     }
     
+    
+    if(!dog->_client) {
+#define PUSHER_API_KEY @"e7b137a34da31bed01d9"
+        dog->_client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:dog encrypted:YES];
+        [dog->_client connect];
+        
+        [[K9ObjectGraph sharedObjectGraph] fetchDogLocationChangeChannelForDogWithID:dog.dogID withCompletionHandler:^(NSString *pusherChannel) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [dog->_client subscribeToChannelNamed:pusherChannel];
+                [dog->_client bindToEventNamed:@"sync" handleWithBlock:^(PTPusherEvent *event) {
+                    
+                    [[K9ObjectGraph sharedObjectGraph] fetchLocationForDogWithID:dog.dogID withCompletionHandler:^(CLLocationCoordinate2D coordinate) {
+                        dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:K9DogDidChangeLocationNotificationKey object:dog userInfo:nil];
+                    }];
+                }];
+            });
+        }];
+    }
     
     return dog;
 }

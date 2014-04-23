@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PTPusher.h"
 
-#define PRESENTING 0
+#define PRESENTING 1
 
 @interface K9AppDelegate : UIResponder <UIApplicationDelegate, PTPusherDelegate>
 

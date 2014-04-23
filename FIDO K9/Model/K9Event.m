@@ -41,9 +41,6 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
 @implementation K9Event
 
 + (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {
-    NSLog(@"%@", propertyList);
-
-
     K9Event *event = [K9Event new];
     
     NSInteger dogID = [[propertyList objectForKey:DOG_KEY] integerValue];
@@ -98,9 +95,6 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     }
     if(abs(longitude)  < 1.1) {
         longitude = -84.392783;
-#if !PRESENTING
-        event.title = [event.title stringByAppendingString:@"*"];
-#endif
     }
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
@@ -162,10 +156,6 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         [paths addObject:path];
     }
     
-#if !PRESENTING
-    self.title = [self.title stringByAppendingString:@"-"];
-#endif
-    
     self.dogPaths = paths;
 }
 
@@ -211,12 +201,6 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         if(abs(latitude) < 1.1) latitude = lastGoodLocation.latitude;
         if(abs(longitude)  < 1.1) {
             longitude = lastGoodLocation.longitude;
-            
-#if !PRESENTING
-            if([event.title rangeOfString:@"+"].location == NSNotFound) {
-               event.title = [event.title stringByAppendingString:@"+"];
-            }
-#endif
         }
 
         coordinates[i] = CLLocationCoordinate2DMake(latitude, longitude);

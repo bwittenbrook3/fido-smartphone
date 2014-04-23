@@ -52,9 +52,6 @@
         UIViewController *recentEvents = [eventNavigationController topViewController];
         [recentEvents performSegueWithIdentifier:@"selectedEventSegue" sender:eventID];
     }
-    
-    // Make sure the banner doesn't stick around
-    [application cancelAllLocalNotifications];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -72,8 +69,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    // Make sure the banner doesn't stick around
+    [application cancelAllLocalNotifications];
+
     [self registerForPusher];
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

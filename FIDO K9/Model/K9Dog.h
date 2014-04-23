@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const K9DogDidChangeLocationNotificationKey;
 
 @class CLLocation;
 @interface K9Dog : NSObject

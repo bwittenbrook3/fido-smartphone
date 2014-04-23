@@ -43,19 +43,37 @@ static inline NSArray *sortDogs(NSArray *dogs) {
             self.dogs = sortDogs(dogs);
         }]);
     } else {
-        [self reloadDogViews];
+        [self reloadDogViewsAnimated:NO];
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setDogs:(NSArray *)dogs {
     if(_dogs != dogs) {
+        
+        if(_dogs) {
+            for(K9Dog *dog in _dogs) {
+                [[NSNotificationCenter defaultCenter] removeObserver:self name:K9DogDidChangeLocationNotificationKey object:dog];
+            }
+        }
+        
         _dogs = dogs;
         
         // Let's generate the dog images now, rather than on request (which could be when we're trying to animate our map view)
         [self precacheDogImages];
         
         if(self.isViewLoaded) {
-            [self reloadDogViews];
+            [self reloadDogViewsAnimated:YES];
+        }
+        
+        for(K9Dog *dog in dogs) {
+            __weak typeof(self) weakSelf = self;
+            [[NSNotificationCenter defaultCenter] addObserverForName:K9DogDidChangeLocationNotificationKey object:dog queue:nil usingBlock:^(NSNotification *note) {
+                [weakSelf reloadDogViewsAnimated:YES];
+            }];
         }
     }
 }
@@ -84,7 +102,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     }
 }
 
-- (void)reloadDogViews {
+- (void)reloadDogViewsAnimated:(BOOL)animated {
     [self.mapView removeAnnotations:[self.mapView annotations]];
     
     MKMapRect zoomRect = MKMapRectNull;
@@ -93,7 +111,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 50, 50);
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
-    [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(64 + 30, 30, 50 + 30, 30) animated:NO];
+    [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(64 + 30, 30, 50 + 30, 30) animated:animated];
     
     for(K9Dog *dog in self.dogs) {
         [self.mapView addAnnotation:dog];

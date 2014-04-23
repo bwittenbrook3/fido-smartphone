@@ -88,6 +88,9 @@
 //}
 
 - (void)snapshotOverlayView:(void (^)(UIImage *snapshot))completionHandler {
+    if(CGRectEqualToRect(self.mapView.frame, CGRectZero)) {
+        return;
+    }
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
     options.region = self.mapView.region;
     options.size = self.mapView.frame.size;

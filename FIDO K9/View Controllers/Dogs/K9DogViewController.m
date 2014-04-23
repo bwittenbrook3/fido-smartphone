@@ -83,8 +83,12 @@
     [[self subheaderBar] setClipsToBounds:YES];
     
     if(self.dog) {
-        [self updateDogViews];
+        [self updateDogViewsAnimated:NO];
     }
+}
+
+- (void)dealloc {
+    self.dog = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,18 +121,31 @@
 
 - (void)setDog:(K9Dog *)dog {
     if(_dog != dog) {
-        if(_dog) [self.mapView removeAnnotation:_dog];
+        if(_dog) {
+            [self.mapView removeAnnotation:_dog];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:K9DogDidChangeLocationNotificationKey object:_dog];
+        }
         _dog = dog;
-        if(self.isViewLoaded) [self updateDogViews];
+        if(_dog) {
+            __weak typeof(self) weakSelf = self;
+            [[NSNotificationCenter defaultCenter] addObserverForName:K9DogDidChangeLocationNotificationKey object:_dog queue:nil usingBlock:^(NSNotification *note) {
+                [weakSelf updateDogViewsAnimated:YES];
+            }];
+            if(self.isViewLoaded) [self updateDogViewsAnimated:YES];
+        }
     }
 }
 
-- (void)updateDogViews {
+- (void)updateDogViewsAnimated:(BOOL)animated {
     [[self detailsViewController] setDog:self.dog];
     [self.navigationItem setTitle:[self.dog name]];
     
-    [self.mapView setRegion:[self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance([[self.dog lastKnownLocation] coordinate], DEFAULT_ZOOM_LEVEL, DEFAULT_ZOOM_LEVEL)]];
+    [self.mapView setRegion:[self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance([[self.dog lastKnownLocation] coordinate], DEFAULT_ZOOM_LEVEL, DEFAULT_ZOOM_LEVEL)] animated:animated];
     [self.mapView addAnnotation:self.dog];
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    NSLog(@"did change");
 }
 
 - (IBAction)showInfo:(id)sender {
