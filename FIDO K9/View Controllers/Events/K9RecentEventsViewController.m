@@ -45,6 +45,72 @@ static inline NSArray *sortEvents(NSArray *events) {
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self updateTimeCells];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateTimeCells) object:nil];
+}
+
+- (void)updateTimeCells {
+    for(NSIndexPath *indexPath in [self.tableView indexPathsForVisibleRows]) {
+        K9EventTableViewCell *cell = (K9EventTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        K9Event *event = [self.events objectAtIndex:indexPath.row];
+        NSDate *creationDate = [event creationDate];
+        NSDate *now = [NSDate date];
+        
+        NSTimeInterval timeInterval = [now timeIntervalSinceDate:creationDate];
+        
+        NSString *timeIntervalText;
+        
+        NSInteger seconds = (NSInteger)timeInterval;
+        NSInteger minutes = (seconds / 60);
+        NSInteger hours = (minutes / 60);
+        NSInteger days = (hours / 24);
+        
+        if(days) {
+            if(days > 1) {
+                timeIntervalText = [NSString stringWithFormat:@"%ld days ago", days];
+            } else {
+                timeIntervalText = [NSString stringWithFormat:@"1 day ago"];
+            }
+        } else if(hours) {
+            if(hours > 1) {
+                timeIntervalText = [NSString stringWithFormat:@"%ld hours ago", hours];
+            } else {
+                timeIntervalText = [NSString stringWithFormat:@"1 hour ago"];
+            }
+        } else if(minutes) {
+            if(minutes > 1) {
+                timeIntervalText = [NSString stringWithFormat:@"%ld minutes ago", minutes];
+            } else {
+                timeIntervalText = [NSString stringWithFormat:@"1 minute ago"];
+            }
+        } else {
+            timeIntervalText = @"Just now";
+        }
+        
+        
+        // TODO: Events should have some notion of active vs inactive
+        if(days) {
+            cell.contentView.alpha = 0.5;
+        } else {
+            cell.contentView.alpha = 1.0;
+        }
+        
+        [[cell eventDescriptionView] setText:timeIntervalText];
+        
+    }
+    
+    [self performSelector:@selector(updateTimeCells) withObject:nil afterDelay:60.0];
+}
+
+
 
 
 #pragma mark - Table view data source
