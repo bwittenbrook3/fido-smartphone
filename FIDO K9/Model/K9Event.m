@@ -186,9 +186,9 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     [[K9ObjectGraph sharedObjectGraph] uploadResource:resource forEvent:self progressHandler:^(CGFloat progress) {
         NSDictionary *progressInfo = @{@"progress": @(progress)};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"progress" object:resource userInfo:progressInfo];
-        if(progress > 0.99) {
-            resource.uploaded = YES;
-        }
+    } completionHandler:^(NSInteger resourceID) {
+        resource.resourceID = resourceID;
+        resource.uploaded = YES;
     }];
 }
 

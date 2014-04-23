@@ -105,18 +105,18 @@
     }
     
     if(!_client) {
+        _client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
+        [_client connect];
+
         [[K9ObjectGraph sharedObjectGraph] fetchEventPusherChannelWithCompletionHandler:^(NSString *pusherChannel) {
             NSLog(@"PusherChannel: %@", pusherChannel);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                _client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
-                [_client connect];
                 [_client subscribeToChannelNamed:pusherChannel];
                 [_client bindToEventNamed:@"sync" handleWithBlock:^(PTPusherEvent *event) {
                     [self handlePusherEventNotification:(NSDictionary *)event.data];
                     
                 }];
             });
-
         }];
     }
 }

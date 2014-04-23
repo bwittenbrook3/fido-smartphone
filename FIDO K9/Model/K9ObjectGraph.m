@@ -109,6 +109,18 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     }];
 }
 
+- (void)fetchEventResourcePusherChannelForEventWithID:(NSInteger)eventID withCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler {
+    NSString *getURLPath = [NSString stringWithFormat:@"events/%ld/new_resource_channel.json", eventID];
+    [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSString *channel = [responseObject objectForKey:@"channel"];
+        if(completionHandler) completionHandler(channel);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        if(completionHandler) completionHandler(nil);
+    }];
+}
+
+
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler {
     [self.sessionManager GET:@"events.json" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         for(NSDictionary *eventDictionary in responseObject) {
@@ -162,11 +174,10 @@ static K9ObjectGraph *sharedObjectGraph = nil;
         }
         K9Event *event = [K9Event eventWithPropertyList:responseObject];
         if(event && ![[self eventDictionary] objectForKey:@([event eventID])]) {
-            [[self eventDictionary] setObject:event forKey:@([event eventID])];
-            
             NSDictionary *userInfo = @{K9ModifiedEventKey: event};
             [[NSNotificationCenter defaultCenter] postNotificationName:K9EventWasAddedNotification object:self userInfo:userInfo];
         }
+        [[self eventDictionary] setObject:event forKey:@([event eventID])];
         if(completionHandler) completionHandler(event);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error: %@", error);
@@ -193,7 +204,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     }];
 }
 
-- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat))progressHandler {
+- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat))progressHandler completionHandler:(void (^)(NSInteger resourceID))completionHandler {
     NSString *postURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", event.eventID];
     NSString *absoluteURL = [baseURLString stringByAppendingPathComponent:postURLPath];
     
@@ -237,6 +248,11 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                           if(progressHandler) {
                                                                                                               [progress removeObserver:self forKeyPath:@"fractionCompleted"];
                                                                                                           }
+                                                                                                          NSInteger resourceID = -1;
+                                                                                                          if(!error) {
+                                                                                                              resourceID = [[responseObject valueForKey:@"id"] integerValue];
+                                                                                                          }
+                                                                                                          completionHandler(resourceID);
                                                                                                       }];
                                                                 if(progressHandler) {
                                                                     // Add the observer monitoring the upload progress.
@@ -283,6 +299,12 @@ static K9ObjectGraph *sharedObjectGraph = nil;
                                                                                                           if(progressHandler) {
                                                                                                               [progress removeObserver:self forKeyPath:@"fractionCompleted"];
                                                                                                           }
+                                                                                                          
+                                                                                                          NSInteger resourceID = -1;
+                                                                                                          if(!error) {
+                                                                                                              resourceID = [[responseObject valueForKey:@"id"] integerValue];
+                                                                                                          }
+                                                                                                          completionHandler(resourceID);
                                                                                                       }];
                                                                 if(progressHandler) {
                                                                     // Add the observer monitoring the upload progress.

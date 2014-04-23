@@ -22,6 +22,7 @@ extern NSString *const K9TrainingWasAddedNotification;
 
 // Events
 - (void)fetchEventPusherChannelWithCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler;
+- (void)fetchEventResourcePusherChannelForEventWithID:(NSInteger)eventID withCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler;
 
 @property (readonly, nonatomic) NSArray *allEvents;
 - (NSArray *)fetchAllEventsWithCompletionHandler:(void (^)(NSArray *events))completionHandler;
@@ -29,7 +30,7 @@ extern NSString *const K9TrainingWasAddedNotification;
 - (K9Event *)eventWithID:(NSInteger)eventID;
 - (K9Event *)fetchEventWithID:(NSInteger)eventID completionHandler:(void (^)(K9Event *event))completionHandler;
 - (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *resources))completionHandler;
-- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat progress))progressHandler;
+- (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat progress))progressHandler completionHandler:(void (^)(NSInteger resourceID))completionHandler;
 
 // Dogs
 @property (readonly, nonatomic) NSArray *allDogs;

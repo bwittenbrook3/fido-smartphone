@@ -13,11 +13,17 @@
 
 #import "K9Event.h"
 #import "K9Dog.h"
+#import "K9Resource.h"
+
+#import "PTPusherChannel.h"
+#import "PTPusherEvent.h"
+#import "PTPusher.h"
+#import "K9ObjectGraph.h"
 
 @interface UIView (Secret)
 @property (readonly) NSString *recursiveDescription;
 @end
-@interface K9EventDetailViewController () <K9DogAvatarViewControllerDelegate>
+@interface K9EventDetailViewController () <K9DogAvatarViewControllerDelegate, PTPusherDelegate>
 
 @property (strong, nonatomic) K9ResourcesCollectionViewController *resourcesViewController;
 
@@ -39,7 +45,9 @@
 #define CLOSED_IMAGE_DRAWER_REVEAL_IMAGE (@"Reveal")
 
 
-@implementation K9EventDetailViewController
+@implementation K9EventDetailViewController {
+    __strong PTPusher *_client;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,6 +81,32 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventDidModifyResources:) name:K9EventDidModifyResourcesNotification object:_event];
         
         if(self.isViewLoaded) [self reloadEventViews];
+        
+        
+        if(!_client) {
+#define PUSHER_API_KEY @"e7b137a34da31bed01d9"
+            _client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
+            [_client connect];
+            
+            [[K9ObjectGraph sharedObjectGraph] fetchEventResourcePusherChannelForEventWithID:event.eventID withCompletionHandler:^(NSString *pusherChannel) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [_client subscribeToChannelNamed:pusherChannel];
+                    [_client bindToEventNamed:@"sync" handleWithBlock:^(PTPusherEvent *event) {
+#define PUSHER_RESOURCE_ID_KEY @"resourceId"
+                        NSInteger resourceID = [[event.data objectForKey:PUSHER_RESOURCE_ID_KEY] integerValue];
+                        if(![[self.event.resources valueForKey:@"resourceID"] containsObject:@(resourceID)]) {
+                            [[K9ObjectGraph sharedObjectGraph] fetchResourcesForEventWithID:self.event.eventID completionHandler:^(NSArray *resources) {
+                                [resources enumerateObjectsUsingBlock:^(K9Resource *resource, NSUInteger idx, BOOL *stop) {
+                                    if(resource.resourceID == resourceID) {
+                                        [[NSNotificationCenter defaultCenter] postNotificationName:K9EventDidModifyResourcesNotification object:self.event userInfo:@{K9EventAddedResourcesNotificationKey: @[resource]}];
+                                    }
+                                }];
+                            }];
+                        }
+                    }];
+                });
+            }];
+        }
     }
 }
 

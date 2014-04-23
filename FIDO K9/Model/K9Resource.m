@@ -14,6 +14,7 @@
 #define IMAGE_NAME_KEY @"image_name"
 #define URL_PATH_KEY @"image_uid"
 #define DATA_KEY @"data"
+#define ID_KEY @"id"
 
 static NSString * const baseURLString = @"http://fido-api-bucket.s3.amazonaws.com";
 
@@ -25,7 +26,8 @@ static NSString * const baseURLString = @"http://fido-api-bucket.s3.amazonaws.co
         // TODO: Web API has to vend out the type so we can tell annotations apart from other data types
         
         K9MapAnnotation *annotation = [K9MapAnnotation mapAnnotationWithData:[propertyList objectForKey:DATA_KEY]];
-        
+        annotation.resourceID = [[propertyList objectForKey:ID_KEY] integerValue];
+
         return annotation;
     } else {
         // Assume it's a photo
@@ -33,6 +35,7 @@ static NSString * const baseURLString = @"http://fido-api-bucket.s3.amazonaws.co
         K9Photo *photo = [K9Photo new];
         photo.URL = [NSURL URLWithString:[propertyList objectForKey:URL_PATH_KEY] relativeToURL:[NSURL URLWithString:baseURLString]];
         photo.uploaded = YES;
+        photo.resourceID = [[propertyList objectForKey:ID_KEY] integerValue];
         
         return (photo.URL ? photo : nil);
     }

@@ -13,5 +13,6 @@
 + (K9Resource *)resourceWithPropertyList:(id)propertyList;
 
 @property (getter=isUploaded, nonatomic) BOOL uploaded;
+@property NSInteger resourceID;
 
 @end

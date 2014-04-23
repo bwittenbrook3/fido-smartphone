@@ -20,7 +20,6 @@
 #import <objc/runtime.h>
 #import <MapKit/MapKit.h>
 
-
 @interface K9MapPanGestureRecognizer : UIPanGestureRecognizer
 
 @end
