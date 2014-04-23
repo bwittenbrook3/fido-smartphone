@@ -68,7 +68,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     [[cell dogNameView] setText:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] name]];
     [[cell dogProfileView] setImageWithURL:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] imageURL] placeholderImage:[K9Dog defaultDogImage]];
     [[cell dogProfileView] setBorderColor:[(K9Dog *)[[self dogs] objectAtIndex:indexPath.row] color]];
-    [[cell dogProfileView] setBorderWidth:0.5];
+    [[cell dogProfileView] setBorderWidth:1];
 
     return cell;
 }

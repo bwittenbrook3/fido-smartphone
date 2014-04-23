@@ -9,6 +9,7 @@
 #import "K9Dog.h"
 #import "K9Event.h"
 #import "K9ObjectGraph.h"
+#import "UIColor+Hex.h"
 
 #import "K9ModelUtilities.h"
 
@@ -18,6 +19,7 @@
 #define AGE_KEY @"age"
 #define STATUS_KEY @"status"
 #define URL_KEY @"url"
+#define COLOR_KEY @"color"
 
 
 #define RECENT_LOCATIONS_KEY @"recent_locations"
@@ -41,7 +43,8 @@ static UIImage *_defaultSharedImage;
     return _defaultSharedImage;
 }
 
-+ (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList {    
++ (K9Dog *)dogWithPropertyList:(NSDictionary *)propertyList {
+    NSLog(@"%@", propertyList);
     K9Dog *dog = [K9Dog new];
 
     dog.dogID = [[propertyList objectForKey:ID_KEY] integerValue];
@@ -56,8 +59,8 @@ static UIImage *_defaultSharedImage;
     [[K9ObjectGraph sharedObjectGraph] fetchEventsForDogWithID:dog.dogID completionHandler:nil];
     [[K9ObjectGraph sharedObjectGraph] fetchAttachmentsForDogWithID:dog.dogID completionHandler:nil];
     
-    // TODO: Use real dog color when web api supports it
-    dog.color = [UIColor colorWithHue:(dog.dogID/5.0) saturation:0.9 brightness:1.0 alpha:1.0];
+    id colorInt = objectWithEmptyCheck([propertyList objectForKey:COLOR_KEY],nil);
+    dog.color = [UIColor colorWithColorCode:[colorInt integerValue]];
     
     dog.certifications = @[@"Explosive Detection"];
     

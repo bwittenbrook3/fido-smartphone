@@ -91,6 +91,7 @@
 		34841B4D190216D000FD9125 /* WLSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B49190216D000FD9125 /* WLSegment.m */; };
 		34841B4E190216D000FD9125 /* WLSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B4B190216D000FD9125 /* WLSegmentedControl.m */; };
 		34841B5219023F2900FD9125 /* DAProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34841B5119023F2900FD9125 /* DAProgressOverlayView.m */; };
+		3485B6911907634000D1D1D5 /* K9Activation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3485B6901907634000D1D1D5 /* K9Activation.m */; };
 		348D9F3418EF2D190051C9C8 /* K9DogNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */; };
 		348D9F3718EF329A0051C9C8 /* K9DogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3618EF329A0051C9C8 /* K9DogListViewController.m */; };
 		348D9F3B18EF35E80051C9C8 /* K9DogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 348D9F3A18EF35E80051C9C8 /* K9DogViewController.m */; };
@@ -289,6 +290,8 @@
 		34841B4B190216D000FD9125 /* WLSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSegmentedControl.m; sourceTree = "<group>"; };
 		34841B5019023F2900FD9125 /* DAProgressOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAProgressOverlayView.h; sourceTree = "<group>"; };
 		34841B5119023F2900FD9125 /* DAProgressOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAProgressOverlayView.m; sourceTree = "<group>"; };
+		3485B68F1907634000D1D1D5 /* K9Activation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9Activation.h; sourceTree = "<group>"; };
+		3485B6901907634000D1D1D5 /* K9Activation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9Activation.m; sourceTree = "<group>"; };
 		348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogNavigationViewController.h; sourceTree = "<group>"; };
 		348D9F3318EF2D190051C9C8 /* K9DogNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = K9DogNavigationViewController.m; sourceTree = "<group>"; };
 		348D9F3518EF329A0051C9C8 /* K9DogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = K9DogListViewController.h; sourceTree = "<group>"; };
@@ -481,6 +484,8 @@
 				345EE02C18F1AB5F00BC8581 /* K9Dog.m */,
 				345EE02E18F1ABD400BC8581 /* K9Event.h */,
 				345EE02F18F1ABD400BC8581 /* K9Event.m */,
+				3485B68F1907634000D1D1D5 /* K9Activation.h */,
+				3485B6901907634000D1D1D5 /* K9Activation.m */,
 				34E4CBFA18F9E85B00CE61CF /* K9Attachment.h */,
 				34E4CBFB18F9E85B00CE61CF /* K9Attachment.m */,
 				345EE03118F1AC7F00BC8581 /* K9ObjectGraph.h */,
@@ -920,6 +925,7 @@
 				345EE09418F1C32400BC8581 /* NSString+Hashing.m in Sources */,
 				34841B441901E9D000FD9125 /* K9WeatherViewController.m in Sources */,
 				3401A7901902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m in Sources */,
+				3485B6911907634000D1D1D5 /* K9Activation.m in Sources */,
 				34D820B118F069830098D7EC /* K9DogDetailViewController.m in Sources */,
 				3441347818F24B600050B30F /* K9ResourcesCollectionViewController.m in Sources */,
 				34D9095018FE12B90075C2D6 /* Forecastr+CLLocation.m in Sources */,

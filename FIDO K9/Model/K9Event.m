@@ -40,7 +40,9 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
 
 @implementation K9Event
 
-+ (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {    
++ (K9Event *)eventWithPropertyList:(NSDictionary *)propertyList {
+    NSLog(@"%@", propertyList);
+
 
     K9Event *event = [K9Event new];
     
@@ -77,7 +79,7 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     
     
     NSString *stableString =  objectWithEmptyCheck([propertyList valueForKeyPath:STABLE_KEY], nil);
-    if([[stableString lowercaseString] isEqualToString:@"unstable"]) {
+    if(stableString && [[stableString lowercaseString] rangeOfString:@"unstable"].location != NSNotFound) {
         event.stable = NO;
     } else {
         event.stable = YES;
@@ -107,7 +109,7 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         // TODO: Delay loading of dog objects until requested
         [[K9ObjectGraph sharedObjectGraph] fetchDogWithID:dogID completionHandler:^(K9Dog *dog) {
             if(dog) {
-                event.associatedDogs = @[dog];
+                event.assignedDogs = @[dog];
             }
             if(dog && locations) {
                 event.dogPaths = @[[self _generateDogPathFromLocationArray:locations forEvent:event withDog:dog]];
@@ -121,12 +123,12 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         if(!locations && dog2) {
             K9Dog *dog3 = [[K9ObjectGraph sharedObjectGraph] dogWithID:(dogID+2)];
             if(dog3) {
-                event.associatedDogs = @[dog, dog2, dog3];
+                event.assignedDogs = @[dog, dog2, dog3];
             } else {
-                event.associatedDogs = @[dog, dog2];
+                event.assignedDogs = @[dog, dog2];
             }
         } else {
-            event.associatedDogs = @[dog];
+            event.assignedDogs = @[dog];
         }
         
         
@@ -143,7 +145,7 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
 
 - (void)_generatePaths {
     NSMutableArray *paths = [NSMutableArray array];
-    for(K9Dog *dog in self.associatedDogs) {
+    for(K9Dog *dog in self.assignedDogs) {
         K9DogPath *path = [K9DogPath new];
         path.dog = dog;
         path.event = self;

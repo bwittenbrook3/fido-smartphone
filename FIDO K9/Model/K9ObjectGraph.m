@@ -363,7 +363,7 @@ static K9ObjectGraph *sharedObjectGraph = nil;
 - (NSArray *)eventsForDogWithID:(NSInteger)dogID {
     NSMutableArray *events = [NSMutableArray array];
     for(K9Event *event in [self allEvents]) {
-        if([[[event associatedDogs] valueForKey:@"dogID"] containsObject:@(dogID)]) {
+        if([[[event assignedDogs] valueForKey:@"dogID"] containsObject:@(dogID)]) {
             [events addObject:event];
         }
     }

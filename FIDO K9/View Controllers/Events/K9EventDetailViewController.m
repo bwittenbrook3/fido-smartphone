@@ -112,7 +112,7 @@
     [self.revealButton setHidden:!(self.event.resources.count)];
     
     UIView *previousView = nil;
-    for(K9Dog *dog in [self.event associatedDogs]) {
+    for(K9Dog *dog in [self.event assignedDogs]) {
         K9DogAvatarViewController *avatarVC = [[self storyboard] instantiateViewControllerWithIdentifier:@"avatarVC"];
         [avatarVC setDelegate:self];
         [avatarVC setDog:dog];

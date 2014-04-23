@@ -33,11 +33,13 @@ extern NSString *const K9EventAddedResourcesNotificationKey;
 
 @property (copy) NSDate *creationDate;
 @property (copy) NSDate *updateDate;
-@property (copy, nonatomic) NSArray *associatedDogs;
+@property (copy, nonatomic) NSArray *assignedDogs;
 
 @property (getter = isStable) BOOL stable;
 
 @property (copy, nonatomic) NSArray *dogPaths;
+
+@property (copy, nonatomic) NSArray *activations;
 
 @property (copy, nonatomic) NSArray *resources;
 - (void)addResource:(id)resource progressHandler:(void (^)(CGFloat progress))progressHandler;
