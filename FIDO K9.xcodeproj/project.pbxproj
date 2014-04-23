@@ -365,7 +365,7 @@
 				3437B41618FB8FEE0098F6C8 /* K9CircularBorderImageView.h */,
 				3437B41718FB8FEE0098F6C8 /* K9CircularBorderImageView.m */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3437B41918FC65EA0098F6C8 /* Training */ = {
@@ -382,7 +382,7 @@
 				34841B421901E9D000FD9125 /* K9WeatherViewController.h */,
 				34841B431901E9D000FD9125 /* K9WeatherViewController.m */,
 			);
-			name = Training;
+			path = Training;
 			sourceTree = "<group>";
 		};
 		34418A6F18EF214C00F1D2A1 = {
@@ -428,11 +428,12 @@
 		34418A8118EF214C00F1D2A1 /* FIDO K9 */ = {
 			isa = PBXGroup;
 			children = (
+				3485B68E1907520A00D1D1D5 /* Categories */,
 				34418A8A18EF214C00F1D2A1 /* K9AppDelegate.h */,
 				34418A8B18EF214C00F1D2A1 /* K9AppDelegate.m */,
 				347D24F318FF330A004270FA /* K9Preferences.h */,
 				347D24F418FF330A004270FA /* K9Preferences.m */,
-				348D9F3818EF34A20051C9C8 /* ViewControllers */,
+				348D9F3818EF34A20051C9C8 /* View Controllers */,
 				345EE02A18F1AB4600BC8581 /* Model */,
 				3437B41518FB8FBD0098F6C8 /* Views */,
 				34D9094718FE120A0075C2D6 /* Utilities */,
@@ -495,7 +496,7 @@
 				347D24ED18FEF698004270FA /* K9Training.h */,
 				347D24EE18FEF698004270FA /* K9Training.m */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		345EE03418F1AFAC00BC8581 /* AFNetworking */ = {
@@ -637,21 +638,40 @@
 			path = DAProgressOverlayView;
 			sourceTree = "<group>";
 		};
-		348D9F3818EF34A20051C9C8 /* ViewControllers */ = {
+		3485B68E1907520A00D1D1D5 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				34841B2A1900D4FC00FD9125 /* UIColor+DefaultTintColor.h */,
+				34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */,
+				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
+				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
+				34841B331900F00400FD9125 /* UIImage+CircularCenteredImage.h */,
+				34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */,
+				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
+				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
+				3401A78E1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.h */,
+				3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */,
+				3401A7A2190432FA00878E56 /* UIColor+Hex.h */,
+				3401A7A3190432FA00878E56 /* UIColor+Hex.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		348D9F3818EF34A20051C9C8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				34841B2D1900D72400FD9125 /* K9MapViewController.h */,
 				34841B2E1900D72400FD9125 /* K9MapViewController.m */,
 				34841B391901BDDE00FD9125 /* K9NavigationReplaceSegue.h */,
 				34841B3A1901BDDE00FD9125 /* K9NavigationReplaceSegue.m */,
-				34D820B618F071AE0098D7EC /* Event List + Details */,
-				34D820B518F0719C0098D7EC /* Dog List + Details */,
+				34D820B618F071AE0098D7EC /* Events */,
+				34D820B518F0719C0098D7EC /* Dogs */,
 				3437B41918FC65EA0098F6C8 /* Training */,
 			);
-			name = ViewControllers;
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		34D820B518F0719C0098D7EC /* Dog List + Details */ = {
+		34D820B518F0719C0098D7EC /* Dogs */ = {
 			isa = PBXGroup;
 			children = (
 				348D9F3218EF2D190051C9C8 /* K9DogNavigationViewController.h */,
@@ -671,10 +691,10 @@
 				34841B3F1901C44600FD9125 /* K9Dog+Annotation.h */,
 				34841B401901C44600FD9125 /* K9Dog+Annotation.m */,
 			);
-			name = "Dog List + Details";
+			path = Dogs;
 			sourceTree = "<group>";
 		};
-		34D820B618F071AE0098D7EC /* Event List + Details */ = {
+		34D820B618F071AE0098D7EC /* Events */ = {
 			isa = PBXGroup;
 			children = (
 				34D820B218F071950098D7EC /* K9RecentEventsViewController.h */,
@@ -698,25 +718,13 @@
 				3401A79F19033D3D00878E56 /* K9MapAnnotation+AnnotationSnapshot.h */,
 				3401A7A019033D3D00878E56 /* K9MapAnnotation+AnnotationSnapshot.m */,
 			);
-			name = "Event List + Details";
+			path = Events;
 			sourceTree = "<group>";
 		};
 		34D9094718FE120A0075C2D6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				34841B2A1900D4FC00FD9125 /* UIColor+DefaultTintColor.h */,
-				34841B2B1900D4FC00FD9125 /* UIColor+DefaultTintColor.m */,
-				34DE106618F351E500FB21D8 /* UIImage+ImageEffects.h */,
-				34DE106718F351E500FB21D8 /* UIImage+ImageEffects.m */,
-				34841B331900F00400FD9125 /* UIImage+CircularCenteredImage.h */,
-				34841B341900F00400FD9125 /* UIImage+CircularCenteredImage.m */,
-				34DE106918F351F400FB21D8 /* UIView+Screenshot.h */,
-				34DE106A18F351F400FB21D8 /* UIView+Screenshot.m */,
 				34841AC318FF7DD200FD9125 /* K9ModelUtilities.h */,
-				3401A78E1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.h */,
-				3401A78F1902DA5F00878E56 /* UIImageView+AFNetworking+ObjectGraph.m */,
-				3401A7A2190432FA00878E56 /* UIColor+Hex.h */,
-				3401A7A3190432FA00878E56 /* UIColor+Hex.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
