@@ -103,7 +103,14 @@ static inline NSArray *sortDogs(NSArray *dogs) {
 }
 
 - (void)reloadDogViewsAnimated:(BOOL)animated {
-    [self.mapView removeAnnotations:[self.mapView annotations]];
+    
+    NSMutableArray *annotationsToRemove = [NSMutableArray array];
+    for(K9Dog *dog in self.mapView.annotations) {
+        if(![self.dogs containsObject:dog]) {
+            [annotationsToRemove addObject:dog];
+        }
+    }
+    [self.mapView removeAnnotations:annotationsToRemove];
     
     MKMapRect zoomRect = MKMapRectNull;
     for (id <MKAnnotation> annotation in self.dogs) {
