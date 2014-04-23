@@ -54,7 +54,7 @@
     }
     
     // Make sure the banner doesn't stick around
-    [application cancelLocalNotification:notification];
+    [application cancelAllLocalNotifications];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
