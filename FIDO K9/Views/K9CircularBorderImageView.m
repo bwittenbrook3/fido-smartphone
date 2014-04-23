@@ -8,7 +8,7 @@
 
 #import "K9CircularBorderImageView.h"
 #import "UIImageView+AFNetworking+ObjectGraph.h"
-#import "UIImage+CircularCenteredImage.m"
+#import "UIImage+CircularCenteredImage.h"
 
 @interface K9CircularBorderImageView ()
 
