@@ -66,8 +66,22 @@ static UIImage *_defaultSharedImage;
         NSDictionary *location = [locations lastObject];
         CGFloat latitude = [[location objectForKey:@"latitude"] floatValue];
         CGFloat longitude = [[location objectForKey:@"longitude"] floatValue];
+        
+        if(abs(latitude) < 1.1) {
+            latitude = 33.774708 + RAND;
+        }
+        if(abs(longitude)  < 1.1) {
+            longitude = -84.394912 + RAND;
+#if !PRESENTING
+            dog.name = [dog.name stringByAppendingString:@"+"];
+#endif
+        }
+        
         dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     } else {
+#if !PRESENTING
+        dog.name = [dog.name stringByAppendingString:@"*"];
+#endif
         CGFloat latitude = 33.774708 + RAND;
         CGFloat longitude = -84.394912 + RAND;
         dog.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];

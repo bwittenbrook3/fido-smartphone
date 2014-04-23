@@ -91,8 +91,15 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     CGFloat latitude = [[propertyList objectForKey:LATITUDE_KEY] floatValue];
     CGFloat longitude = [[propertyList objectForKey:LONGITUDE_KEY] floatValue];
     
-    if(abs(latitude) < 1.1) latitude = 33.773451;
-    if(abs(longitude)  < 1.1) longitude = -84.392783;
+    if(abs(latitude) < 1.1) {
+        latitude = 33.773451;
+    }
+    if(abs(longitude)  < 1.1) {
+        longitude = -84.392783;
+#if !PRESENTING
+        event.title = [event.title stringByAppendingString:@"*"];
+#endif
+    }
     event.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     K9Dog *dog = [[K9ObjectGraph sharedObjectGraph] dogWithID:dogID];
@@ -152,6 +159,11 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         [path setCoordinates:coordinates count:numCoordinates];
         [paths addObject:path];
     }
+    
+#if !PRESENTING
+    self.title = [self.title stringByAppendingString:@"-"];
+#endif
+    
     self.dogPaths = paths;
 }
 
@@ -197,6 +209,12 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
         if(abs(latitude) < 1.1) latitude = lastGoodLocation.latitude;
         if(abs(longitude)  < 1.1) {
             longitude = lastGoodLocation.longitude;
+            
+#if !PRESENTING
+            if([event.title rangeOfString:@"+"].location == NSNotFound) {
+               event.title = [event.title stringByAppendingString:@"+"];
+            }
+#endif
         }
 
         coordinates[i] = CLLocationCoordinate2DMake(latitude, longitude);
