@@ -86,14 +86,37 @@
     
     if(self.event) {
         [self updateEventViews];
+        [self.event refreshDogPathsWithCompletionHandler:^{
+            [self updatePaths];
+        }];
     }
 }
 
+- (void)dealloc {
+    self.event = nil;
+}
+
 - (void)setEvent:(K9Event *)event {
-    _event = event;
-    if(self.isViewLoaded) {
-        [self updateEventViews];
-        self.detailsViewController.event = self.event;
+    if(_event != event) {
+        if(_event && _event.assignedDogs.count == 1) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:K9DogDidChangeLocationNotificationKey object:_event.assignedDogs.firstObject];
+        }
+        _event = event;
+
+        if(_event && _event.assignedDogs.count == 1) {
+            __weak typeof(self) weakSelf = self;
+            [[NSNotificationCenter defaultCenter] addObserverForName:K9DogDidChangeLocationNotificationKey object:_event.assignedDogs.firstObject queue:nil usingBlock:^(NSNotification *note) {
+                [self.event refreshDogPathsWithCompletionHandler:^{
+                    [weakSelf updatePaths];
+
+                }];
+            }];
+
+            if(self.isViewLoaded) {
+                [self updateEventViews];
+                self.detailsViewController.event = self.event;
+            }
+        }
     }
 }
 
@@ -108,8 +131,22 @@
     }
     
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.event refreshDogPathsWithCompletionHandler:^{
+        [self updatePaths];
+    }];
+}
+
+- (void)updatePaths {
+    NSMutableArray *pathsToRemove = [NSMutableArray array];
+    for(K9DogPath *path in self.mapView.overlays) {
+        if(![self.event.dogPaths containsObject:path]) {
+            [pathsToRemove addObject:path];
+        }
+    }
+    [self.mapView removeOverlays:pathsToRemove];
     
     for(K9DogPath *path in self.event.dogPaths) {
         if(![[self.mapView overlays] containsObject:path]) {

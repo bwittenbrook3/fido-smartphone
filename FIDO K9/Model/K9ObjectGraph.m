@@ -201,6 +201,20 @@ static K9ObjectGraph *sharedObjectGraph = nil;
     return [self eventWithID:eventID];
 }
 
+- (void)fetchEventPathsForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSString *))completionHandler {
+    NSString *getURLPath = [NSString stringWithFormat:@"events/%ld.json", eventID];
+    [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        if([responseObject isKindOfClass:[NSArray class]]) {
+            responseObject = [responseObject objectAtIndex:0];
+        }
+        NSString *locationsString = [responseObject objectForKey:@"recent_locations"];
+        if(completionHandler) completionHandler(locationsString);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error: %@", error);
+        if(completionHandler) completionHandler(nil);
+    }];
+}
+
 - (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *))completionHandler {
     NSString *getURLPath = [NSString stringWithFormat:@"events/%ld/resources.json", eventID];
     [self.sessionManager GET:getURLPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {

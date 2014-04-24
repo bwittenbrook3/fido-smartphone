@@ -182,6 +182,19 @@ NSString *const K9EventAddedResourcesNotificationKey = @"K9EventAddedResourcesNo
     }];
 }
 
+- (void)refreshDogPathsWithCompletionHandler:(void (^)(void))completionHandler {
+    if([self.assignedDogs count] == 1) {
+        K9Dog *dog = [self.assignedDogs firstObject];
+        [[K9ObjectGraph sharedObjectGraph] fetchEventPathsForEventWithID:self.eventID completionHandler:^(NSString *locationString) {
+            NSArray *locations = locationsArrayFromBizarreLocationsString(objectWithEmptyCheck(locationString, nil));
+            if(locations) {
+                self.dogPaths = @[[[self class] _generateDogPathFromLocationArray:locations forEvent:self withDog:dog]];
+            }
+            completionHandler();
+        }];
+    }
+}
+
 + (K9DogPath *)_generateDogPathFromLocationArray:(NSArray *)locations forEvent:(K9Event *)event withDog:(K9Dog *)dog {
     
     K9DogPath *dogPath = [K9DogPath new];

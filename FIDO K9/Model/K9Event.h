@@ -38,6 +38,7 @@ extern NSString *const K9EventAddedResourcesNotificationKey;
 @property (getter = isStable) BOOL stable;
 
 @property (copy, nonatomic) NSArray *dogPaths;
+- (void)refreshDogPathsWithCompletionHandler:(void (^)(void))completionHandler;
 
 @property (copy, nonatomic) NSArray *activations;
 

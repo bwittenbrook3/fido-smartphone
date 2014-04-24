@@ -34,6 +34,8 @@ extern NSString *const K9TrainingWasAddedNotification;
 - (void)fetchResourcesForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSArray *resources))completionHandler;
 - (void)uploadResource:(K9Resource *)resource forEvent:(K9Event *)event progressHandler:(void (^)(CGFloat progress))progressHandler completionHandler:(void (^)(NSInteger resourceID))completionHandler;
 
+- (void)fetchEventPathsForEventWithID:(NSInteger)eventID completionHandler:(void (^)(NSString *))completionHandler;
+
 // Dogs
 - (void)fetchDogLocationChangeChannelForDogWithID:(NSInteger)eventID withCompletionHandler:(void (^)(NSString *pusherChannel))completionHandler;
 
