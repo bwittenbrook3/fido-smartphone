@@ -43,7 +43,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
             self.dogs = sortDogs(dogs);
         }]);
     } else {
-        [self reloadDogViewsAnimated:NO];
+        [self reloadDogViewsAnimated:NO updateRegion:YES];
     }
 }
 
@@ -66,13 +66,13 @@ static inline NSArray *sortDogs(NSArray *dogs) {
         [self precacheDogImages];
         
         if(self.isViewLoaded) {
-            [self reloadDogViewsAnimated:YES];
+            [self reloadDogViewsAnimated:YES updateRegion:YES];
         }
         
         for(K9Dog *dog in dogs) {
             __weak typeof(self) weakSelf = self;
             [[NSNotificationCenter defaultCenter] addObserverForName:K9DogDidChangeLocationNotificationKey object:dog queue:nil usingBlock:^(NSNotification *note) {
-                [weakSelf reloadDogViewsAnimated:YES];
+                [weakSelf reloadDogViewsAnimated:YES updateRegion:NO];
             }];
         }
     }
@@ -102,7 +102,7 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     }
 }
 
-- (void)reloadDogViewsAnimated:(BOOL)animated {
+- (void)reloadDogViewsAnimated:(BOOL)animated updateRegion:(BOOL)updateRegion {
     
     NSMutableArray *annotationsToRemove = [NSMutableArray array];
     for(K9Dog *dog in self.mapView.annotations) {
@@ -112,13 +112,15 @@ static inline NSArray *sortDogs(NSArray *dogs) {
     }
     [self.mapView removeAnnotations:annotationsToRemove];
     
-    MKMapRect zoomRect = MKMapRectNull;
-    for (id <MKAnnotation> annotation in self.dogs) {
-        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 50, 50);
-        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    if(updateRegion) {
+        MKMapRect zoomRect = MKMapRectNull;
+        for (id <MKAnnotation> annotation in self.dogs) {
+            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 50, 50);
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+        [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(64 + 30, 30, 50 + 30, 30) animated:animated];
     }
-    [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(64 + 30, 30, 50 + 30, 30) animated:animated];
     
     for(K9Dog *dog in self.dogs) {
         [self.mapView addAnnotation:dog];
