@@ -16,6 +16,8 @@
 #import "UIColor+DefaultTintColor.h"
 #import "K9PolylineBuilder.h"
 #import "K9MapAnnotation.h"
+#import "K9CircularBorderImageView.h"
+#import "UIView+Screenshot.h"
 
 #import <objc/runtime.h>
 #import <MapKit/MapKit.h>
@@ -137,6 +139,7 @@
     [self.event refreshDogPathsWithCompletionHandler:^{
         [self updatePaths];
     }];
+    [self updatePaths];
 }
 
 - (void)updatePaths {
@@ -161,19 +164,23 @@
     [self setLocation:self.event.location.coordinate inBottomCenterOfMapView:self.mapView];
     MKPointAnnotation *pa = [[MKPointAnnotation alloc] init];
     pa.coordinate = self.event.location.coordinate;
+    pa.title = self.event.stable ? @"Stable Item" : @"Unstable Item";
     
-    
-    if (!self.geocoder)
-        self.geocoder = [[CLGeocoder alloc] init];
-    
-    [self.geocoder reverseGeocodeLocation:self.event.location completionHandler:
-     ^(NSArray* placemarks, NSError* error){
-         if(placemarks.count) {
-             pa.title = [[placemarks firstObject] name];
-         } else {
-             pa.title = self.event.title;
-         }
-     }];
+//    if (!self.geocoder)
+//        self.geocoder = [[CLGeocoder alloc] init];
+//    
+//    [self.geocoder reverseGeocodeLocation:self.event.location completionHandler:
+//     ^(NSArray* placemarks, NSError* error){
+//         if(placemarks.count) {
+//             pa.title = [[placemarks firstObject] name];
+//         } else {
+//             pa.title = self.event.title;
+//         }
+//     }];
+
+    if(self.event.assignedDogs.count == 1) {
+        [self.mapView addAnnotation:self.event.assignedDogs.firstObject];
+    }
     
     [self.mapView addAnnotation:pa];
     
@@ -197,19 +204,44 @@
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
     
-    MKAnnotationView* pinView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+    MKAnnotationView* annotationView;
     
-    if (!pinView) {
-        pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+    if([annotation isKindOfClass:[MKPointAnnotation class]]) {
+        annotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        
+        if (!annotationView) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+        }
+        
+        annotationView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
+        annotationView.canShowCallout = YES;
+        annotationView.image = self.event.stable ? [UIImage imageNamed:@"Stable Alert"] : [UIImage imageNamed:@"Unstable Alert"];
+        annotationView.calloutOffset = CGPointMake(0, 0);
+    } else if ([annotation isKindOfClass:[K9Dog class]]) {
+        annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Dog Annotation View"];
+        if (annotationView == nil) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Dog Annotation View"];
+        }
+        
+//        annotationView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
+        annotationView.canShowCallout = YES;
+        
+        __block K9CircularBorderImageView *dogProfile = [[K9CircularBorderImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        dogProfile.backgroundColor = [UIColor clearColor];
+        dogProfile.opaque = NO;
+        
+        __weak typeof(dogProfile) weakDogProfile = dogProfile;
+        [dogProfile setImageWithURL:[(K9Dog *)annotation imageURL] placeholderImage:[K9Dog defaultDogImage] completion:^{
+            weakDogProfile.borderColor = [(K9Dog *)annotation color];
+            weakDogProfile.borderWidth = 1;
+            
+            UIImage *dogProfileImage = [weakDogProfile screenshot];
+            annotationView.image = dogProfileImage; //[[UIImage imageNamed:@"Paw"] replaceBlueWithColor:self.dog.color];
+        }];
     }
-    
-    pinView.leftCalloutAccessoryView = [self newDirectionsCalloutView];
-    pinView.canShowCallout = YES;
-    pinView.image = self.event.stable ? [UIImage imageNamed:@"Stable Alert"] : [UIImage imageNamed:@"Unstable Alert"];
-    pinView.calloutOffset = CGPointMake(0, 0);
 
     
-    return pinView;
+    return annotationView;
 }
 
 - (void)getDirections:(id)sender {
